@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<items>
+	<consumable>
+		<id>1</id>
+		<name>Whiskey</name>
+		<effect>restore 25% health</effect>
+		<rarity>common</rarity>
+		<maxNumber>2</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<consumable>
+		<id>2</id>
+		<name>Milk</name>
+		<effect>remove debuffs</effect>
+		<rarity>semi-common</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<consumable>
+		<id>3</id>
+		<name>Wine</name>
+		<effect>speed buff</effect>
+		<rarity>semi-common</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<consumable>
+		<id>4</id>
+		<name>Coffee</name>
+		<effect>fire rate buff</effect>
+		<rarity>semi-common</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<consumable>
+		<id>5</id>
+		<name>Vodka</name>
+		<effect>damage reduction</effect>
+		<rarity>rare</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<consumable>
+		<id>6</id>
+		<name>Gin</name>
+		<effect>damage buff</effect>
+		<rarity>rare</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<consumable>
+		<id>7</id>
+		<name>Food</name>
+		<effect>max health buff</effect>
+		<rarity>rare</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</consumable>
+	<utility>
+		<id>10</id>
+		<name>Ammo</name>
+		<effect>refills ammo</effect>
+		<rarity>semi-common</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</utility>
+	<utility>
+		<id>11</id>
+		<name>Dynamite</name>
+		<effect>Explodes</effect>
+		<rarity>common</rarity>
+		<maxNumber>4</maxNumber>
+		<appearance>TBD</appearance>
+	</utility>
+	<utility>
+		<id>12</id>
+		<name>Whip</name>
+		<effect>pulls</effect>
+		<rarity>common</rarity>
+		<maxNumber>1</maxNumber>
+		<appearance>TBD</appearance>
+	</utility>
+	<utility>
+		<id>13</id>
+		<name>Molotov</name>
+		<effect>fire</effect>
+		<rarity>semi-common</rarity>
+		<maxNumber>2</maxNumber>
+		<appearance>TBD</appearance>
+	</utility>
+</items>
