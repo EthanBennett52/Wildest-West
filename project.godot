@@ -11,8 +11,8 @@ config_version=4
 [application]
 
 config/name="Wildest West"
-run/main_scene="res://Main.tscn"
-config/icon="res://Icon.png"
+run/main_scene="res://Scenes/Main.tscn"
+config/icon="res://Art/Icon.png"
 
 [autoload]
 

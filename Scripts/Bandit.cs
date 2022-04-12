@@ -1,11 +1,17 @@
 using Godot;
 using System;
 
-public class Bullet : KinematicBody2D
+public class Bandit : KinematicBody2D
 {
-    private int speed = 1000;
-    public Vector2 bulletVelocity = new Vector2();
-    
+    private int health = 100;
+
+    public void takeDamage(int damage){
+        health = health - damage;
+    }
+
+    private void onDeath(){
+        QueueFree();
+    }
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
@@ -13,13 +19,14 @@ public class Bullet : KinematicBody2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        bulletVelocity = Position.DirectionTo(GetGlobalMousePosition()) * speed;
-        bulletVelocity = MoveAndSlide(bulletVelocity);
+        
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+  public override void _Process(float delta)
+  {
+      if (health <= 0) {
+          onDeath();
+      }
+  }
 }
