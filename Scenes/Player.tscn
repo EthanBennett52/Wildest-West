@@ -17,13 +17,3 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Gun" parent="." instance=ExtResource( 3 )]
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-margin_left = 10.0
-margin_top = 557.0
-margin_right = 247.0
-margin_bottom = 583.0
-step = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}

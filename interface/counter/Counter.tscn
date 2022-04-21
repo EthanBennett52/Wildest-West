@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://interface/counter/background.png" type="Texture" id=1]
+[ext_resource path="res://interface/counter/icon.png" type="Texture" id=2]
+[ext_resource path="res://interface/Themes/default.tres" type="Theme" id=3]
+
+[node name="Counter" type="NinePatchRect"]
+margin_right = 100.0
+margin_bottom = 50.0
+texture = ExtResource( 1 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -50.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -5.0
+margin_right = 37.0
+margin_bottom = 15.5
+theme = ExtResource( 3 )
+text = "6/120
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
