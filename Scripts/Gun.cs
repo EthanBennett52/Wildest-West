@@ -50,6 +50,7 @@ public class Gun : Node2D
     //Reloads the gun
     public void reload(){
         shotTimer = reloadTime;
+        canShoot = false;
         int diff = maxLoadedCapacity - loaded;
         if (ammo >= diff){
             loaded += diff;
