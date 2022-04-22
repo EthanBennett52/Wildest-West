@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Tilesets/water-grass-road.tres" type="TileSet" id=1]
+[ext_resource path="res://Scripts/World.cs" type="Script" id=2]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="propMap" type="TileMap" parent="."]
+z_index = 2
+cell_size = Vector2( 32, 32 )
+cell_quadrant_size = 8
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+centered_textures = true
+format = 1
+
+[node name="TopMap" type="TileMap" parent="."]
+z_index = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_quadrant_size = 8
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+centered_textures = true
+format = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="BottomMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_quadrant_size = 8
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+centered_textures = true
+format = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
