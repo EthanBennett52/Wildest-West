@@ -3,30 +3,28 @@ using System;
 
 public class Bullet : Area2D
 {
-    private int speed = 700;
+    //Speed of the bullet
+    public int speed = 700;
+    //The bullet's vector
     public Vector2 bulletVelocity = new Vector2();
     public NodePath creator;
-
-    private int damage = 25;
+    //How much damage the bullet deals. This should be controlled by the gun.
+    private int damage;
     
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Gun gun = GetNode<Gun>(creator);
+        damage = gun.damage;
         bulletVelocity = gun.GlobalPosition.DirectionTo(gun.target) * speed;
         Connect("body_entered", this, "OnBodyEntered");   
     }
 
-  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         Position += bulletVelocity * delta;
     }
 
+    //This is called when the bullet enters an area2D node
     public void OnBodyEntered(Node area){
         if (area.Name == "Bandit"){
             Bandit enemy = (Bandit)area;
