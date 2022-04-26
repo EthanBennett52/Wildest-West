@@ -4,7 +4,7 @@ using System;
 public class Player : KinematicBody2D
 {
 	[Export] public int speed = 300;
-	//The players weapons
+	//The weapons the player has
 	private Gun[] weapons;
 	//The weapon that is currently equiped
 	private Gun activeWeapon;
