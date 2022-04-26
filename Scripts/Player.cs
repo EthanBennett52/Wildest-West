@@ -32,6 +32,16 @@ public class Player : KinematicBody2D
 		activeWeapon.pickupAmmo(amount);
 	}
 
+	public void heal(int amount){
+		GD.Print("Health before: " + health);
+		if ((health + amount) >= maxHealth){
+			health = maxHealth;
+		} else {
+			health += amount;
+		}
+		GD.Print("Health after: " + health);
+	}
+
 	//Processes the players inputs. Should be called every frame.
 	public void GetInput() {
 		//LookAt(GetGlobalMousePosition());
@@ -88,7 +98,7 @@ public class Player : KinematicBody2D
 		AddChild(weapons[0]);
 		activeWeapon = weapons[0];
 
-		health = maxHealth;
+		health = maxHealth - 20;
 
 		//This is only here to test weapon swapping
 		PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
