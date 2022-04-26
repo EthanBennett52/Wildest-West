@@ -28,6 +28,10 @@ public class Player : KinematicBody2D
 		}
 	}
 
+	public void pickupAmmo(int amount){
+		activeWeapon.pickupAmmo(amount);
+	}
+
 	//Processes the players inputs. Should be called every frame.
 	public void GetInput() {
 		//LookAt(GetGlobalMousePosition());

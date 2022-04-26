@@ -15,6 +15,8 @@ public class Gun : Node2D
 	private double shotTimer = 0;
 	//False if weapon is cooling down between shots
 	private Boolean canShoot = true;
+	//Max ammo capacity
+	public int maxAmmo = 160;
 	//amount of ammo available
 	public int ammo = 80;
 	//number of bullets that can be loaded
@@ -59,6 +61,19 @@ public class Gun : Node2D
 			loaded += ammo;
 			ammo = 0;
 		}
+	}
+
+	//Called when the player picks up an ammo pack
+	public void pickupAmmo(int amount){
+		GD.Print("Ammo before: " + ammo);
+
+		if ((ammo + amount) > maxAmmo) {
+			ammo = maxAmmo;
+		} else {
+			ammo += amount;
+		}
+		GD.Print("Picked up " + amount + " bullets");
+		GD.Print("Ammo after: " + ammo);		
 	}
 
 	// Called when the node enters the scene tree for the first time.
