@@ -33,6 +33,3 @@ cell_quadrant_size = 8
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 centered_textures = true
 format = 1
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true

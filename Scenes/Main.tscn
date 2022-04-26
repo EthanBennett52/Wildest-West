@@ -11,12 +11,21 @@
 [node name="World" parent="." instance=ExtResource( 4 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 448, 289 )
+position = Vector2( 537, 420 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="Interface" parent="Player/CanvasLayer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="Bandit" parent="." instance=ExtResource( 2 )]
 position = Vector2( 155, 100 )
-
-[node name="Interface" parent="." instance=ExtResource( 3 )]
 
 [node name="AmmoPickup" parent="." instance=ExtResource( 5 )]
 position = Vector2( -226, 66 )
