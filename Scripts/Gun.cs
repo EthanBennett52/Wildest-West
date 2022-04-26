@@ -38,7 +38,7 @@ public class Gun : Node2D
 			bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation + rotationOffset)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation + rotationOffset))); 
 			bullet.RotationDegrees = RotationDegrees;
 			bullet.creator = GetPath();
-			GetTree().GetRoot().AddChild(bullet);
+			GetParent().GetParent().AddChild(bullet);
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;

@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 25.02
 
-[node name="Node2D" type="KinematicBody2D"]
+[node name="Bandit" type="KinematicBody2D"]
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -19,3 +19,6 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Gun" parent="." instance=ExtResource( 2 )]
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 2.0

@@ -98,7 +98,7 @@ public class Player : KinematicBody2D
 		AddChild(weapons[0]);
 		activeWeapon = weapons[0];
 
-		health = maxHealth - 20;
+		health = maxHealth;
 
 		//This is only here to test weapon swapping
 		PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
