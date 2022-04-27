@@ -35,10 +35,12 @@ public class Player : KinematicBody2D
 	public void pickupWeapon(Gun weapon){
 		weapon.Hide();
 		weapon.SetProcess(false);
+		AddChild(weapon);
 
 		foreach (Gun w in weapons) {
-			if (w.Name == weapon.Name){
+			if (w != null && w.Name == weapon.Name){
 				w.pickupAmmo(weapon.ammo);
+				weapon.QueueFree();
 				return;
 			}
 		}
@@ -47,7 +49,7 @@ public class Player : KinematicBody2D
 			for (int x = 0; x < weapons.Length; x++){
 				if (weapons[x] == null){
 					weapons[x] = weapon;
-					AddChild(weapons[x]);
+					//AddChild(weapons[x]);
 					weapons[x].pickedUp();
 					swapWeapon(x);
 				}
@@ -60,7 +62,7 @@ public class Player : KinematicBody2D
 			RemoveChild(oldGun);
 
 			weapons[activeWeaponIndex] = weapon;
-			AddChild(weapon);
+			//AddChild(weapon);
 			activeWeapon = weapon;
 			activeWeapon.pickedUp();
 
@@ -140,6 +142,16 @@ public class Player : KinematicBody2D
 		if (Input.IsActionJustPressed("reload")){
 			activeWeapon.reload();
 		}
+		if (Input.IsActionJustReleased("next_weapon")){
+			if (activeWeaponIndex + 1 < weapons.Length){
+				swapWeapon(activeWeaponIndex + 1);
+			}
+		}
+		if (Input.IsActionJustReleased("prev_weapon")){
+			if (activeWeaponIndex > 0){
+				swapWeapon(activeWeaponIndex - 1);
+			}
+		}
 		
 		velocity = velocity.Normalized() * speed;
 
@@ -159,11 +171,11 @@ public class Player : KinematicBody2D
 		health = maxHealth;
 
 		//This is only here to test weapon swapping
-		PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
-		weapons[1] = machineGun.Instance<Gun>();
-		AddChild(weapons[1]);
-		weapons[1].Hide();
-		weapons[1].SetProcess(false);
+		//PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
+		//weapons[1] = machineGun.Instance<Gun>();
+		//AddChild(weapons[1]);
+		//weapons[1].Hide();
+		//weapons[1].SetProcess(false);
 		
 
 	}

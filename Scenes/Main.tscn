@@ -13,7 +13,7 @@
 [node name="World" parent="." instance=ExtResource( 4 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 537, 420 )
+position = Vector2( 700, 420 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -27,13 +27,13 @@ margin_right = 1024.0
 margin_bottom = 600.0
 
 [node name="Bandit" parent="." instance=ExtResource( 2 )]
-position = Vector2( 155, 100 )
+position = Vector2( 1079, 315 )
 
 [node name="AmmoPickup" parent="." instance=ExtResource( 5 )]
-position = Vector2( 114, -60 )
+position = Vector2( 1129, 482 )
 
 [node name="HealthPickup" parent="." instance=ExtResource( 6 )]
-position = Vector2( 213, -57 )
+position = Vector2( 1112, 562 )
 
 [node name="WeaponPickup" parent="." instance=ExtResource( 7 )]
-position = Vector2( 169, -143 )
+position = Vector2( 876, 244 )

@@ -10,7 +10,7 @@ public class Gun : Node2D
 	//How often the gun shoots
 	protected double fireRate = .25;
 	//How long it takes to reload (in seconds).
-	protected double reloadTime = 2;
+	protected double reloadTime = 1.5;
 	//Cooldown timer between shots
 	private double shotTimer = 0;
 	//False if weapon is cooling down between shots
