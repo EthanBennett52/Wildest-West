@@ -8,6 +8,7 @@ public class Player : KinematicBody2D
 	private Gun[] weapons;
 	//The weapon that is currently equiped
 	private Gun activeWeapon;
+	private int activeWeaponIndex = 0;
 	//The players max health
 	private int maxHealth = 100;
 	//The players current health
@@ -25,7 +26,50 @@ public class Player : KinematicBody2D
 			activeWeapon = weapons[i];
 			activeWeapon.SetProcess(true);
 			activeWeapon.Show();
+
+			activeWeaponIndex = i;
 		}
+	}
+
+	public void pickupWeapon(Gun weapon){
+		weapon.Hide();
+		weapon.SetProcess(false);
+
+		foreach (Gun w in weapons) {
+			if (w.Name == weapon.Name){
+				w.pickupAmmo(weapon.ammo);
+				return;
+			}
+		}
+		
+		if (isFreeWeaponSlot()){
+			for (int x = 0; x < weapons.Length; x++){
+				if (weapons[x] == null){
+					weapons[x] = weapon;
+					AddChild(weapons[x]);
+					weapons[x].pickedUp();
+					swapWeapon(x);
+				}
+			}
+
+		} else {
+
+			Gun oldGun = activeWeapon;
+			oldGun.dropped();
+			RemoveChild(oldGun);
+
+			weapons[activeWeaponIndex] = weapon;
+			AddChild(weapon);
+			activeWeapon = weapon;
+			activeWeapon.pickedUp();
+
+			PackedScene weaponPickupScn = GD.Load<PackedScene>("res://Scenes/WeaponPickup.tscn");
+			WeaponPickup weaponPickup = weaponPickupScn.Instance<WeaponPickup>();
+			GetParent().AddChild(weaponPickup);
+			weaponPickup.setWeapon(oldGun);
+			weaponPickup.GlobalPosition = GlobalPosition;
+		}
+		
 	}
 
 	public void pickupAmmo(int amount){
@@ -40,6 +84,15 @@ public class Player : KinematicBody2D
 			health += amount;
 		}
 		GD.Print("Health after: " + health);
+	}
+
+	private bool isFreeWeaponSlot(){
+		foreach (Gun x in weapons){
+			if (x == null){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//Processes the players inputs. Should be called every frame.
