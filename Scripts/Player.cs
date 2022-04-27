@@ -19,6 +19,7 @@ public class Player : KinematicBody2D
 		health = health - damage;
 	}
 
+	//Swaps the active weapon.
 	public void swapWeapon(int i){
 		if (weapons[i] != null && weapons[i] != activeWeapon){
 			activeWeapon.Hide();
@@ -63,6 +64,7 @@ public class Player : KinematicBody2D
 			activeWeapon = weapon;
 			activeWeapon.pickedUp();
 
+			//Drops the old weapon as a weaponPickup
 			PackedScene weaponPickupScn = GD.Load<PackedScene>("res://Scenes/WeaponPickup.tscn");
 			WeaponPickup weaponPickup = weaponPickupScn.Instance<WeaponPickup>();
 			GetParent().AddChild(weaponPickup);
@@ -72,10 +74,12 @@ public class Player : KinematicBody2D
 		
 	}
 
+	//Adds ammo to active weapon.
 	public void pickupAmmo(int amount){
 		activeWeapon.pickupAmmo(amount);
 	}
 
+	//Heals the player
 	public void heal(int amount){
 		GD.Print("Health before: " + health);
 		if ((health + amount) >= maxHealth){
@@ -86,6 +90,7 @@ public class Player : KinematicBody2D
 		GD.Print("Health after: " + health);
 	}
 
+	//Checks if there is a free weapon slot.
 	private bool isFreeWeaponSlot(){
 		foreach (Gun x in weapons){
 			if (x == null){

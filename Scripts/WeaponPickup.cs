@@ -9,12 +9,14 @@ public class WeaponPickup : Area2D
     private Player player;
     private bool playerInRange = false;
 
+    //Changes what weapon the pickup contains. The new weapon must be instanced beforehand.
     public void setWeapon(Gun weapon) {
         AddChild(weapon);
         this.weapon = weapon;
         weaponSprite.Texture = weapon.sprite.Texture;
     }
 
+    //Detects when the player is range of the pickup. Displays the press "E" hint.
     private void OnBodyEntered(Node area){
         if (area is Player){
             player = (Player)area;
@@ -23,6 +25,7 @@ public class WeaponPickup : Area2D
         }
     }
 
+    //Detects when the player goes out of range of the pickup. Hides "E" hint.
     private void OnBodyExited(Node area){
         if (area is Player){
             playerInRange = false;
@@ -40,7 +43,7 @@ public class WeaponPickup : Area2D
         Connect("body_exited", this, "OnBodyExited");
 
 
-        //test
+        //For testing.
         PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
         Gun testGun = machineGun.Instance<Gun>();
 		setWeapon(testGun);
