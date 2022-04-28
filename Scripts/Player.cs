@@ -23,10 +23,17 @@ public class Player : KinematicBody2D
 	
 	[Signal]
 	delegate void updateAmmo(int change, int max);
+
+	[Signal]
+	delegate void death();
 	
 	public void takeDamage(int damage){
 		health = health - damage;
+		if(health <= 0){
+			EmitSignal("death");
+		}
 		EmitSignal("changeHealth", health, maxHealth);
+		
 	}
 
 	//Swaps the active weapon.

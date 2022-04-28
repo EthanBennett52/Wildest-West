@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Bandit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Main.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/World.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/AmmoPickup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/HealthPickup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/WeaponPickup.tscn" type="PackedScene" id=7]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="World" parent="." instance=ExtResource( 4 )]
 
@@ -28,3 +30,5 @@ position = Vector2( 1112, 562 )
 
 [node name="WeaponPickup" parent="." instance=ExtResource( 7 )]
 position = Vector2( 876, 244 )
+
+[connection signal="death" from="Player" to="." method="_on_Player_death"]

@@ -58,8 +58,8 @@ script = SubResource( 1 )
 
 [node name="Counter" type="NinePatchRect" parent="."]
 margin_left = 304.0
-margin_right = 444.0
-margin_bottom = 100.0
+margin_right = 404.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 100, 10 )
 texture = ExtResource( 4 )
 patch_margin_left = 8

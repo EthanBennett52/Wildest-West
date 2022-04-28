@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://title_screen/Buttons/MenuButton.gd" type="Script" id=1]
+
+[node name="MenuButton" type="Button"]
+margin_right = 904.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 100, 30 )
+flat = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Label"
+__meta__ = {
+"_edit_use_anchors_": false
+}

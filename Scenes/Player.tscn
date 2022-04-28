@@ -33,11 +33,13 @@ script = ExtResource( 6 )
 margin_bottom = 100.0
 script = null
 
+[node name="Counter" parent="InterfaceLayer/Interface/UiElements/LifeBar" index="1"]
+margin_bottom = 100.0
+
 [node name="AmmoCounter" parent="InterfaceLayer/Interface/UiElements" index="1"]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 450.0
-margin_right = 580.0
+margin_right = 538.0
 size_flags_horizontal = 1
 script = ExtResource( 3 )
 
