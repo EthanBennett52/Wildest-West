@@ -11,7 +11,7 @@ public class MachineGun : Gun
 		damage = 10;
 		maxLoadedCapacity = 20;
 		loaded = maxLoadedCapacity;
-		reloadTime = 3;
+		reloadTime = 2;
 	}
 
 

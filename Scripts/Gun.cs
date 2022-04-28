@@ -4,13 +4,13 @@ using System;
 public class Gun : Node2D
 {
 	PackedScene BULLET = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
-	Sprite sprite;
+	public Sprite sprite;
 	//for adjusting the bullet spawn location
 	double rotationOffset = -.2;
 	//How often the gun shoots
 	protected double fireRate = .25;
 	//How long it takes to reload (in seconds).
-	protected double reloadTime = 2;
+	protected double reloadTime = 1.5;
 	//Cooldown timer between shots
 	private double shotTimer = 0;
 	//False if weapon is cooling down between shots
@@ -38,7 +38,7 @@ public class Gun : Node2D
 			bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation + rotationOffset)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation + rotationOffset))); 
 			bullet.RotationDegrees = RotationDegrees;
 			bullet.creator = GetPath();
-			GetTree().GetRoot().AddChild(bullet);
+			GetParent().GetParent().AddChild(bullet);
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
@@ -76,6 +76,17 @@ public class Gun : Node2D
 		GD.Print("Ammo after: " + ammo);		
 	}
 
+	public void pickedUp(){
+		Show();
+		SetProcess(true);
+		parent = GetParent<Node2D>();
+	}
+
+	public void dropped(){
+		Hide();
+		SetProcess(false);
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -86,6 +97,9 @@ public class Gun : Node2D
 		//Sets the target. There might be a better way to this without the redundant code in _Process.
 		if (parent is Player){
 			target = GetGlobalMousePosition();
+		} else if (parent is WeaponPickup){
+			Hide();
+			SetProcess(false);
 		} else {
 			player = (Node2D)GetNode("../../Player");
 			target = player.GlobalPosition;
