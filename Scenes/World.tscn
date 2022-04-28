@@ -7,7 +7,7 @@
 script = ExtResource( 2 )
 
 [node name="propMap" type="TileMap" parent="."]
-z_index = 2
+z_index = -1
 cell_size = Vector2( 32, 32 )
 cell_quadrant_size = 8
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
@@ -15,7 +15,7 @@ centered_textures = true
 format = 1
 
 [node name="TopMap" type="TileMap" parent="."]
-z_index = 1
+z_index = -2
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_quadrant_size = 8
@@ -27,6 +27,7 @@ __meta__ = {
 }
 
 [node name="BottomMap" type="TileMap" parent="."]
+z_index = -3
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_quadrant_size = 8
