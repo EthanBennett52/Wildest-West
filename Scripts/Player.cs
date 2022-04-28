@@ -14,18 +14,19 @@ public class Player : KinematicBody2D
 	//The players current health
 	protected int health;
 	private Vector2 velocity = new Vector2();
-		
-	Node yeet;
-
-	[Signal]
-	delegate void changeHealth(int change);
 	
 	[Signal]
-	delegate void changeMaxHealth(int change);
+	delegate void changeHealth(int change, int max);
+	
+	[Signal]
+	delegate void changeMaxHealth(int change, int max);
+	
+	[Signal]
+	delegate void updateAmmo(int change, int max);
 	
 	public void takeDamage(int damage){
 		health = health - damage;
-		EmitSignal("changeHealth", health);
+		EmitSignal("changeHealth", health, maxHealth);
 	}
 
 	//Swaps the active weapon.
@@ -38,6 +39,8 @@ public class Player : KinematicBody2D
 			activeWeapon.Show();
 
 			activeWeaponIndex = i;
+			
+			
 		}
 	}
 
@@ -99,7 +102,7 @@ public class Player : KinematicBody2D
 			health += amount;
 		}
 		GD.Print("Health after: " + health);
-		EmitSignal("changeHealth", health);
+		EmitSignal("changeHealth", health, maxHealth);
 	}
 
 	//Checks if there is a free weapon slot.
@@ -179,8 +182,9 @@ public class Player : KinematicBody2D
 		activeWeapon = weapons[0];
 
 		health = maxHealth;
-		yeet = (TextureProgress)GetNode("InterfaceLayer/Interface/HBoxContainer/LifeBar/TextureProgress");
+		EmitSignal("changeHealth", health, maxHealth);
 		
+		EmitSignal("updateAmmo", 12, 120);
 		//This is only here to test weapon swapping
 		//PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
 		//weapons[1] = machineGun.Instance<Gun>();
