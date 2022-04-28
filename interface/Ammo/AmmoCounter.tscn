@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://interface/counter/Counter.tscn" type="PackedScene" id=1]
+
+[node name="AmmoCounter" instance=ExtResource( 1 )]
+margin_right = 109.0
+rect_min_size = Vector2( 100, 100 )
+
+[node name="Icon" parent="." index="0"]
+anchor_right = 1.098
+margin_right = -9.8

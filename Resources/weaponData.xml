@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<weapons>
+	<weapon>
+		<id>1</id>
+		<name>Revolver</name>
+		<damage>25</damage>
+		<fireRate>-1</fireRate>
+		<magSize>6</magSize>
+		<ammoMax>120</ammoMax>
+		<reloadSpeed>medium</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>2</id>
+		<name>Bow</name>
+		<damage>100</damage>
+		<fireRate>1</fireRate>
+		<magSize>1</magSize>
+		<ammoMax>30</ammoMax>
+		<reloadSpeed>slow</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>3</id>
+		<name>Repeater</name>
+		<damage>50</damage>
+		<fireRate>2</fireRate>
+		<magSize>10</magSize>
+		<ammoMax>120</ammoMax>
+		<reloadSpeed>medium</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>4</id>
+		<name>Shotgun</name>
+		<damage>120</damage>
+		<fireRate>1</fireRate>
+		<magSize>5</magSize>
+		<ammoMax>50</ammoMax>
+		<reloadSpeed>slow</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>5</id>
+		<name>Gatling Gun</name>
+		<damage>5</damage>
+		<fireRate>10</fireRate>
+		<magSize>100</magSize>
+		<ammoMax>1000</ammoMax>
+		<reloadSpeed>very slow</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>6</id>
+		<name>Rifle</name>
+		<damage>150</damage>
+		<fireRate>1</fireRate>
+		<magSize>1</magSize>
+		<ammoMax>24</ammoMax>
+		<reloadSpeed>very slow</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>7</id>
+		<name>Laser Gun</name>
+		<damage>50</damage>
+		<fireRate>5</fireRate>
+		<magSize>15</magSize>
+		<ammoMax>60</ammoMax>
+		<reloadSpeed>fast</reloadSpeed>
+	</weapon>
+	<weapon>
+		<id>8</id>
+		<name>Knife</name>
+		<damage>200</damage>
+		<fireRate>10</fireRate>
+		<magSize>1</magSize>
+		<ammoMax>1</ammoMax>
+		<reloadSpeed>none</reloadSpeed>
+	</weapon>
+</weapons>
