@@ -42,7 +42,6 @@ public class Gun : Node2D
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
-			
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
