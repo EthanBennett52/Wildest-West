@@ -21,3 +21,7 @@ func _on_FadeIn_fade_finished():
 func _on_ExitGameButton_pressed():
 	get_tree().quit()
 
+
+
+func _on_TitleScreenButton_pressed():
+	get_tree().change_scene("res://title_screen/TitleScreen.tscn")
