@@ -1,17 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Art/Ammo.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/AmmoPickup.cs" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 12 )
+extents = Vector2( 10, 16.5 )
 
-[node name="AmmoPickup" type="Area2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 101.242
+
+[node name="AmmoPickup" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -1 )
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2( 0, -2.5 )
 shape = SubResource( 1 )
+
+[node name="AttractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttractArea"]
+shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
