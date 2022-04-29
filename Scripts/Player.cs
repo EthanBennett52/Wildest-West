@@ -152,7 +152,7 @@ public class Player : KinematicBody2D
 		//Fires the active weapon
 		if (Input.IsActionPressed("shoot")){
 			activeWeapon.fire();
-			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+		
 		}
 		//Swaps to weapon 1. Bound to "1"
 		if (Input.IsActionJustPressed("weapon1")){
