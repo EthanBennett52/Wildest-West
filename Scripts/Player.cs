@@ -51,6 +51,7 @@ public class Player : KinematicBody2D
 			activeWeapon.Show();
 
 			activeWeaponIndex = i;
+			EmitSignal("updateHotbarGun", activeWeapon.name, activeWeaponIndex + 1);
 		}
 		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 	}
