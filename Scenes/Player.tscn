@@ -31,7 +31,6 @@ script = ExtResource( 6 )
 
 [node name="TextureProgress" parent="InterfaceLayer/Interface/UiElements/LifeBar" index="0"]
 margin_bottom = 100.0
-script = null
 
 [node name="Counter" parent="InterfaceLayer/Interface/UiElements/LifeBar" index="1"]
 margin_bottom = 100.0
@@ -46,7 +45,10 @@ margin_left = 0.0
 [connection signal="changeHealth" from="." to="InterfaceLayer/Interface/UiElements/LifeBar" method="_on_Player_changeHealth"]
 [connection signal="changeMaxHealth" from="." to="InterfaceLayer/Interface/UiElements/LifeBar" method="_on_Player_changeMaxHealth"]
 [connection signal="updateAmmo" from="." to="InterfaceLayer/Interface/UiElements/AmmoCounter" method="_on_Player_updateAmmo"]
+[connection signal="updateHotbarGun" from="." to="InterfaceLayer/Interface/HotBar" method="_on_Player_updateHotbarGun"]
 
 [editable path="InterfaceLayer/Interface"]
 [editable path="InterfaceLayer/Interface/UiElements/LifeBar"]
 [editable path="InterfaceLayer/Interface/UiElements/AmmoCounter"]
+[editable path="InterfaceLayer/Interface/HotBar/WeaponOneIcon"]
+[editable path="InterfaceLayer/Interface/HotBar/WeaponTwoIcon"]

@@ -26,6 +26,11 @@ public class Player : KinematicBody2D
 
 	[Signal]
 	delegate void death();
+
+	//number variable is one or two
+	[Signal]
+	delegate void updateHotbarGun(string name, int number);
+
 	
 	public void takeDamage(int damage){
 		health = health - damage;
@@ -71,6 +76,7 @@ public class Player : KinematicBody2D
 					//AddChild(weapons[x]);
 					weapons[x].pickedUp();
 					swapWeapon(x);
+					
 				}
 			}
 

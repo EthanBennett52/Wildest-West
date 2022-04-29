@@ -37,3 +37,5 @@ position = Vector2( 876, 244 )
 [editable path="Player/InterfaceLayer/Interface"]
 [editable path="Player/InterfaceLayer/Interface/UiElements/LifeBar"]
 [editable path="Player/InterfaceLayer/Interface/UiElements/AmmoCounter"]
+[editable path="Player/InterfaceLayer/Interface/HotBar/WeaponOneIcon"]
+[editable path="Player/InterfaceLayer/Interface/HotBar/WeaponTwoIcon"]
