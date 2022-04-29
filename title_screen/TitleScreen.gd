@@ -21,3 +21,7 @@ func _on_FadeIn_fade_finished():
 
 func _on_ExitButton_pressed():
 	get_tree().quit()
+
+
+func _on_MilestonesButton_pressed():
+	get_tree().change_scene("res://milestone_screen/Milestones.tscn")

@@ -1,0 +1,28 @@
+[gd_scene format=2]
+
+[node name="Milestone" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 223.0
+margin_bottom = 600.0
+
+[node name="MilestoneText" type="Label" parent="VBoxContainer"]
+margin_right = 223.0
+margin_bottom = 31.0
+text = "Text Here
+description Here"
+align = 2
+
+[node name="MilestoneProgress" type="Label" parent="VBoxContainer"]
+margin_top = 35.0
+margin_right = 223.0
+margin_bottom = 49.0
+text = "Enter Requirements to unlock here"
+align = 2

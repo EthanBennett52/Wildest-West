@@ -115,6 +115,7 @@ anims/fade_in = SubResource( 2 )
 
 [connection signal="button_down" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_button_down"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/MilestonesButton" to="." method="_on_MilestonesButton_pressed"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]
 [connection signal="animation_finished" from="FadeIn/AnimationPlayer" to="FadeIn" method="_on_AnimationPlayer_animation_finished"]
