@@ -21,6 +21,11 @@ IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
 UserData="*res://addons/github-integration/scripts/user_data.gd"
 RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
 
+[display]
+
+mouse_cursor/custom_image="res://Art/Crosshair.png"
+mouse_cursor/custom_image_hotspot=Vector2( 25, 25 )
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )
