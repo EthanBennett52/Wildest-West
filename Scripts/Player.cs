@@ -26,6 +26,11 @@ public class Player : KinematicBody2D
 
 	[Signal]
 	delegate void death();
+
+	//number variable is one or two
+	[Signal]
+	delegate void updateHotbarGun(string name, int number);
+
 	
 	public void takeDamage(int damage){
 		health = health - damage;
@@ -46,6 +51,7 @@ public class Player : KinematicBody2D
 			activeWeapon.Show();
 
 			activeWeaponIndex = i;
+			EmitSignal("updateHotbarGun", activeWeapon.name, activeWeaponIndex + 1);
 		}
 		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 	}
@@ -71,6 +77,7 @@ public class Player : KinematicBody2D
 					//AddChild(weapons[x]);
 					weapons[x].pickedUp();
 					swapWeapon(x);
+					
 				}
 			}
 
@@ -146,7 +153,7 @@ public class Player : KinematicBody2D
 		//Fires the active weapon
 		if (Input.IsActionPressed("shoot")){
 			activeWeapon.fire();
-			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+		
 		}
 		//Swaps to weapon 1. Bound to "1"
 		if (Input.IsActionJustPressed("weapon1")){

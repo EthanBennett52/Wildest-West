@@ -27,6 +27,8 @@ public class Gun : Node2D
 	public int damage = 25;
 	//where the gun is pointing at
 	public Vector2 target;
+	//name of the gun
+	public string name = "Revolver";
 
 	protected Node2D parent;
 	protected Node2D player;
