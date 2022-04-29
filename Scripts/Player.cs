@@ -62,7 +62,7 @@ public class Player : KinematicBody2D
 		AddChild(weapon);
 
 		foreach (Gun w in weapons) {
-			if (w != null && w.Name == weapon.Name){
+			if (w != null && w.name == weapon.name){
 				w.pickupAmmo(weapon.ammo);
 				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 				weapon.QueueFree();
