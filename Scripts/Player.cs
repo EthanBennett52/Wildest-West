@@ -46,9 +46,8 @@ public class Player : KinematicBody2D
 			activeWeapon.Show();
 
 			activeWeaponIndex = i;
-			
-			
 		}
+		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 	}
 
 	public void pickupWeapon(Gun weapon){
@@ -59,6 +58,7 @@ public class Player : KinematicBody2D
 		foreach (Gun w in weapons) {
 			if (w != null && w.Name == weapon.Name){
 				w.pickupAmmo(weapon.ammo);
+				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 				weapon.QueueFree();
 				return;
 			}
@@ -98,6 +98,7 @@ public class Player : KinematicBody2D
 	//Adds ammo to active weapon.
 	public void pickupAmmo(int amount){
 		activeWeapon.pickupAmmo(amount);
+		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 	}
 
 	//Heals the player
@@ -145,6 +146,7 @@ public class Player : KinematicBody2D
 		//Fires the active weapon
 		if (Input.IsActionPressed("shoot")){
 			activeWeapon.fire();
+			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 		}
 		//Swaps to weapon 1. Bound to "1"
 		if (Input.IsActionJustPressed("weapon1")){
@@ -161,6 +163,7 @@ public class Player : KinematicBody2D
 		//Reloads the active weapon. Bound to "R"
 		if (Input.IsActionJustPressed("reload")){
 			activeWeapon.reload();
+			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 		}
 		if (Input.IsActionJustReleased("next_weapon")){
 			if (activeWeaponIndex + 1 < weapons.Length){
@@ -191,7 +194,7 @@ public class Player : KinematicBody2D
 		health = maxHealth;
 		EmitSignal("changeHealth", health, maxHealth);
 		
-		EmitSignal("updateAmmo", 12, 120);
+		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 		//This is only here to test weapon swapping
 		//PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
 		//weapons[1] = machineGun.Instance<Gun>();
