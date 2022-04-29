@@ -16,6 +16,24 @@ public class WeaponPickup : Area2D
         weaponSprite.Texture = weapon.sprite.Texture;
     }
 
+    //Sets the weapon pickup to contain a newly created weapon. Options: Revolver, MachineGun
+    public void setWeapon(String weaponString){
+        PackedScene weaponScene;
+        Gun temp;
+        switch(weaponString){
+            case "Revolver":
+                weaponScene = GD.Load<PackedScene>("res://Scenes/Gun.tscn");
+                temp = weaponScene.Instance<Gun>();
+                setWeapon(temp);
+                break;
+            case "MachineGun":
+                weaponScene = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
+                temp = weaponScene.Instance<Gun>();
+                setWeapon(temp);
+                break;
+        }
+    }
+
     //Detects when the player is range of the pickup. Displays the press "E" hint.
     private void OnBodyEntered(Node area){
         if (area is Player){
