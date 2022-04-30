@@ -11,6 +11,7 @@ public class Bandit : KinematicBody2D
     private Area2D inPosition;
 	private Player player;
 	private AIState state = AIState.PATROL;
+	private Vector2 velocity = new Vector2();
 
 	protected enum AIState{
 		PATROL,
@@ -85,7 +86,8 @@ public class Bandit : KinematicBody2D
 				if (shotTimer.IsStopped()){
 					shotTimer.Start();
 				}
-				Position = Position.MoveToward(player.Position, delta * speed);
+				velocity = Position.DirectionTo(player.Position) * speed;
+				MoveAndSlide(velocity);
 				break;
 			case AIState.INPOSITION:
 				if (shotTimer.IsStopped()){

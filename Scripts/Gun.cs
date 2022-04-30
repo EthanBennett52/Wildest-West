@@ -66,15 +66,11 @@ public class Gun : Node2D
 
 	//Called when the player picks up an ammo pack
 	public void pickupAmmo(int amount){
-		GD.Print("Ammo before: " + ammo);
-
 		if ((ammo + amount) > maxAmmo) {
 			ammo = maxAmmo;
 		} else {
 			ammo += amount;
-		}
-		GD.Print("Picked up " + amount + " bullets");
-		GD.Print("Ammo after: " + ammo);		
+		}		
 	}
 
 	public void pickedUp(){
@@ -136,8 +132,6 @@ public class Gun : Node2D
 			sprite.FlipV = false;
 			rotationOffset = -.2;
 		}
-
-		
 		
 	}
 }
