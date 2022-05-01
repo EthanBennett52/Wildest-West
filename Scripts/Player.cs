@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public class Player : KinematicBody2D
 {
@@ -153,7 +154,7 @@ public class Player : KinematicBody2D
 		//Fires the active weapon
 		if (Input.IsActionPressed("shoot")){
 			activeWeapon.fire();
-		
+			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 		}
 		//Swaps to weapon 1. Bound to "1"
 		if (Input.IsActionJustPressed("weapon1")){
@@ -197,7 +198,10 @@ public class Player : KinematicBody2D
 		weapons[0] = startingGun.Instance<Gun>();
 		AddChild(weapons[0]);
 		activeWeapon = weapons[0];
-
+		
+		//Initializes the milestones and the changes they make which are active in the milestone screen
+		milestoneChanges();
+		
 		health = maxHealth;
 		EmitSignal("changeHealth", health, maxHealth);
 		
@@ -211,7 +215,34 @@ public class Player : KinematicBody2D
 		
 
 	}
+	
+	public void milestoneChanges(){
+		string[] lines = System.IO.File.ReadAllLines("milestone_screen/milestones.txt");
+		foreach (String line in lines)
+		{
+			
+			string[] split = line.Split(",");
+			
+			if(split[0] == "Kill" && split[5] == "enabled"){
+				maxHealth += 25;
+				EmitSignal("changeHealth", health, maxHealth);
+			}else if(split[0] == "Score" && split[5] == "enabled"){
+				
+			}else if(split[0] == "Revolver" && split[5] == "enabled"){
+				activeWeapon.damage = (int) (activeWeapon.damage * 1.25);
+				
+			}else if(split[0] == "Damage" && split[5] == "enabled"){
 
+			}else if(split[0] == "Ammo" && split[5] == "enabled"){
+				activeWeapon.maxLoadedCapacity = (int) (activeWeapon.maxLoadedCapacity * 1.25);
+				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+			}else if(split[0] == "Deaths" && split[5] == "enabled"){
+				maxHealth += 75;
+				EmitSignal("changeHealth", health, maxHealth);
+			}
+		}
+	}
+	
 	public override void _Process(float delta)
 	{
 		GetInput();

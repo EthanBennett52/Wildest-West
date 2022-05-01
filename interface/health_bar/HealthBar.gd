@@ -5,6 +5,7 @@ extends HBoxContainer
 func _on_Player_changeHealth(current, maxHealth):
 	$TextureProgress.value = current
 	$Counter/Label.text = str(current) + "/" + str(maxHealth)
+	$TextureProgress.max_value = maxHealth
 
 func _ready():
 	$Counter/Label.text = "100/100"
