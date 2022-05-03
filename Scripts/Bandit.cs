@@ -35,15 +35,32 @@ public class Bandit : KinematicBody2D
 		QueueFree();
 
 		updateScore(scoreWorth);
+		addKillToMilestone();
 	}
 	
 	private void updateScore(int amount){
 		String[] score = System.IO.File.ReadAllLines("interface/Score.txt");
-		String updatedScore = (int.Parse(score[0]) + amount).ToString();
-		GD.Print(updatedScore);
-		System.IO.File.WriteAllText("interface/Score.txt" , updatedScore);
+		System.IO.File.WriteAllText("interface/Score.txt" , (int.Parse(score[0]) + amount).ToString());
 	}
 	
+	private void addKillToMilestone(){
+		string[] lines = System.IO.File.ReadAllLines("milestone_screen/milestones.txt");
+		string updatedText = "";
+		foreach (String line in lines)
+		{
+			
+			string[] split = line.Split(",");
+			
+			if(split[0] == "Kill"){
+				int kills = int.Parse(split[2]) + 1;
+				updatedText += (split[0] + "," + split[1] + "," + kills + "," + split[3] + "," + split[4] + "," + split[5] + "\n");
+			}else{
+				updatedText += (line + "\n");
+			}
+		}
+		System.IO.File.WriteAllText("milestone_screen/milestones.txt", updatedText);
+	}
+
 	private void onTimeout(){
 		weapon.fire();
 	}

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Bandit.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Main.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/World.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/AmmoPickup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/HealthPickup.tscn" type="PackedScene" id=6]
