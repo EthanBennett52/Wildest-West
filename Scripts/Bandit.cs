@@ -1,16 +1,19 @@
 using Godot;
 using System;
+using System.IO;
 
 public class Bandit : KinematicBody2D
 {
 	private int health = 100;
 	protected int speed = 150;
+	private int scoreWorth = 10;
 	private Gun weapon;
 	private Timer shotTimer;
 	private Area2D approachRange;
-    private Area2D inPosition;
+	private Area2D inPosition;
 	private Player player;
 	private AIState state = AIState.PATROL;
+	
 
 	protected enum AIState{
 		PATROL,
@@ -30,8 +33,17 @@ public class Bandit : KinematicBody2D
 		drop.setWeapon("MachineGun");
 
 		QueueFree();
-	}
 
+		updateScore(scoreWorth);
+	}
+	
+	private void updateScore(int amount){
+		String[] score = System.IO.File.ReadAllLines("interface/Score.txt");
+		String updatedScore = (int.Parse(score[0]) + amount).ToString();
+		GD.Print(updatedScore);
+		System.IO.File.WriteAllText("interface/Score.txt" , updatedScore);
+	}
+	
 	private void onTimeout(){
 		weapon.fire();
 	}
@@ -60,7 +72,7 @@ public class Bandit : KinematicBody2D
 	public override void _Ready()
 	{
 		approachRange = (Area2D)FindNode("ApproachRange");
-        inPosition = (Area2D)FindNode("InPosition");
+		inPosition = (Area2D)FindNode("InPosition");
 		approachRange.Connect("body_entered", this, "PlayerSpotted");
 		approachRange.Connect("body_exited", this, "OutOfRange");
 		inPosition.Connect("body_entered", this, "InPosition");

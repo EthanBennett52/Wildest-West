@@ -69,6 +69,30 @@ margin_left = 204.0
 margin_right = 303.0
 margin_bottom = 75.0
 
+[node name="Score" type="HBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+margin_right = 43.0
+margin_bottom = 14.0
+text = "Score: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreVar" type="Label" parent="Score"]
+margin_left = 47.0
+margin_right = 55.0
+margin_bottom = 14.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [editable path="UiElements/AmmoCounter"]
 [editable path="HotBar/WeaponOneIcon"]
 [editable path="HotBar/WeaponTwoIcon"]

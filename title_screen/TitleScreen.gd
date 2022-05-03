@@ -9,7 +9,6 @@ func _ready():
 
 
 func _on_Button_pressed(scene_to_load):
-	print("button pressed")
 	$FadeIn.show()
 	$FadeIn.fade_in()
 	scene_path_to_load = scene_to_load

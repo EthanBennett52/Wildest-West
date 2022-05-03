@@ -206,6 +206,10 @@ public class Player : KinematicBody2D
 		EmitSignal("changeHealth", health, maxHealth);
 		
 		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+		
+		//sets the score to 0
+		System.IO.File.WriteAllText("interface/Score.txt" , 0.ToString());
+		
 		//This is only here to test weapon swapping
 		//PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
 		//weapons[1] = machineGun.Instance<Gun>();
