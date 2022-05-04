@@ -111,13 +111,11 @@ public class Player : KinematicBody2D
 
 	//Heals the player
 	public void heal(int amount){
-		GD.Print("Health before: " + health);
 		if ((health + amount) >= maxHealth){
 			health = maxHealth;
 		} else {
 			health += amount;
 		}
-		GD.Print("Health after: " + health);
 		EmitSignal("changeHealth", health, maxHealth);
 	}
 

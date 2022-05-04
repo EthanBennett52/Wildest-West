@@ -25,13 +25,13 @@ public class Bullet : Area2D
 	}
 
 	//This is called when the bullet enters an area2D node
-	public void OnBodyEntered(Node area){
-		if (area.Name == "Bandit"){
+	public void OnBodyEntered(Node2D area){
+		if (area is Bandit){
 			Bandit enemy = (Bandit)area;
 			enemy.takeDamage(damage);
 			QueueFree();
 			//GetParent().RemoveChild(this);
-		} else if (area.Name == "Player"){
+		} else if (area is Player){
 			Player player = (Player)area;
 			player.takeDamage(damage);
 			QueueFree();
