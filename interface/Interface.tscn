@@ -19,21 +19,28 @@ __meta__ = {
 [node name="UiElements" type="HBoxContainer" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -538.0
+margin_left = -588.0
 margin_bottom = 100.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LifeBar" parent="UiElements" instance=ExtResource( 2 )]
-margin_right = 404.0
+margin_right = 454.0
+margin_bottom = 100.0
+
+[node name="TextureProgress" parent="UiElements/LifeBar" index="0"]
+margin_bottom = 100.0
+
+[node name="Counter" parent="UiElements/LifeBar" index="1"]
+margin_right = 454.0
 margin_bottom = 100.0
 
 [node name="AmmoCounter" parent="UiElements" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 408.0
-margin_right = 538.0
+margin_left = 458.0
+margin_right = 588.0
 margin_bottom = 100.0
 
 [node name="HotBar" type="HBoxContainer" parent="."]
@@ -69,9 +76,23 @@ margin_left = 204.0
 margin_right = 303.0
 margin_bottom = 75.0
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 19.0
+margin_top = 19.0
+margin_right = 114.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 96, 15 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Score" type="HBoxContainer" parent="."]
 margin_left = 20.0
 margin_top = 20.0
+margin_right = 115.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 95, 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -86,13 +107,14 @@ __meta__ = {
 
 [node name="ScoreVar" type="Label" parent="Score"]
 margin_left = 47.0
-margin_right = 55.0
+margin_right = 87.0
 margin_bottom = 14.0
-text = "1"
+text = "10000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[editable path="UiElements/LifeBar"]
 [editable path="UiElements/AmmoCounter"]
 [editable path="HotBar/WeaponOneIcon"]
 [editable path="HotBar/WeaponTwoIcon"]
