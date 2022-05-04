@@ -66,49 +66,59 @@ stretch_mode = 4
 [node name="CenterRow" type="HBoxContainer" parent="Menu"]
 margin_top = 404.0
 margin_right = 984.0
-margin_bottom = 560.0
+margin_bottom = 578.0
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
 margin_right = 984.0
-margin_bottom = 156.0
+margin_bottom = 174.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
+custom_constants/separation = 6
 alignment = 2
 
 [node name="StartGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 1 )]
-margin_top = 6.0
 margin_right = 984.0
-margin_bottom = 36.0
+margin_bottom = 30.0
 action_mode = 0
 flat = false
 
 [node name="OptionsButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
-margin_top = 46.0
+margin_top = 36.0
 margin_right = 984.0
-margin_bottom = 76.0
+margin_bottom = 66.0
 flat = false
+scene_to_load = "res://options_screen/Options.tscn"
 
 [node name="Label" parent="Menu/CenterRow/Buttons/OptionsButton" index="0"]
 align = 1
 valign = 1
 
 [node name="MilestonesButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 7 )]
-margin_top = 86.0
+margin_top = 72.0
 margin_right = 984.0
-margin_bottom = 116.0
+margin_bottom = 102.0
 flat = false
 
 [node name="Label" parent="Menu/CenterRow/Buttons/MilestonesButton" index="0"]
 align = 1
 valign = 1
 
-[node name="ExitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
-margin_top = 126.0
+[node name="CreditsButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 1 )]
+margin_top = 108.0
 margin_right = 984.0
-margin_bottom = 156.0
+margin_bottom = 138.0
+action_mode = 0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/CreditsButton" index="0"]
+text = "Credits"
+
+[node name="ExitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+margin_top = 144.0
+margin_right = 984.0
+margin_bottom = 174.0
 flat = false
 
 [node name="Label" parent="Menu/CenterRow/Buttons/ExitButton" index="0"]
@@ -131,11 +141,14 @@ anims/fade_in = SubResource( 2 )
 
 [connection signal="button_down" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_button_down"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/MilestonesButton" to="." method="_on_MilestonesButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/CreditsButton" to="." method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]
 [connection signal="animation_finished" from="FadeIn/AnimationPlayer" to="FadeIn" method="_on_AnimationPlayer_animation_finished"]
 
 [editable path="Menu/CenterRow/Buttons/OptionsButton"]
 [editable path="Menu/CenterRow/Buttons/MilestonesButton"]
+[editable path="Menu/CenterRow/Buttons/CreditsButton"]
 [editable path="Menu/CenterRow/Buttons/ExitButton"]

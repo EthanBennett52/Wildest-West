@@ -24,3 +24,11 @@ func _on_ExitButton_pressed():
 
 func _on_MilestonesButton_pressed():
 	get_tree().change_scene("res://milestone_screen/Milestones.tscn")
+
+
+func _on_OptionsButton_pressed():
+	get_tree().change_scene("res://options_screen/Options.tscn")
+
+
+func _on_CreditsButton_pressed():
+	get_tree().change_scene("res://title_screen/Credits.tscn")
