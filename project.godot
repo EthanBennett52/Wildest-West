@@ -16,10 +16,11 @@ config/icon="res://Art/Icon.png"
 
 [autoload]
 
-PluginSettings="*res://addons/github-integration/scripts/PluginSettings.gd"
-IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
-UserData="*res://addons/github-integration/scripts/user_data.gd"
-RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
+PluginSettings="res://addons/github-integration/scripts/PluginSettings.gd"
+IconLoaderGithub="res://addons/github-integration/scripts/IconLoaderGithub.gd"
+UserData="res://addons/github-integration/scripts/user_data.gd"
+RestHandler="res://addons/github-integration/scenes/RestHandler.tscn"
+Music="*res://Music/Music.tscn"
 
 [display]
 
