@@ -26,6 +26,8 @@ public class Bullet : Area2D
 
 	//This is called when the bullet enters an area2D node
 	public void OnBodyEntered(Node2D area){
+
+		//This is bad. Hit detection should be handled by the Player/Bandit nodes.
 		if (area is Bandit){
 			Bandit enemy = (Bandit)area;
 			enemy.takeDamage(damage);
@@ -34,7 +36,10 @@ public class Bullet : Area2D
 		} else if (area is Player){
 			Player player = (Player)area;
 			player.takeDamage(damage);
-			QueueFree();
+
+			if (!player.isDodging){
+				QueueFree();
+			}
 		}
 	}
 	
