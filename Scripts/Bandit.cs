@@ -1,17 +1,20 @@
 using Godot;
 using System;
+using System.IO;
 
 public class Bandit : KinematicBody2D
 {
 	private int health = 100;
 	protected int speed = 150;
+	private int scoreWorth = 10;
 	private Gun weapon;
 	private Timer shotTimer;
 	private Area2D approachRange;
-    private Area2D inPosition;
+	private Area2D inPosition;
 	private Player player;
 	private AIState state = AIState.PATROL;
 	private Vector2 velocity = new Vector2();
+	
 
 	protected enum AIState{
 		PATROL,
@@ -31,6 +34,32 @@ public class Bandit : KinematicBody2D
 		drop.setWeapon("MachineGun");
 
 		QueueFree();
+
+		updateScore(scoreWorth);
+		addKillToMilestone();
+	}
+	
+	private void updateScore(int amount){
+		String[] score = System.IO.File.ReadAllLines("interface/Score.txt");
+		System.IO.File.WriteAllText("interface/Score.txt" , (int.Parse(score[0]) + amount).ToString());
+	}
+	
+	private void addKillToMilestone(){
+		string[] lines = System.IO.File.ReadAllLines("milestone_screen/milestones.txt");
+		string updatedText = "";
+		foreach (String line in lines)
+		{
+			
+			string[] split = line.Split(",");
+			
+			if(split[0] == "Kill"){
+				int kills = int.Parse(split[2]) + 1;
+				updatedText += (split[0] + "," + split[1] + "," + kills + "," + split[3] + "," + split[4] + "," + split[5] + "\n");
+			}else{
+				updatedText += (line + "\n");
+			}
+		}
+		System.IO.File.WriteAllText("milestone_screen/milestones.txt", updatedText);
 	}
 
 	private void onTimeout(){
@@ -61,7 +90,7 @@ public class Bandit : KinematicBody2D
 	public override void _Ready()
 	{
 		approachRange = (Area2D)FindNode("ApproachRange");
-        inPosition = (Area2D)FindNode("InPosition");
+		inPosition = (Area2D)FindNode("InPosition");
 		approachRange.Connect("body_entered", this, "PlayerSpotted");
 		approachRange.Connect("body_exited", this, "OutOfRange");
 		inPosition.Connect("body_entered", this, "InPosition");

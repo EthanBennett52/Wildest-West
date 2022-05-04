@@ -46,6 +46,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Menu" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -76,22 +83,35 @@ margin_bottom = 156.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
-alignment = 2
 
 [node name="StartGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
-margin_top = 46.0
 margin_right = 984.0
-margin_bottom = 76.0
+margin_bottom = 30.0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/StartGameButton" index="0"]
+align = 1
+valign = 1
 
 [node name="TitleScreenButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
-margin_top = 86.0
+margin_top = 40.0
 margin_right = 984.0
-margin_bottom = 116.0
+margin_bottom = 70.0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/TitleScreenButton" index="0"]
+align = 1
+valign = 1
 
 [node name="ExitGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
-margin_top = 126.0
+margin_top = 80.0
 margin_right = 984.0
-margin_bottom = 156.0
+margin_bottom = 110.0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/ExitGameButton" index="0"]
+align = 1
+valign = 1
 
 [node name="FadeIn" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -107,7 +127,41 @@ __meta__ = {
 anims/RESET = SubResource( 1 )
 anims/fade_in = SubResource( 2 )
 
+[node name="Score" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.5
+margin_top = -7.0
+margin_right = 27.5
+margin_bottom = 7.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+margin_right = 43.0
+margin_bottom = 14.0
+text = "Score: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreVar" type="Label" parent="Score"]
+margin_left = 47.0
+margin_right = 55.0
+margin_bottom = 14.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_pressed"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/TitleScreenButton" to="." method="_on_TitleScreenButton_pressed"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/ExitGameButton" to="." method="_on_ExitGameButton_pressed"]
 [connection signal="animation_finished" from="FadeIn/AnimationPlayer" to="FadeIn" method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="Menu/CenterRow/Buttons/StartGameButton"]
+[editable path="Menu/CenterRow/Buttons/TitleScreenButton"]
+[editable path="Menu/CenterRow/Buttons/ExitGameButton"]

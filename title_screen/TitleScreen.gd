@@ -9,7 +9,6 @@ func _ready():
 
 
 func _on_Button_pressed(scene_to_load):
-	print("button pressed")
 	$FadeIn.show()
 	$FadeIn.fade_in()
 	scene_path_to_load = scene_to_load
@@ -21,3 +20,15 @@ func _on_FadeIn_fade_finished():
 
 func _on_ExitButton_pressed():
 	get_tree().quit()
+
+
+func _on_MilestonesButton_pressed():
+	get_tree().change_scene("res://milestone_screen/Milestones.tscn")
+
+
+func _on_OptionsButton_pressed():
+	get_tree().change_scene("res://options_screen/Options.tscn")
+
+
+func _on_CreditsButton_pressed():
+	get_tree().change_scene("res://title_screen/Credits.tscn")

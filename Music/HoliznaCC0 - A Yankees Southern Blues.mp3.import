@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/HoliznaCC0 - A Yankees Southern Blues.mp3-fdddcc4c49cecc963b55d00ba72bc3bc.mp3str"
+
+[deps]
+
+source_file="res://Music/HoliznaCC0 - A Yankees Southern Blues.mp3"
+dest_files=[ "res://.import/HoliznaCC0 - A Yankees Southern Blues.mp3-fdddcc4c49cecc963b55d00ba72bc3bc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
