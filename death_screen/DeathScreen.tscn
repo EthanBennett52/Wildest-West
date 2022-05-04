@@ -1,0 +1,160 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://death_screen/death.png" type="Texture" id=1]
+[ext_resource path="res://death_screen/Buttons/StartGameButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://death_screen/Buttons/ExitButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://death_screen/Buttons/OptionsButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://death_screen/DeathScreen.gd" type="Script" id=6]
+[ext_resource path="res://title_screen/FadeIn.gd" type="Script" id=7]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="DeathScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -1138, -208 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="Menu"]
+margin_right = 984.0
+margin_bottom = 400.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 404.0
+margin_right = 984.0
+margin_bottom = 560.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_right = 984.0
+margin_bottom = 156.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="StartGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
+margin_right = 984.0
+margin_bottom = 30.0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/StartGameButton" index="0"]
+align = 1
+valign = 1
+
+[node name="TitleScreenButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
+margin_top = 40.0
+margin_right = 984.0
+margin_bottom = 70.0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/TitleScreenButton" index="0"]
+align = 1
+valign = 1
+
+[node name="ExitGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+margin_top = 80.0
+margin_right = 984.0
+margin_bottom = 110.0
+flat = false
+
+[node name="Label" parent="Menu/CenterRow/Buttons/ExitGameButton" index="0"]
+align = 1
+valign = 1
+
+[node name="FadeIn" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeIn"]
+anims/RESET = SubResource( 1 )
+anims/fade_in = SubResource( 2 )
+
+[node name="Score" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.5
+margin_top = -7.0
+margin_right = 27.5
+margin_bottom = 7.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="Score"]
+margin_right = 43.0
+margin_bottom = 14.0
+text = "Score: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreVar" type="Label" parent="Score"]
+margin_left = 47.0
+margin_right = 55.0
+margin_bottom = 14.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/TitleScreenButton" to="." method="_on_TitleScreenButton_pressed"]
+[connection signal="pressed" from="Menu/CenterRow/Buttons/ExitGameButton" to="." method="_on_ExitGameButton_pressed"]
+[connection signal="animation_finished" from="FadeIn/AnimationPlayer" to="FadeIn" method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="Menu/CenterRow/Buttons/StartGameButton"]
+[editable path="Menu/CenterRow/Buttons/TitleScreenButton"]
+[editable path="Menu/CenterRow/Buttons/ExitGameButton"]

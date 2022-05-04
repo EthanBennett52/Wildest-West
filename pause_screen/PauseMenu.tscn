@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://pause_screen/PauseMenu.gd" type="Script" id=1]
+
+[node name="PauseMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.168627, 0.156863, 0.156863, 0.596078 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 412.0
+margin_top = 216.0
+margin_right = 612.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 48.0
+text = "Paused
+
+"
+align = 1
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 200.0
+margin_bottom = 88.0
+text = "Continue"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 200.0
+margin_bottom = 128.0
+text = "Quit To Title"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 148.0
+margin_right = 200.0
+margin_bottom = 168.0
+text = "Exit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

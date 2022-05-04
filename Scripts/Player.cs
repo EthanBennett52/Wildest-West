@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public class Player : KinematicBody2D
 {
@@ -14,9 +15,31 @@ public class Player : KinematicBody2D
 	//The players current health
 	protected int health;
 	private Vector2 velocity = new Vector2();
+	
+	[Signal]
+	delegate void changeHealth(int change, int max);
+	
+	[Signal]
+	delegate void changeMaxHealth(int change, int max);
+	
+	[Signal]
+	delegate void updateAmmo(int change, int max);
 
+	[Signal]
+	delegate void death();
+
+	//number variable is one or two
+	[Signal]
+	delegate void updateHotbarGun(string name, int number);
+
+	
 	public void takeDamage(int damage){
 		health = health - damage;
+		if(health <= 0){
+			EmitSignal("death");
+		}
+		EmitSignal("changeHealth", health, maxHealth);
+		
 	}
 
 	//Swaps the active weapon.
@@ -29,7 +52,9 @@ public class Player : KinematicBody2D
 			activeWeapon.Show();
 
 			activeWeaponIndex = i;
+			EmitSignal("updateHotbarGun", activeWeapon.name, activeWeaponIndex + 1);
 		}
+		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 	}
 
 	public void pickupWeapon(Gun weapon){
@@ -38,8 +63,9 @@ public class Player : KinematicBody2D
 		AddChild(weapon);
 
 		foreach (Gun w in weapons) {
-			if (w != null && w.Name == weapon.Name){
+			if (w != null && w.name == weapon.name){
 				w.pickupAmmo(weapon.ammo);
+				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 				weapon.QueueFree();
 				return;
 			}
@@ -52,6 +78,7 @@ public class Player : KinematicBody2D
 					//AddChild(weapons[x]);
 					weapons[x].pickedUp();
 					swapWeapon(x);
+					
 				}
 			}
 
@@ -79,6 +106,7 @@ public class Player : KinematicBody2D
 	//Adds ammo to active weapon.
 	public void pickupAmmo(int amount){
 		activeWeapon.pickupAmmo(amount);
+		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 	}
 
 	//Heals the player
@@ -90,6 +118,7 @@ public class Player : KinematicBody2D
 			health += amount;
 		}
 		GD.Print("Health after: " + health);
+		EmitSignal("changeHealth", health, maxHealth);
 	}
 
 	//Checks if there is a free weapon slot.
@@ -125,6 +154,7 @@ public class Player : KinematicBody2D
 		//Fires the active weapon
 		if (Input.IsActionPressed("shoot")){
 			activeWeapon.fire();
+			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 		}
 		//Swaps to weapon 1. Bound to "1"
 		if (Input.IsActionJustPressed("weapon1")){
@@ -141,6 +171,7 @@ public class Player : KinematicBody2D
 		//Reloads the active weapon. Bound to "R"
 		if (Input.IsActionJustPressed("reload")){
 			activeWeapon.reload();
+			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
 		}
 		if (Input.IsActionJustReleased("next_weapon")){
 			if (activeWeaponIndex + 1 < weapons.Length){
@@ -167,9 +198,18 @@ public class Player : KinematicBody2D
 		weapons[0] = startingGun.Instance<Gun>();
 		AddChild(weapons[0]);
 		activeWeapon = weapons[0];
-
+		
+		//Initializes the milestones and the changes they make which are active in the milestone screen
+		milestoneChanges();
+		
 		health = maxHealth;
-
+		EmitSignal("changeHealth", health, maxHealth);
+		
+		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+		
+		//sets the score to 0
+		System.IO.File.WriteAllText("interface/Score.txt" , 0.ToString());
+		
 		//This is only here to test weapon swapping
 		//PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
 		//weapons[1] = machineGun.Instance<Gun>();
@@ -179,10 +219,38 @@ public class Player : KinematicBody2D
 		
 
 	}
+	
+	public void milestoneChanges(){
+		string[] lines = System.IO.File.ReadAllLines("milestone_screen/milestones.txt");
+		foreach (String line in lines)
+		{
+			
+			string[] split = line.Split(",");
+			
+			if(split[0] == "Kill" && split[5] == "enabled"){
+				maxHealth += 25;
+				EmitSignal("changeHealth", health, maxHealth);
+			}else if(split[0] == "Score" && split[5] == "enabled"){
+				
+			}else if(split[0] == "Revolver" && split[5] == "enabled"){
+				activeWeapon.damage = (int) (activeWeapon.damage * 1.25);
+				
+			}else if(split[0] == "Damage" && split[5] == "enabled"){
 
+			}else if(split[0] == "Ammo" && split[5] == "enabled"){
+				activeWeapon.maxLoadedCapacity = (int) (activeWeapon.maxLoadedCapacity * 1.25);
+				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+			}else if(split[0] == "Deaths" && split[5] == "enabled"){
+				maxHealth += 75;
+				EmitSignal("changeHealth", health, maxHealth);
+			}
+		}
+	}
+	
 	public override void _Process(float delta)
 	{
 		GetInput();
 		velocity = MoveAndSlide(velocity);
 	}
 }
+

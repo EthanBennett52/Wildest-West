@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Art/HealthPickup.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/HealthPickup.cs" type="Script" id=3]
@@ -6,12 +6,22 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 16.5 )
 
-[node name="HealthPickup" type="Area2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 101.242
+
+[node name="HealthPickup" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 position = Vector2( 0, -2.5 )
 shape = SubResource( 1 )
+
+[node name="AttractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttractArea"]
+shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.4, 0.4 )

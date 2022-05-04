@@ -12,6 +12,7 @@ public class MachineGun : Gun
 		maxLoadedCapacity = 20;
 		loaded = maxLoadedCapacity;
 		reloadTime = 2;
+		name = "MachineGun";
 	}
 
 
