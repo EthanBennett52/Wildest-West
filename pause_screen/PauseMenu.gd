@@ -19,6 +19,7 @@ func _on_ContinueButton_pressed():
 
 
 func _on_QuitButton_pressed():
+	self.is_paused = false
 	get_tree().change_scene("res://title_screen/TitleScreen.tscn")
 
 

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Mr Smith - Americana.mp3-b114127a363616bda5aacd89b829c500.mp3str"
+
+[deps]
+
+source_file="res://Music/Mr Smith - Americana.mp3"
+dest_files=[ "res://.import/Mr Smith - Americana.mp3-b114127a363616bda5aacd89b829c500.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
