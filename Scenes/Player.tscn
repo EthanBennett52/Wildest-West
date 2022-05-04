@@ -23,19 +23,11 @@ shape = SubResource( 1 )
 [node name="InterfaceLayer" type="CanvasLayer" parent="."]
 
 [node name="Interface" parent="InterfaceLayer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_left = 0.0
+margin_right = 0.0
 
 [node name="LifeBar" parent="InterfaceLayer/Interface/UiElements" index="0"]
 script = ExtResource( 6 )
-
-[node name="TextureProgress" parent="InterfaceLayer/Interface/UiElements/LifeBar" index="0"]
-margin_bottom = 100.0
-
-[node name="Counter" parent="InterfaceLayer/Interface/UiElements/LifeBar" index="1"]
-margin_bottom = 100.0
 
 [node name="AmmoCounter" parent="InterfaceLayer/Interface/UiElements" index="1"]
 size_flags_horizontal = 1
@@ -44,7 +36,7 @@ script = ExtResource( 3 )
 [node name="Label" parent="InterfaceLayer/Interface/UiElements/AmmoCounter" index="1"]
 margin_left = 0.0
 
-[node name="Score" parent="InterfaceLayer/Interface" index="2"]
+[node name="Score" parent="InterfaceLayer/Interface" index="3"]
 script = ExtResource( 7 )
 
 [node name="PauseMenu" parent="InterfaceLayer" instance=ExtResource( 5 )]

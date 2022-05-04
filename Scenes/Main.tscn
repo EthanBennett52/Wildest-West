@@ -35,6 +35,18 @@ position = Vector2( 876, 244 )
 [node name="GoldPickup" parent="." instance=ExtResource( 8 )]
 position = Vector2( 750, 612 )
 
+[node name="Bandit2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1718, 839 )
+
+[node name="Bandit3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1051, -449 )
+
+[node name="Bandit4" parent="." instance=ExtResource( 2 )]
+position = Vector2( -419, -109 )
+
+[node name="Bandit5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 7, 389 )
+
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 
 [editable path="Player"]
