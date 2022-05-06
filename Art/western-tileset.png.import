@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/maptiles.png-7fdd57364342c38db6b749f39bb119da.stex"
+path="res://.import/western-tileset.png-65649d70b45a29d2d46768fbdef81756.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/maptiles.png"
-dest_files=[ "res://.import/maptiles.png-7fdd57364342c38db6b749f39bb119da.stex" ]
+source_file="res://Art/western-tileset.png"
+dest_files=[ "res://.import/western-tileset.png-65649d70b45a29d2d46768fbdef81756.stex" ]
 
 [params]
 
