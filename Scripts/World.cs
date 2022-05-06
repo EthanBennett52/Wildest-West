@@ -24,8 +24,14 @@ public class World : Node2D {
 	public Vector2 roadThreshholds;
 
 	int width, height;
-
+	
+	ColorRect fadeIn;
+	AnimationPlayer ani;
+	
 	public override void _Ready() {
+		fadeIn  = GetChild(3) as Godot.ColorRect;
+		fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
+		ani = FindNode("AnimationPlayer") as Godot.AnimationPlayer;
 		// Set default map values
 		mapSize = new Vector2(120, 70);
 		// Have to cast these floats or this doesn't work
@@ -58,6 +64,9 @@ public class World : Node2D {
 	// Resets the map, replacing all the tiles with newly generated ones.
 	// TODO: Add loading screen of some sort
 	private void ResetMap(OpenSimplexNoise noise) {
+		fadeIn.Show();
+		ani.Play("loadingScreen");
+		
 		bottomTerrainMap.Clear();
 		topTerrainMap.Clear();
 
@@ -68,6 +77,7 @@ public class World : Node2D {
 		PlacePlayer();
 		PlaceExit();
 		iteration++;
+		
 	}
 
 	private void PlaceBottomTerrain() {
@@ -177,4 +187,11 @@ public class World : Node2D {
 			ResetMap(noise);
 		}
 	}
+
+
+private void _on_FadeIn_fade_finished()
+{
+	fadeIn.Hide();
+}
+
 }
