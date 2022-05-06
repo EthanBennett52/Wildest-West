@@ -139,14 +139,15 @@ public class World : Node2D {
 		Vector2 yRange = new Vector2(-2, 2);
 
 		int[] bounds = TryArea(xRange, yRange, 5, 0, -1);
-		for (int y = bounds[2]; y <= bounds[3]; y++) {
-			topTerrainMap.SetCell(bounds[1], y, 7);
+		for (int x = bounds[0] - 1; x <= bounds[1]; x++) {
+			for (int y = bounds[2]; y <= bounds[3]; y++) {
+				topTerrainMap.SetCell(x, y, 7);
+			}
 		}
-
 		for (int i = 0; i <= 3; i++) {
 			transitionBound[i] = bounds[i] * PixelMultiplier;
 		}
-		transitionBound[0] += 16;
+		transitionBound[0] -= 48;
 	}
 
 	private void PlacePlayer() {
@@ -160,7 +161,14 @@ public class World : Node2D {
 
 		int[] bounds = TryArea(xRange, yRange, 3, 0, 1);
 
-		GetNode<Node2D>("/root/Main/Player").Position = new Vector2( (bounds[0] + bounds[1]) / 2 * PixelMultiplier + 8, (bounds[2] + bounds[3]) / 2 * PixelMultiplier);
+		//place entrance platform
+		for (int x = bounds[0]; x <= bounds[1]; x++) {
+			for (int y = bounds[2]-1; y <= bounds[3]+1; y++) {
+				topTerrainMap.SetCell(x, y, 7);
+			}
+		}
+
+		GetNode<Node2D>("/root/Main/Player").Position = new Vector2( (bounds[0] + bounds[1]) / 2 * PixelMultiplier + 8, (bounds[2] + bounds[3]) / 2 * PixelMultiplier +16);
 		//GD.Print("placed player at " + ((bounds[0] + bounds[1]) / 2) + ", " + ((bounds[2] + bounds[3]) / 2));
 	}
 
