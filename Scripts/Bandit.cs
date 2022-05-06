@@ -14,7 +14,7 @@ public class Bandit : KinematicBody2D
 	private Player player;
 	private AIState state = AIState.PATROL;
 	private Vector2 velocity = new Vector2();
-	
+	private const string weaponToDrop= "Revolver";
 
 	protected enum AIState{
 		PATROL,
@@ -27,11 +27,7 @@ public class Bandit : KinematicBody2D
 	}
 
 	private void onDeath(){
-		PackedScene weaponDrop = GD.Load<PackedScene>("res://Scenes/WeaponPickup.tscn");
-		WeaponPickup drop = weaponDrop.Instance<WeaponPickup>();
-		drop.Position = Position;
-		GetParent().AddChild(drop);
-		drop.setWeapon("MachineGun");
+		dropItem();
 
 		QueueFree();
 
@@ -39,6 +35,32 @@ public class Bandit : KinematicBody2D
 		addKillToMilestone();
 	}
 	
+	private void dropItem(){
+		Random r = new Random();
+		int rInt = r.Next(0, 100); //for ints
+
+		if(rInt <= 20){
+			PackedScene weaponDrop = GD.Load<PackedScene>("res://Scenes/WeaponPickup.tscn");
+			WeaponPickup drop = weaponDrop.Instance<WeaponPickup>();
+			drop.Position = Position;
+			GetParent().AddChild(drop);
+			drop.setWeapon(weaponToDrop);
+		}else if (rInt <= 60){
+			PackedScene ammoDrop = GD.Load<PackedScene>("res://Scenes/ammoPickup.tscn");
+			AmmoPickup drop = ammoDrop.Instance<AmmoPickup>();
+			drop.Position = Position;
+			GetParent().AddChild(drop);
+			drop.setAmmoAmount(20);
+		}else if (rInt <= 100){
+			PackedScene healthDrop = GD.Load<PackedScene>("res://Scenes/HealthPickup.tscn");
+			HealthPickup drop = healthDrop.Instance<HealthPickup>();
+			drop.Position = Position;
+			GetParent().AddChild(drop);
+			drop.setHealAmount(25);
+		}
+	}
+
+
 	private void updateScore(int amount){
 		String[] score = System.IO.File.ReadAllLines("interface/Score.txt");
 		System.IO.File.WriteAllText("interface/Score.txt" , (int.Parse(score[0]) + amount).ToString());

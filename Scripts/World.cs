@@ -32,6 +32,9 @@ public class World : Node2D {
 		fadeIn  = GetChild(3) as Godot.ColorRect;
 		fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
 		ani = FindNode("AnimationPlayer") as Godot.AnimationPlayer;
+		
+		
+		
 		// Set default map values
 		mapSize = new Vector2(120, 70);
 		// Have to cast these floats or this doesn't work
