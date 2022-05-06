@@ -14,7 +14,7 @@ public class Bandit : KinematicBody2D
 	private Player player;
 	private AIState state = AIState.PATROL;
 	private Vector2 velocity = new Vector2();
-	private const string weaponToDrop= "Revolver";
+	
 
 	protected enum AIState{
 		PATROL,
@@ -24,6 +24,10 @@ public class Bandit : KinematicBody2D
 
 	public void takeDamage(int damage){
 		health = health - damage;
+	}
+
+	public void Destroy(){
+		QueueFree();
 	}
 
 	private void onDeath(){
@@ -44,7 +48,7 @@ public class Bandit : KinematicBody2D
 			WeaponPickup drop = weaponDrop.Instance<WeaponPickup>();
 			drop.Position = Position;
 			GetParent().AddChild(drop);
-			drop.setWeapon(weaponToDrop);
+			drop.setWeapon(weapon.name);
 		}else if (rInt <= 60){
 			PackedScene ammoDrop = GD.Load<PackedScene>("res://Scenes/ammoPickup.tscn");
 			AmmoPickup drop = ammoDrop.Instance<AmmoPickup>();
@@ -111,6 +115,7 @@ public class Bandit : KinematicBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		AddToGroup("Enemy");
 		approachRange = (Area2D)FindNode("ApproachRange");
 		inPosition = (Area2D)FindNode("InPosition");
 		approachRange.Connect("body_entered", this, "PlayerSpotted");

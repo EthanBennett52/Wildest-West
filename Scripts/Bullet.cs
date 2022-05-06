@@ -13,15 +13,20 @@ public class Bullet : Area2D
 	
 	public override void _Ready()
 	{
+		AddToGroup("Bullets");
 		Gun gun = GetNode<Gun>(creator);
 		damage = gun.damage;
 		bulletVelocity = gun.GlobalPosition.DirectionTo(gun.target) * speed;
-		Connect("body_entered", this, "OnBodyEntered");   
+		Connect("body_entered", this, "OnBodyEntered");
 	}
 
 	public override void _Process(float delta)
 	{
 		Position += bulletVelocity * delta;
+	}
+
+	private void DeleteBullets(){
+		QueueFree();
 	}
 
 	//This is called when the bullet enters an area2D node

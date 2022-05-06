@@ -27,6 +27,9 @@ public class World : Node2D {
 	
 	ColorRect fadeIn;
 	AnimationPlayer ani;
+
+	[Signal]
+	delegate void delete_bullets();
 	
 	public override void _Ready() {
 		fadeIn  = GetChild(3) as Godot.ColorRect;
@@ -67,6 +70,10 @@ public class World : Node2D {
 	// Resets the map, replacing all the tiles with newly generated ones.
 	// TODO: Add loading screen of some sort
 	private void ResetMap(OpenSimplexNoise noise) {
+		//Deletes all bullets
+		GetTree().CallGroup("Bullets", "DeleteBullets");
+		//Deletes all enemies
+		GetTree().CallGroup("Enemy", "Destroy");
 		fadeIn.Show();
 		ani.Play("loadingScreen");
 		
