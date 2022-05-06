@@ -86,8 +86,13 @@ public class World : Node2D {
 	private void PlaceBottomTerrain() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				//set entire map to "default tile" so there are no gaps
-				bottomTerrainMap.SetCell(-x + width / 2, -y + height / 2, 0);
+				//set entire map to "default tile" (dirt or rocky dirt) so there are no gaps
+				if (rand.Randf() > 0.965) {
+					bottomTerrainMap.SetCell(-x + width / 2, -y + height / 2, 4);
+				}
+				else {
+					bottomTerrainMap.SetCell(-x + width / 2, -y + height / 2, 0);
+				}
 			}
 		}
 		//not necessary if not using autotiling tileset, remove if causing issues
@@ -99,7 +104,12 @@ public class World : Node2D {
 			for (int y = 0; y < height; y++) {
 				//place secondary tile, usually water or some other impassable liquid
 				if (noise.GetNoise2d(x, y) > topTerrainThreshold) {
-					topTerrainMap.SetCell(-x + width / 2, -y + height / 2, 1);
+					if (noise.GetNoise2d(x, y) > (topTerrainThreshold + .15)) {
+						topTerrainMap.SetCell(-x + width / 2, -y + height / 2, 2);
+					}
+					else {
+						topTerrainMap.SetCell(-x + width / 2, -y + height / 2, 1);
+					}
 				}
 			}
 		}
@@ -112,7 +122,7 @@ public class World : Node2D {
 			for (int y = 0; y < height; y++) {
 				double n = noise.GetNoise2d(x, y);
 				if (n > roadThreshholds.x && n < roadThreshholds.y) {
-					topTerrainMap.SetCell(-x + width / 2, -y + height / 2, 2);
+					topTerrainMap.SetCell(-x + width / 2, -y + height / 2, 3);
 				}
 			}
 		}
@@ -130,7 +140,7 @@ public class World : Node2D {
 
 		int[] bounds = TryArea(xRange, yRange, 5, 0, -1);
 		for (int y = bounds[2]; y <= bounds[3]; y++) {
-			topTerrainMap.SetCell(bounds[1], y, 3);
+			topTerrainMap.SetCell(bounds[1], y, 7);
 		}
 
 		for (int i = 0; i <= 3; i++) {
