@@ -14,4 +14,3 @@ export_presets.cfg
 .mono/
 data_*/
 .mono/metadata/ide_messaging_meta.txt
-.mono/metadata/ide_messaging_meta.txt

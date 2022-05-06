@@ -11,7 +11,7 @@ func _ready():
 	f.open("interface/Score.txt", File.READ)
 	score = f.get_line()
 	f.close()
-	$Score/ScoreVar.text = score
+	$Menu/Score/ScoreVar.text = score
 	updateMilestone()
 
 func updateMilestone():

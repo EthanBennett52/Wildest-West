@@ -70,8 +70,35 @@ margin_bottom = 400.0
 texture = ExtResource( 1 )
 stretch_mode = 4
 
-[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+[node name="Score" type="HBoxContainer" parent="Menu"]
 margin_top = 404.0
+margin_right = 984.0
+margin_bottom = 418.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="Menu/Score"]
+margin_left = 464.0
+margin_right = 507.0
+margin_bottom = 14.0
+text = "Score: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreVar" type="Label" parent="Menu/Score"]
+margin_left = 511.0
+margin_right = 519.0
+margin_bottom = 14.0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+margin_top = 422.0
 margin_right = 984.0
 margin_bottom = 560.0
 size_flags_vertical = 3
@@ -79,7 +106,7 @@ alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
 margin_right = 984.0
-margin_bottom = 156.0
+margin_bottom = 138.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -126,36 +153,6 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FadeIn"]
 anims/RESET = SubResource( 1 )
 anims/fade_in = SubResource( 2 )
-
-[node name="Score" type="HBoxContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -27.5
-margin_top = -7.0
-margin_right = 27.5
-margin_bottom = 7.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScoreLabel" type="Label" parent="Score"]
-margin_right = 43.0
-margin_bottom = 14.0
-text = "Score: "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScoreVar" type="Label" parent="Score"]
-margin_left = 47.0
-margin_right = 55.0
-margin_bottom = 14.0
-text = "1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="Menu/CenterRow/Buttons/StartGameButton" to="." method="_on_StartGameButton_pressed"]
 [connection signal="pressed" from="Menu/CenterRow/Buttons/TitleScreenButton" to="." method="_on_TitleScreenButton_pressed"]
