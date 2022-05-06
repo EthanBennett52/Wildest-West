@@ -5,8 +5,11 @@ using System.IO;
 public class Player : KinematicBody2D
 {
 	[Export] public int speed = 300;
+
+	private int maxSpeed = 300;
+	private int dodgeSpeed = 600;
 	//The weapons the player has
-	private Gun[] weapons;
+	private Gun[] weapons = new Gun[2];
 	//The weapon that is currently equiped
 	private Gun activeWeapon;
 	private int activeWeaponIndex = 0;
@@ -14,6 +17,10 @@ public class Player : KinematicBody2D
 	private int maxHealth = 100;
 	//The players current health
 	protected int health;
+	private AnimationPlayer animations;
+	public bool isDodging = false;
+	private bool dodgeOnCooldown = false;
+	private Timer dodgeCooldownTimer;
 	private Vector2 velocity = new Vector2();
 	
 	[Signal]
@@ -34,11 +41,13 @@ public class Player : KinematicBody2D
 
 	
 	public void takeDamage(int damage){
-		health = health - damage;
-		if(health <= 0){
-			EmitSignal("death");
+		if(!isDodging){
+			health = health - damage;
+			if(health <= 0){
+				EmitSignal("death");
+			}
+			EmitSignal("changeHealth", health, maxHealth);
 		}
-		EmitSignal("changeHealth", health, maxHealth);
 		
 	}
 
@@ -129,68 +138,108 @@ public class Player : KinematicBody2D
 		return false;
 	}
 
-	//Processes the players inputs. Should be called every frame.
-	public void GetInput() {
-		//LookAt(GetGlobalMousePosition());
-		velocity = new Vector2();
-
-		if (Input.IsActionPressed("right")){
-			velocity.x += 1;
-		}
-
-		if (Input.IsActionPressed("left")) {
-			velocity.x -= 1;
-		}
-
-		if (Input.IsActionPressed("up")){
-			velocity.y -= 1;
-		}
-
-		if (Input.IsActionPressed("down")){
-			velocity.y += 1;
-		}
-		//Fires the active weapon
-		if (Input.IsActionPressed("shoot")){
-			activeWeapon.fire();
-			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
-		}
-		//Swaps to weapon 1. Bound to "1"
-		if (Input.IsActionJustPressed("weapon1")){
-			swapWeapon(0);
-		}
-		//Swaps to weapon 2. Bound to "2"
-		if(Input.IsActionJustPressed("weapon2")){
-			swapWeapon(1);
-		}
-		//Swaps to weapon 3. Bound to "3"
-		if(Input.IsActionJustPressed("weapon3")){
-			swapWeapon(2);
-		}
-		//Reloads the active weapon. Bound to "R"
-		if (Input.IsActionJustPressed("reload")){
-			activeWeapon.reload();
-			EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
-		}
-		if (Input.IsActionJustReleased("next_weapon")){
-			if (activeWeaponIndex + 1 < weapons.Length){
-				swapWeapon(activeWeaponIndex + 1);
-			}
-		}
-		if (Input.IsActionJustReleased("prev_weapon")){
-			if (activeWeaponIndex > 0){
-				swapWeapon(activeWeaponIndex - 1);
+	public void startDodge(){
+		if (!dodgeOnCooldown){
+			
+			isDodging = true;
+			speed = dodgeSpeed;
+			
+			if (velocity.x > 0){
+				animations.Play("Dodge");
+			} else {
+				animations.PlayBackwards("Dodge");
 			}
 		}
 		
-		velocity = velocity.Normalized() * speed;
+	}
+	public void endDodge(){
+		isDodging = false;
+		speed = maxSpeed;
+		dodgeOnCooldown = true;
+		dodgeCooldownTimer.Start();
+		animations.Play("Stand");
+	}
 
+	private void _OnDodgeCooldownTimeout(){
+		dodgeOnCooldown = false;
+	}
+
+	private void animationEnded(String animName){
+		if (animName == "Dodge"){
+			endDodge();
+		}
+	}
+
+	//Processes the players inputs. Should be called every frame.
+	public void GetInput() {
+		//LookAt(GetGlobalMousePosition());
+		if(!isDodging){
+			velocity = new Vector2();
+
+			if (Input.IsActionPressed("right")){
+				velocity.x += 1;
+			}
+
+			if (Input.IsActionPressed("left")) {
+				velocity.x -= 1;
+			}
+
+			if (Input.IsActionPressed("up")){
+				velocity.y -= 1;
+			}
+
+			if (Input.IsActionPressed("down")){
+				velocity.y += 1;
+			}
+			if (Input.IsActionPressed("dodge")){
+				startDodge();
+			}
+
+			//Fires the active weapon
+			if (Input.IsActionPressed("shoot")){
+				activeWeapon.fire();
+				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+			}
+			velocity = velocity.Normalized() * speed;
+		}
+
+
+			//Swaps to weapon 1. Bound to "1"
+			if (Input.IsActionJustPressed("weapon1")){
+				swapWeapon(0);
+			}
+			//Swaps to weapon 2. Bound to "2"
+			if(Input.IsActionJustPressed("weapon2")){
+				swapWeapon(1);
+			}
+			
+			//Reloads the active weapon. Bound to "R"
+			if (Input.IsActionJustPressed("reload")){
+				activeWeapon.reload();
+				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+			}
+			if (Input.IsActionJustReleased("next_weapon")){
+				if (activeWeaponIndex + 1 < weapons.Length){
+					swapWeapon(activeWeaponIndex + 1);
+				}
+			}
+			if (Input.IsActionJustReleased("prev_weapon")){
+				if (activeWeaponIndex > 0){
+					swapWeapon(activeWeaponIndex - 1);
+				}
+			}
 	}
 
 	
 	public override void _Ready()
 	{
-		weapons = new Gun[3];
+		
+		animations = GetNode<AnimationPlayer>("Animations");
+		animations.Connect("animation_finished", this, "animationEnded");
+		dodgeCooldownTimer = GetNode<Timer>("DodgeCooldown");
+		dodgeCooldownTimer.Connect("timeout", this, "_OnDodgeCooldownTimeout");
 
+		speed = maxSpeed;
 		//Initializes the spawn weapon
 		PackedScene startingGun = GD.Load<PackedScene>("res://Scenes/Gun.tscn");
 		weapons[0] = startingGun.Instance<Gun>();
@@ -247,7 +296,10 @@ public class Player : KinematicBody2D
 	
 	public override void _Process(float delta)
 	{
-		GetInput();
+		if (!isDodging){
+			GetInput();	
+		}
+		
 		velocity = MoveAndSlide(velocity);
 	}
 }

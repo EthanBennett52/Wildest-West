@@ -5,7 +5,7 @@
 
 [node name="BackgroundMusic" type="AudioStreamPlayer"]
 stream = ExtResource( 2 )
-volume_db = -5.0
+volume_db = -20.0
 script = ExtResource( 1 )
 
 [connection signal="finished" from="." to="." method="_on_Music_finished"]
