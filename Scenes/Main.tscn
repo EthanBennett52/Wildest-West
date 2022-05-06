@@ -16,7 +16,7 @@ script = ExtResource( 3 )
 [node name="World" parent="." instance=ExtResource( 4 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1948, 128 )
+position = Vector2( 0, 1120 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
