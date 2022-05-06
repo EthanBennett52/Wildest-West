@@ -21,6 +21,7 @@ IconLoaderGithub="res://addons/github-integration/scripts/IconLoaderGithub.gd"
 UserData="res://addons/github-integration/scripts/user_data.gd"
 RestHandler="res://addons/github-integration/scenes/RestHandler.tscn"
 Music="*res://Music/Music.tscn"
+MilestoneVar="*res://Scripts/MilestoneVar.gd"
 
 [display]
 
