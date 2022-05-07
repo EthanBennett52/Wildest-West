@@ -51,7 +51,7 @@ public class Bandit : KinematicBody2D, Damageable
 			GetParent().AddChild(drop);
 			drop.setWeapon(weapon.name);
 		}else if (rInt <= 60){
-			PackedScene ammoDrop = GD.Load<PackedScene>("res://Scenes/ammoPickup.tscn");
+			PackedScene ammoDrop = GD.Load<PackedScene>("res://Scenes/AmmoPickup.tscn");
 			AmmoPickup drop = ammoDrop.Instance<AmmoPickup>();
 			drop.Position = Position;
 			GetParent().AddChild(drop);
