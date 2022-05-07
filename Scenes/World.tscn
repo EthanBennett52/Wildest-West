@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://updatedTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/World.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Fade.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/AStar.cs" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -78,6 +79,9 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
 anims/RESET = SubResource( 1 )
 anims/loadingScreen = SubResource( 2 )
+
+[node name="AStar" type="Node2D" parent="."]
+script = ExtResource( 4 )
 
 [connection signal="fade_finished" from="Fade" to="." method="_on_Fade_fade_finished"]
 [connection signal="animation_finished" from="Fade/AnimationPlayer" to="Fade" method="_on_AnimationPlayer_animation_finished"]

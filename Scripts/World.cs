@@ -28,12 +28,13 @@ public class World : Node2D {
 	ColorRect fadeIn;
 	AnimationPlayer ani;
 
+	AStar astar;
+
 
 	public override void _Ready() {
 		fadeIn  = GetChild(3) as Godot.ColorRect;
 		fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
 		ani = FindNode("AnimationPlayer") as Godot.AnimationPlayer;
-		
 		
 		
 		// Set default map values
@@ -52,6 +53,9 @@ public class World : Node2D {
 		bottomTerrainMap = GetChild(2) as Godot.TileMap;
 		topTerrainMap = GetChild(1) as Godot.TileMap;
 		//propMap = GetChild(0) as Godot.TileMap;
+
+		astar = GetNode<AStar>("AStar");
+		
 
 		width = (int)mapSize.x;
 		height = (int)mapSize.y;
@@ -81,11 +85,14 @@ public class World : Node2D {
 		noise.Seed = (int)rand.Randi();
 		PlaceBottomTerrain();
 		PlaceTopTerrain();
-		PlaceRoads();
+		//PlaceRoads();
 		PlacePlayer();
 		PlaceExit();
 		iteration++;
-		
+
+		astar.CreateNavigationMap(bottomTerrainMap);
+		astar.DisableCollisionTiles(topTerrainMap);
+		placeMainRoad();
 	}
 
 	private void PlaceBottomTerrain() {
@@ -133,6 +140,15 @@ public class World : Node2D {
 		}
 		//not necessary if not using autotiling tileset, remove if causing issues
 		topTerrainMap.UpdateBitmaskRegion(new Vector2(0, 0), mapSize);
+	}
+
+	private void placeMainRoad(){
+		Vector2[] path = astar.GetPointPath(1, 8000);
+
+		foreach (Vector2 tile in path){
+			topTerrainMap.SetCellv(tile, 3);
+		}
+
 	}
 
 	// Places the 1x5-sized exit tiles, making sure there is no water 
