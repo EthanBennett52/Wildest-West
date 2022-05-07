@@ -31,7 +31,7 @@ public class Gun : Node2D
 	public string name = "Revolver";
 
 	protected Node2D parent;
-	protected Node2D player;
+	
 
 	//Fires the gun
 	public void fire(){
