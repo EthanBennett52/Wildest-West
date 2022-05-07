@@ -20,6 +20,7 @@ position = Vector2( 0, 1120 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
+zoom = Vector2( 2, 2 )
 
 [node name="Bandit" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1424, 344 )
