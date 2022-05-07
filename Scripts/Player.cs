@@ -239,11 +239,23 @@ public class Player : KinematicBody2D, Damageable
 	
 	public override void _Ready()
 	{
-		
 		animations = GetNode<AnimationPlayer>("Animations");
 		animations.Connect("animation_finished", this, "animationEnded");
 		dodgeCooldownTimer = GetNode<Timer>("DodgeCooldown");
 		dodgeCooldownTimer.Connect("timeout", this, "_OnDodgeCooldownTimeout");
+		
+		var milestones = GetNode<MilestoneVar>("/root/MilestoneVar");
+		milestones.updateMilestones();
+		if(milestones.extraExtraMaxHealth){
+			maxHealth += 75;
+		} else if (milestones.extraMaxHealth){
+			maxHealth += 25;
+		}
+		if (milestones.lowerDodgeCooldown){
+			dodgeCooldownTimer.WaitTime = (float)(dodgeCooldownTimer.WaitTime * .75);
+		}
+
+		
 
 		speed = maxSpeed;
 		//Initializes the spawn weapon
@@ -252,8 +264,6 @@ public class Player : KinematicBody2D, Damageable
 		AddChild(weapons[0]);
 		activeWeapon = weapons[0];
 		
-		//Initializes the milestones and the changes they make which are active in the milestone screen
-		milestoneChanges();
 		
 		health = maxHealth;
 		EmitSignal("changeHealth", health, maxHealth);
@@ -273,32 +283,6 @@ public class Player : KinematicBody2D, Damageable
 
 	}
 	
-	public void milestoneChanges(){
-		string[] lines = System.IO.File.ReadAllLines("milestone_screen/milestones.txt");
-		foreach (String line in lines)
-		{
-			
-			string[] split = line.Split(",");
-			
-			if(split[0] == "Kill" && split[5] == "enabled"){
-				maxHealth += 25;
-				EmitSignal("changeHealth", health, maxHealth);
-			}else if(split[0] == "Score" && split[5] == "enabled"){
-				
-			}else if(split[0] == "Revolver" && split[5] == "enabled"){
-				activeWeapon.damage = (int) (activeWeapon.damage * 1.25);
-				
-			}else if(split[0] == "Damage" && split[5] == "enabled"){
-
-			}else if(split[0] == "Ammo" && split[5] == "enabled"){
-				activeWeapon.maxLoadedCapacity = (int) (activeWeapon.maxLoadedCapacity * 1.25);
-				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
-			}else if(split[0] == "Deaths" && split[5] == "enabled"){
-				maxHealth += 75;
-				EmitSignal("changeHealth", health, maxHealth);
-			}
-		}
-	}
 	
 	public override void _Process(float delta)
 	{

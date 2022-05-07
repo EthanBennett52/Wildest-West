@@ -92,6 +92,16 @@ public class Gun : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		if (!(parent is Bandit)){
+			var milestones = GetNode<MilestoneVar>("/root/MilestoneVar");
+			if (name == "Revolver" && milestones.extraRevolverDamage){
+				damage = (int)(damage * 1.1);
+			}
+			if (milestones.extraLoadedCapacity){
+				maxLoadedCapacity = (int)(maxLoadedCapacity * 1.25);
+			}
+		}
+		
 		loaded = maxLoadedCapacity;
 		sprite = (Sprite)GetChild(0);
 		parent = GetParent<Node2D>();
