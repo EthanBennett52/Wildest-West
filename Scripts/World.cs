@@ -8,6 +8,8 @@ public class World : Node2D {
 	private int iteration;
 	// Array specifying the exit area ( x1, x2, y1, y2 )
 	private int[] transitionBound;
+	// Array specifying the entrance area ( x1, x2, y1, y2 )
+	private int[] entranceBound;
 
 	private OpenSimplexNoise noise;
 	private RandomNumberGenerator rand;
@@ -143,7 +145,10 @@ public class World : Node2D {
 	}
 
 	private void placeMainRoad(){
-		Vector2[] path = astar.GetPointPath(1, 8000);
+		Vector2 entranceVector = new Vector2( entranceBound[1] + 1, entranceBound[3] - 1);
+		Vector2 exitVector = new Vector2(transitionBound[0] / PixelMultiplier, (transitionBound[2] / PixelMultiplier) + 2 );
+
+		Vector2[] path = astar.GetPointPath(entranceVector, exitVector);
 
 		foreach (Vector2 tile in path){
 			topTerrainMap.SetCellv(tile, 3);
@@ -189,6 +194,7 @@ public class World : Node2D {
 			}
 		}
 
+		entranceBound = bounds;
 		GetNode<Node2D>("/root/Main/Player").Position = new Vector2( (bounds[0] + bounds[1]) / 2 * PixelMultiplier + 8, (bounds[2] + bounds[3]) / 2 * PixelMultiplier +16);
 		//GD.Print("placed player at " + ((bounds[0] + bounds[1]) / 2) + ", " + ((bounds[2] + bounds[3]) / 2));
 	}
