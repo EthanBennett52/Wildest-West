@@ -28,9 +28,7 @@ public class World : Node2D {
 	ColorRect fadeIn;
 	AnimationPlayer ani;
 
-	[Signal]
-	delegate void delete_bullets();
-	
+
 	public override void _Ready() {
 		fadeIn  = GetChild(3) as Godot.ColorRect;
 		fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
@@ -71,7 +69,7 @@ public class World : Node2D {
 	// TODO: Add loading screen of some sort
 	private void ResetMap(OpenSimplexNoise noise) {
 		//Deletes all bullets
-		GetTree().CallGroup("Bullets", "DeleteBullets");
+		GetTree().CallGroup("Bullets", "Destroy");
 		//Deletes all enemies
 		GetTree().CallGroup("Enemy", "Destroy");
 		fadeIn.Show();

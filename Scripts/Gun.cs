@@ -4,6 +4,7 @@ using System;
 public class Gun : Node2D
 {
 	PackedScene BULLET = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+	
 	public Sprite sprite;
 	//for adjusting the bullet spawn location
 	double rotationOffset = -.2;
@@ -25,8 +26,7 @@ public class Gun : Node2D
 	public int loaded;
 	//Damage per bullet
 	public int damage = 25;
-	//where the gun is pointing at
-	public Vector2 target;
+	
 	//name of the gun
 	public string name = "Revolver";
 
@@ -36,11 +36,7 @@ public class Gun : Node2D
 	//Fires the gun
 	public void fire(){
 		if (canShoot && loaded > 0){
-			Bullet bullet = (Bullet)BULLET.Instance(); 
-			bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation + rotationOffset)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation + rotationOffset))); 
-			bullet.RotationDegrees = RotationDegrees;
-			bullet.creator = GetPath();
-			GetParent().GetParent().AddChild(bullet);
+			CreateBullet(new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation)));
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
@@ -48,6 +44,15 @@ public class Gun : Node2D
 			reload();
 		}*/
 		
+	}
+
+	private void CreateBullet(Vector2 bulletTarget){
+		Bullet bullet = (Bullet)BULLET.Instance(); 
+		bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation + rotationOffset)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation + rotationOffset))); 
+		bullet.RotationDegrees = RotationDegrees;
+		bullet.setDamage(damage);
+		bullet.SetTargetVector(bulletTarget);
+		GetNode("/root/Main").AddChild(bullet);
 	}
 
 	//Reloads the gun
@@ -92,15 +97,10 @@ public class Gun : Node2D
 		parent = GetParent<Node2D>();
 
 		//Sets the target. There might be a better way to this without the redundant code in _Process.
-		if (parent is Player){
-			target = GetGlobalMousePosition();
-		} else if (parent is WeaponPickup){
-			Hide();
-			SetProcess(false);
-		} else {
-			player = (Node2D)GetNode("../../Player");
-			target = player.GlobalPosition;
-		}
+		
+		if (parent is WeaponPickup){
+			dropped();
+		} 
 		
 	}
 
@@ -114,15 +114,6 @@ public class Gun : Node2D
 			shotTimer -= delta;
 		}
 
-		//Points the gun at the target
-		if (parent is Player) {
-			target = GetGlobalMousePosition();
-			LookAt(target);
-			
-		} else {
-			target = player.GlobalPosition;
-			LookAt(target);
-		}
 		
 		//Keeps the weapon sprite in the correct orientation
 		if (270 > Math.Abs(RotationDegrees % 360) && 90 < Math.Abs(RotationDegrees % 360)) {

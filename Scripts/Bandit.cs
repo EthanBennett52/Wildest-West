@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.IO;
 
-public class Bandit : KinematicBody2D
+public class Bandit : KinematicBody2D, Damageable
 {
 	private int health = 100;
 	protected int speed = 150;
@@ -22,8 +22,9 @@ public class Bandit : KinematicBody2D
 		INPOSITION
 	}
 
-	public void takeDamage(int damage){
+	public bool takeDamage(int damage){
 		health = health - damage;
+		return true;
 	}
 
 	public void Destroy(){
@@ -144,11 +145,13 @@ public class Bandit : KinematicBody2D
 				}
 				velocity = Position.DirectionTo(player.Position) * speed;
 				MoveAndSlide(velocity);
+				weapon.LookAt(player.Position);
 				break;
 			case AIState.INPOSITION:
 				if (shotTimer.IsStopped()){
 					shotTimer.Start();
 				}
+				weapon.LookAt(player.Position);
 				break;
 	  }
 

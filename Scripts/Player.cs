@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.IO;
 
-public class Player : KinematicBody2D
+public class Player : KinematicBody2D, Damageable
 {
 	[Export] public int speed = 300;
 
@@ -40,14 +40,16 @@ public class Player : KinematicBody2D
 	delegate void updateHotbarGun(string name, int number);
 
 	
-	public void takeDamage(int damage){
+	public bool takeDamage(int damage){
 		if(!isDodging){
 			health = health - damage;
 			if(health <= 0){
 				EmitSignal("death");
 			}
 			EmitSignal("changeHealth", health, maxHealth);
+			return true;
 		}
+		return false;
 		
 	}
 
@@ -221,11 +223,15 @@ public class Player : KinematicBody2D
 			if (Input.IsActionJustReleased("next_weapon")){
 				if (activeWeaponIndex + 1 < weapons.Length){
 					swapWeapon(activeWeaponIndex + 1);
+				} else {
+					swapWeapon(0);
 				}
 			}
 			if (Input.IsActionJustReleased("prev_weapon")){
 				if (activeWeaponIndex > 0){
 					swapWeapon(activeWeaponIndex - 1);
+				} else {
+					swapWeapon(weapons.Length -1);
 				}
 			}
 	}
@@ -296,9 +302,11 @@ public class Player : KinematicBody2D
 	
 	public override void _Process(float delta)
 	{
-		if (!isDodging){
-			GetInput();	
-		}
+		
+		GetInput();
+
+		activeWeapon.LookAt(GetGlobalMousePosition());
+		
 		
 		velocity = MoveAndSlide(velocity);
 	}
