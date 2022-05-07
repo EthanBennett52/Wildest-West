@@ -53,7 +53,9 @@ public class AStar : Node2D
     public void DisableCollisionTiles(TileMap collisionTiles){
         Godot.Collections.Array tiles = collisionTiles.GetUsedCells();
         foreach (Vector2 tile in tiles){
-            astar.SetPointDisabled(GetIDForPoint(tile));
+            if (!(collisionTiles.GetCellv(tile) == 3)){
+                astar.SetPointDisabled(GetIDForPoint(tile));
+            }
         }
     } 
 
