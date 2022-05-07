@@ -3,8 +3,8 @@ using System;
 
 public class Shotgun : Gun
 {
-    private int bulletsPerShot = 5;
-    private double spreadAngle = Math.PI/8;
+    public int bulletsPerShot = 5;
+    public double spreadAngle = Math.PI/8;
     public override void _Ready()
     {
         fireRate = .5;

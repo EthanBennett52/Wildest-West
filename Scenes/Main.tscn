@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Bandit.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/WeaponPickup.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/GoldPickup.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Chest.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/ShotgunBandit.tscn" type="PackedScene" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -37,12 +38,6 @@ position = Vector2( 876, 244 )
 [node name="GoldPickup" parent="." instance=ExtResource( 8 )]
 position = Vector2( 750, 612 )
 
-[node name="Bandit2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1718, 839 )
-
-[node name="Bandit3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1051, -449 )
-
 [node name="Bandit4" parent="." instance=ExtResource( 2 )]
 position = Vector2( -419, -109 )
 
@@ -51,6 +46,12 @@ position = Vector2( 7, 389 )
 
 [node name="Area2D" parent="." instance=ExtResource( 9 )]
 position = Vector2( -1421, 42 )
+
+[node name="ShotgunBandit" parent="." instance=ExtResource( 10 )]
+position = Vector2( 853, 976 )
+
+[node name="ShotgunBandit2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 850, -145 )
 
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 

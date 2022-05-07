@@ -124,7 +124,7 @@ public class Bandit : KinematicBody2D, Damageable
 		inPosition.Connect("body_entered", this, "InPosition");
 		inPosition.Connect("body_exited", this, "PlayerSpotted");
 
-		weapon = (Gun)FindNode("Gun");
+		weapon = GetChild<Gun>(1);
 		weapon.loaded = 999;
 		shotTimer = (Timer)FindNode("ShotTimer");
 		shotTimer.OneShot = false;
@@ -138,6 +138,7 @@ public class Bandit : KinematicBody2D, Damageable
 		switch (state){
 			case AIState.PATROL:
 				shotTimer.Stop();
+				weapon.LookAt(Position + velocity);
 				break;
 			case AIState.APPROACH:
 				if (shotTimer.IsStopped()){
