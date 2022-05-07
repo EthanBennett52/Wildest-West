@@ -43,6 +43,8 @@ public class Bullet : Area2D
 				QueueFree();
 			}
 		} else if (area.Name ==  "TopMap"){
+			Vector2 tilePosition = ((TileMap)area).WorldToMap(GlobalPosition);
+			((TileMap)area).SetCellv(tilePosition, -1); 
 			QueueFree();
 		}
 	}
