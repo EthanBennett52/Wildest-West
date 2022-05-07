@@ -4,11 +4,11 @@ using System.IO;
 
 public class Bandit : KinematicBody2D, Damageable
 {
-	private int health = 100;
+	protected int health = 100;
 	protected int speed = 150;
 	private int scoreWorth = 10;
-	private Gun weapon;
-	private Timer shotTimer;
+	protected Gun weapon;
+	protected Timer shotTimer;
 	private Area2D approachRange;
 	private Area2D inPosition;
 	private Player player;

@@ -11,6 +11,7 @@ public class MachineGun : Gun
 		maxLoadedCapacity = 20;
 		loaded = maxLoadedCapacity;
 		reloadTime = 2;
+		incaccuarcy = Math.PI/12;
 		name = "MachineGun";
 		base._Ready();
 	}

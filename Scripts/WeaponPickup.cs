@@ -31,6 +31,11 @@ public class WeaponPickup : Area2D
 				temp = weaponScene.Instance<Gun>();
 				setWeapon(temp);
 				break;
+			case "Shotgun":
+				weaponScene = GD.Load<PackedScene>("res://Scenes/Shotgun.tscn");
+				temp = weaponScene.Instance<Gun>();
+				setWeapon(temp);
+				break;
 		}
 	}
 
@@ -62,9 +67,7 @@ public class WeaponPickup : Area2D
 
 
 		//For testing.
-		PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");
-		Gun testGun = machineGun.Instance<Gun>();
-		setWeapon(testGun);
+		setWeapon("Shotgun");
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
