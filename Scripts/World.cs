@@ -87,7 +87,7 @@ public class World : Node2D {
 		noise.Seed = (int)rand.Randi();
 		PlaceBottomTerrain();
 		PlaceTopTerrain();
-		//PlaceRoads();
+		PlaceRoads();
 		PlacePlayer();
 		PlaceExit();
 		iteration++;
@@ -151,8 +151,21 @@ public class World : Node2D {
 		Vector2[] path = astar.GetPointPath(entranceVector, exitVector);
 
 		foreach (Vector2 tile in path){
-			topTerrainMap.SetCellv(tile, 3);
+			for (int x = 0; x < 3; x++){
+                for (int y = 0; y < 3; y++){
+                    Vector2 target = tile + new Vector2(x -1, y -1);
+
+                    if (bottomTerrainMap.GetCellv(target) == -1){
+                        continue;
+                    } else {
+                        topTerrainMap.SetCellv(target, 3);
+                    }
+
+                }
+            }
+			
 		}
+		
 
 	}
 
