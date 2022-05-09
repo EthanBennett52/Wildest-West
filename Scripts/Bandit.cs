@@ -7,13 +7,16 @@ public class Bandit : KinematicBody2D, Damageable
 	protected int health = 100;
 	protected int speed = 150;
 	private int scoreWorth = 10;
+	private bool justPatroled = false;
 	protected Gun weapon;
 	protected Timer shotTimer;
+	protected Timer patrolTimer;
 	private Area2D approachRange;
 	private Area2D inPosition;
 	private Player player;
 	private AIState state = AIState.PATROL;
 	private Vector2 velocity = new Vector2();
+	protected RandomNumberGenerator rand = new RandomNumberGenerator();
 	
 
 	protected enum AIState{
@@ -111,7 +114,60 @@ public class Bandit : KinematicBody2D, Damageable
 		}
 	}
 
+	protected virtual void PatrolState(){
+		if (patrolTimer.IsStopped()){
+			rand.Randomize();
+			if (justPatroled){
 
+				justPatroled = false;
+
+				float patrolTime = rand.RandfRange((float)0.7, (float)1.5);
+				patrolTimer.Start();
+
+				velocity = new Vector2();
+
+			} else {
+
+				justPatroled = true;
+
+				float patrolTime = rand.RandfRange((float)1.5, (float)3.5);
+				patrolTimer.WaitTime = patrolTime;
+				patrolTimer.Start();
+
+				Vector2 patrolDestination = new Vector2(rand.RandfRange((float)-1.0, (float)1.0), rand.RandfRange((float)-1.0, (float)1.0));
+				velocity = patrolDestination.Normalized() * speed/2;
+
+			}
+		}
+
+		MoveAndAvoid(velocity);
+
+		shotTimer.Stop();
+		weapon.LookAt(Position + velocity);
+	}
+
+	protected void MoveAndAvoid(Vector2 dest){
+		MoveAndSlide(dest);
+		if (IsOnWall()){
+			velocity = velocity * -1;
+		}	
+	}
+	protected virtual void ApproachState(){
+		weapon.LookAt(player.Position);
+		if (shotTimer.IsStopped()){
+			weapon.fire();
+			shotTimer.Start();
+		}
+		velocity = Position.DirectionTo(player.Position) * speed;
+		MoveAndSlide(velocity);
+	}
+	protected virtual void InPositionState(){
+		weapon.LookAt(player.Position);
+		if (shotTimer.IsStopped()){
+			weapon.fire();
+			shotTimer.Start();
+		}
+	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -129,6 +185,7 @@ public class Bandit : KinematicBody2D, Damageable
 		weapon.loaded = 999;
 		shotTimer = (Timer)FindNode("ShotTimer");
 		shotTimer.OneShot = true;
+		patrolTimer = (Timer)FindNode("PatrolTimer");
 		//shotTimer.Start();
 		//shotTimer.Connect("timeout", this, "onTimeout");
 	}
@@ -138,24 +195,13 @@ public class Bandit : KinematicBody2D, Damageable
   	{
 		switch (state){
 			case AIState.PATROL:
-				shotTimer.Stop();
-				weapon.LookAt(Position + velocity);
+				PatrolState();
 				break;
 			case AIState.APPROACH:
-				weapon.LookAt(player.Position);
-				if (shotTimer.IsStopped()){
-					weapon.fire();
-					shotTimer.Start();
-				}
-				velocity = Position.DirectionTo(player.Position) * speed;
-				MoveAndSlide(velocity);
+				ApproachState();
 				break;
 			case AIState.INPOSITION:
-				weapon.LookAt(player.Position);
-				if (shotTimer.IsStopped()){
-					weapon.fire();
-					shotTimer.Start();
-				}
+				InPositionState();
 				break;
 	  }
 

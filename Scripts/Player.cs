@@ -4,7 +4,7 @@ using System.IO;
 
 public class Player : KinematicBody2D, Damageable
 {
-	[Export] public int speed = 300;
+	public int speed = 300;
 
 	private int maxSpeed = 300;
 	private int dodgeSpeed = 900;

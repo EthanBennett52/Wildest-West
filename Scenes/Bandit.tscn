@@ -29,6 +29,9 @@ shape = SubResource( 1 )
 [node name="ShotTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="PatrolTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="AI" type="Node2D" parent="."]
 
 [node name="ApproachRange" type="Area2D" parent="AI"]
