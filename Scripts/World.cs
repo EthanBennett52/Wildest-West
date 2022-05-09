@@ -155,17 +155,17 @@ public class World : Node2D {
 
 		foreach (Vector2 tile in path){
 			for (int x = 0; x < 3; x++){
-                for (int y = 0; y < 3; y++){
-                    Vector2 target = tile + new Vector2(x -1, y -1);
+				for (int y = 0; y < 3; y++){
+					Vector2 target = tile + new Vector2(x -1, y -1);
 
-                    if (bottomTerrainMap.GetCellv(target) == -1){
-                        continue;
-                    } else {
-                        topTerrainMap.SetCellv(target, 3);
-                    }
+					if (bottomTerrainMap.GetCellv(target) == -1){
+						continue;
+					} else {
+						topTerrainMap.SetCellv(target, 3);
+					}
 
-                }
-            }
+				}
+			}
 			
 		}
 		

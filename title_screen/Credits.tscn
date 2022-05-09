@@ -30,7 +30,7 @@ __meta__ = {
 }
 
 [node name="label" type="Label" parent="Panel/VBoxContainer"]
-margin_right = 984.0
+margin_right = 1880.0
 margin_bottom = 14.0
 text = "Music"
 align = 1
@@ -38,7 +38,7 @@ valign = 1
 
 [node name="Song1" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 29.0
-margin_right = 984.0
+margin_right = 1880.0
 margin_bottom = 43.0
 rect_pivot_offset = Vector2( -224, -27 )
 text = "\"A Yankees Southern Blues\" by HolinzaCC0"
@@ -47,7 +47,7 @@ valign = 1
 
 [node name="Song2" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 58.0
-margin_right = 984.0
+margin_right = 1880.0
 margin_bottom = 72.0
 rect_pivot_offset = Vector2( -224, -27 )
 text = "\"The Get Away\" by Mr Smith		"
@@ -59,7 +59,7 @@ __meta__ = {
 
 [node name="Song3" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 87.0
-margin_right = 984.0
+margin_right = 1880.0
 margin_bottom = 101.0
 rect_pivot_offset = Vector2( -224, -27 )
 text = "\"Americana\" by Mr Smith	"
@@ -71,9 +71,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
-margin_top = -40.0
+margin_top = -100.0
 margin_right = -20.0
-margin_bottom = -20.0
+margin_bottom = -75.0
 text = "Return To Title"
 __meta__ = {
 "_edit_use_anchors_": false

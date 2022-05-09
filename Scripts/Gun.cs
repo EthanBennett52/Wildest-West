@@ -121,7 +121,7 @@ public class Gun : Node2D
 		if (parent is WeaponPickup){
 			dropped();
 		} 
-		
+		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
 	}
 
 // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -25,11 +25,13 @@ MilestoneVar="*res://Scripts/MilestoneVar.cs"
 
 [display]
 
-window/size/height=576
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
 mouse_cursor/custom_image="res://Art/Crosshair.png"
 mouse_cursor/custom_image_hotspot=Vector2( 25, 25 )
-window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

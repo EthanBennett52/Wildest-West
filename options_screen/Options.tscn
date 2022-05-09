@@ -29,7 +29,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 14.0
 text = "Volume"
 align = 1
@@ -37,7 +37,7 @@ valign = 1
 
 [node name="VolumeSilder" type="HSlider" parent="Panel/VBoxContainer"]
 margin_top = 14.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 74.0
 rect_min_size = Vector2( 800, 60 )
 max_value = 1.0
@@ -49,7 +49,7 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 74.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 105.0
 text = "Controls
 "
@@ -58,7 +58,7 @@ valign = 1
 
 [node name="Label3" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 105.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 119.0
 text = "W = Move Up"
 align = 1
@@ -69,7 +69,7 @@ __meta__ = {
 
 [node name="Label4" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 119.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 133.0
 text = "S = Move Down"
 align = 1
@@ -80,7 +80,7 @@ __meta__ = {
 
 [node name="Label5" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 133.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 147.0
 text = "A = Move Left"
 align = 1
@@ -91,7 +91,7 @@ __meta__ = {
 
 [node name="Label6" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 147.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 161.0
 text = "D = Move Right"
 align = 1
@@ -102,7 +102,7 @@ __meta__ = {
 
 [node name="Label7" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 161.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 192.0
 text = "
 Left Mouse = Fire Weapon"
@@ -114,7 +114,7 @@ __meta__ = {
 
 [node name="Label8" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 192.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 206.0
 text = "1 = Switch To First Weapon"
 align = 1
@@ -125,7 +125,7 @@ __meta__ = {
 
 [node name="Label9" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 206.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 220.0
 text = "2 = Switch To Second Weapon"
 align = 1
@@ -136,7 +136,7 @@ __meta__ = {
 
 [node name="Label10" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 220.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 234.0
 text = "Spacebar = Dash"
 align = 1
@@ -147,7 +147,7 @@ __meta__ = {
 
 [node name="Label11" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 234.0
-margin_right = 824.0
+margin_right = 1720.0
 margin_bottom = 299.0
 text = "
 Escape = Pause Game
@@ -164,9 +164,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
-margin_top = -40.0
+margin_top = -100.0
 margin_right = -20.0
-margin_bottom = -20.0
+margin_bottom = -75.0
 text = "Return To Title"
 __meta__ = {
 "_edit_use_anchors_": false
