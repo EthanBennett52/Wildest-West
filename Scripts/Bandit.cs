@@ -89,9 +89,9 @@ public class Bandit : KinematicBody2D, Damageable
 		System.IO.File.WriteAllText("milestone_screen/milestones.txt", updatedText);
 	}
 
-	private void onTimeout(){
-		weapon.fire();
-	}
+	// private void onTimeout(){
+	// 	weapon.fire();
+	// }
 
 	private void PlayerSpotted(Node2D area){
 		if (area is Player){
@@ -130,7 +130,7 @@ public class Bandit : KinematicBody2D, Damageable
 		shotTimer = (Timer)FindNode("ShotTimer");
 		shotTimer.OneShot = false;
 		//shotTimer.Start();
-		shotTimer.Connect("timeout", this, "onTimeout");
+		//shotTimer.Connect("timeout", this, "onTimeout");
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -142,18 +142,20 @@ public class Bandit : KinematicBody2D, Damageable
 				weapon.LookAt(Position + velocity);
 				break;
 			case AIState.APPROACH:
+				weapon.LookAt(player.Position);
 				if (shotTimer.IsStopped()){
+					weapon.fire();
 					shotTimer.Start();
 				}
 				velocity = Position.DirectionTo(player.Position) * speed;
 				MoveAndSlide(velocity);
-				weapon.LookAt(player.Position);
 				break;
 			case AIState.INPOSITION:
+				weapon.LookAt(player.Position);
 				if (shotTimer.IsStopped()){
+					weapon.fire();
 					shotTimer.Start();
 				}
-				weapon.LookAt(player.Position);
 				break;
 	  }
 
