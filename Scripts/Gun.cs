@@ -4,17 +4,19 @@ using System;
 public class Gun : Node2D
 {
 	PackedScene BULLET = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+	
 	public Sprite sprite;
-	//for adjusting the bullet spawn location
-	double rotationOffset = -.2;
+	
 	//How often the gun shoots
 	protected double fireRate = .25;
+	//Weapon inaccuracy in radians
+	protected double incaccuarcy = Math.PI/36;
 	//How long it takes to reload (in seconds).
 	protected double reloadTime = 1.5;
 	//Cooldown timer between shots
-	private double shotTimer = 0;
+	protected double shotTimer = 0;
 	//False if weapon is cooling down between shots
-	private Boolean canShoot = true;
+	protected Boolean canShoot = true;
 	//Max ammo capacity
 	public int maxAmmo = 160;
 	//amount of ammo available
@@ -25,24 +27,22 @@ public class Gun : Node2D
 	public int loaded;
 	//Damage per bullet
 	public int damage = 25;
-	//where the gun is pointing at
-	public Vector2 target;
+	
 	//name of the gun
 	public string name = "Revolver";
 
 	protected Node2D parent;
-	protected Node2D player;
+	protected RandomNumberGenerator rand;
+	
 
 	AudioStreamPlayer soundEffect;
 
 	//Fires the gun
-	public void fire(){
+	public virtual void fire(){
 		if (canShoot && loaded > 0){
-			Bullet bullet = (Bullet)BULLET.Instance(); 
-			bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation + rotationOffset)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation + rotationOffset))); 
-			bullet.RotationDegrees = RotationDegrees;
-			bullet.creator = GetPath();
-			GetParent().GetParent().AddChild(bullet);
+			Vector2 target = new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation));
+			float offset = rand.RandfRange((float)-incaccuarcy/2, (float)incaccuarcy/2);
+			CreateBullet(target.Rotated(offset));
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
@@ -52,6 +52,15 @@ public class Gun : Node2D
 			reload();
 		}*/
 		
+	}
+
+	protected void CreateBullet(Vector2 bulletTarget){
+		Bullet bullet = (Bullet)BULLET.Instance(); 
+		bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation))); 
+		bullet.RotationDegrees = RotationDegrees;
+		bullet.setDamage(damage);
+		bullet.SetTargetVector(bulletTarget);
+		GetNode("/root/Main").AddChild(bullet);
 	}
 
 	//Reloads the gun
@@ -91,21 +100,28 @@ public class Gun : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		rand = new RandomNumberGenerator();
+
+		if (!(parent is Bandit)){
+			var milestones = GetNode<MilestoneVar>("/root/MilestoneVar");
+			if (name == "Revolver" && milestones.extraRevolverDamage){
+				damage = (int)(damage * 1.1);
+			}
+			if (milestones.extraLoadedCapacity){
+				maxLoadedCapacity = (int)(maxLoadedCapacity * 1.25);
+			}
+		}
+		
 		loaded = maxLoadedCapacity;
 		sprite = (Sprite)GetChild(0);
 		parent = GetParent<Node2D>();
 
 		//Sets the target. There might be a better way to this without the redundant code in _Process.
-		if (parent is Player){
-			target = GetGlobalMousePosition();
-		} else if (parent is WeaponPickup){
-			Hide();
-			SetProcess(false);
-		} else {
-			player = (Node2D)GetNode("../../Player");
-			target = player.GlobalPosition;
-		}
-		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
+		
+		if (parent is WeaponPickup){
+			dropped();
+		} 
+		
 	}
 
 // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -118,23 +134,13 @@ public class Gun : Node2D
 			shotTimer -= delta;
 		}
 
-		//Points the gun at the target
-		if (parent is Player) {
-			target = GetGlobalMousePosition();
-			LookAt(target);
-			
-		} else {
-			target = player.GlobalPosition;
-			LookAt(target);
-		}
 		
 		//Keeps the weapon sprite in the correct orientation
 		if (270 > Math.Abs(RotationDegrees % 360) && 90 < Math.Abs(RotationDegrees % 360)) {
 			sprite.FlipV = true;
-			rotationOffset = .2;
+			
 		} else {
 			sprite.FlipV = false;
-			rotationOffset = -.2;
 		}
 		
 	}

@@ -47,8 +47,13 @@ public class AmmoPickup : Node2D
 		ammoAmount = amount;
 	}
 	
+	public void Destroy(){
+		QueueFree();
+	}
+	
 	public override void _Ready()
 	{
+		AddToGroup("destroy_on_level_change");
 		pickupArea = (Area2D)FindNode("PickupArea");
 		attractArea = (Area2D)FindNode("AttractArea");
 		pickupArea.Connect("body_entered", this, "OnBodyEnteredPickup");
