@@ -49,7 +49,6 @@ public class Gun : Node2D
 			loaded--;
 			
 			soundEffect.Play();
-			soundEffectVolume(10);
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
