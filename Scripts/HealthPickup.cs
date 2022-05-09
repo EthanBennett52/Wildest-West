@@ -46,9 +46,14 @@ public class HealthPickup : Node2D
 	public void setHealAmount(int amount){
 		healAmount = amount;
 	}
+
+	public void Destroy(){
+		QueueFree();
+	}
 	
 	public override void _Ready()
 	{
+		AddToGroup("destroy_on_level_change");
 		SetProcess(false);
 		pickupArea = (Area2D)FindNode("PickupArea");
 		attractArea = (Area2D)FindNode("AttractArea");

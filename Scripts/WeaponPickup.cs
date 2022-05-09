@@ -55,10 +55,14 @@ public class WeaponPickup : Area2D
 			keySprite.Hide();
 		}
 	}
+	public void Destroy(){
+		QueueFree();
+	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		AddToGroup("destroy_on_level_change");
 		weaponSprite = (Sprite)FindNode("WeaponSprite");
 		keySprite = (Sprite)FindNode("KeySprite");
 		//keySprite.Hide();

@@ -13,7 +13,7 @@ onready var loot = [gold.instance(), ammo.instance(), health.instance()]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	add_to_group("destroy_on_level_change")
 
 
 
@@ -29,6 +29,9 @@ func _process(delta):
 		
 	  
 func removeChest():
+	queue_free()
+
+func Destroy():
 	queue_free()
 
 func _on_Area2D_input_event(viewport, event, shape_idx):

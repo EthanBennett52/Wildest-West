@@ -14,6 +14,7 @@ public class Bullet : Area2D
 	public override void _Ready()
 	{
 		AddToGroup("Bullets");
+		AddToGroup("destroy_on_level_change");
 		Connect("body_entered", this, "OnBodyEntered");
 	}
 	public void setDamage(int damage){

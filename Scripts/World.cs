@@ -75,9 +75,12 @@ public class World : Node2D {
 	// TODO: Add loading screen of some sort
 	private void ResetMap(OpenSimplexNoise noise) {
 		//Deletes all bullets
-		GetTree().CallGroup("Bullets", "Destroy");
+		//GetTree().CallGroup("Bullets", "Destroy");
 		//Deletes all enemies
-		GetTree().CallGroup("Enemy", "Destroy");
+		//GetTree().CallGroup("Enemy", "Destroy");
+
+		GetTree().CallGroup("destroy_on_level_change", "Destroy");
+		
 		fadeIn.Show();
 		ani.Play("loadingScreen");
 		
