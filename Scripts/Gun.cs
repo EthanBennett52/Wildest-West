@@ -33,6 +33,8 @@ public class Gun : Node2D
 	protected Node2D parent;
 	protected Node2D player;
 
+	AudioStreamPlayer soundEffect;
+
 	//Fires the gun
 	public void fire(){
 		if (canShoot && loaded > 0){
@@ -44,6 +46,8 @@ public class Gun : Node2D
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
+			soundEffect.Play();
+			soundEffect.Stop();
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
@@ -101,7 +105,7 @@ public class Gun : Node2D
 			player = (Node2D)GetNode("../../Player");
 			target = player.GlobalPosition;
 		}
-		
+		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
 	}
 
 // Called every frame. 'delta' is the elapsed time since the previous frame.
