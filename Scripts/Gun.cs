@@ -47,7 +47,7 @@ public class Gun : Node2D
 			shotTimer = fireRate;
 			loaded--;
 			
-			playSoundEffect();
+			soundEffect.Play();
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
