@@ -49,15 +49,14 @@ public class Gun : Node2D
 			loaded--;
 			
 			soundEffect.Play();
+			soundEffectVolume(10);
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
 		
 	}
-	async void playSoundEffect(){
-		soundEffect.Play();
-		await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
-		soundEffect.Stop();
+	async void soundEffectVolume(int amount){
+		soundEffect.SetVolumeDb(amount);
 	}
 	
 	protected void CreateBullet(Vector2 bulletTarget){
