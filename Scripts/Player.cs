@@ -23,6 +23,8 @@ public class Player : KinematicBody2D, Damageable
 	private Timer dodgeCooldownTimer;
 	private Vector2 velocity = new Vector2();
 	
+	AudioStreamPlayer soundEffect;
+
 	[Signal]
 	delegate void changeHealth(int change, int max);
 	
@@ -47,6 +49,7 @@ public class Player : KinematicBody2D, Damageable
 				EmitSignal("death");
 			}
 			EmitSignal("changeHealth", health, maxHealth);
+			soundEffect.Play();
 			return true;
 		}
 		return false;
@@ -269,6 +272,8 @@ public class Player : KinematicBody2D, Damageable
 		EmitSignal("changeHealth", health, maxHealth);
 		
 		EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+		
+		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
 		
 		//sets the score to 0
 		System.IO.File.WriteAllText("interface/Score.txt" , 0.ToString());

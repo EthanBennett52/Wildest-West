@@ -40,6 +40,7 @@ public class Gun : Node2D
 	//Fires the gun
 	public virtual void fire(){
 		if (canShoot && loaded > 0){
+			soundEffect.Stop();
 			Vector2 target = new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation));
 			float offset = rand.RandfRange((float)-incaccuarcy/2, (float)incaccuarcy/2);
 			CreateBullet(target.Rotated(offset));
@@ -53,10 +54,8 @@ public class Gun : Node2D
 		}*/
 		
 	}
-	async void playSoundEffect(){
-		soundEffect.Play();
-		await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
-		soundEffect.Stop();
+	async void soundEffectVolume(int amount){
+		soundEffect.SetVolumeDb(amount);
 	}
 	
 	protected void CreateBullet(Vector2 bulletTarget){
