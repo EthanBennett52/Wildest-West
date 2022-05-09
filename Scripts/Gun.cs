@@ -46,14 +46,19 @@ public class Gun : Node2D
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
-			soundEffect.Play();
-			soundEffect.Stop();
+			
+			playSoundEffect();
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
 		
 	}
-
+	async void playSoundEffect(){
+		soundEffect.Play();
+		await ToSignal(GetTree().CreateTimer(1.0f), "timeout");
+		soundEffect.Stop();
+	}
+	
 	protected void CreateBullet(Vector2 bulletTarget){
 		Bullet bullet = (Bullet)BULLET.Instance(); 
 		bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation))); 
