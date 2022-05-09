@@ -37,6 +37,12 @@ window/stretch/aspect="expand"
 
 enabled=PoolStringArray(  )
 
+[importer_defaults]
+
+mp3={
+"loop": false
+}
+
 [input]
 
 ui_up={
