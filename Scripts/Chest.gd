@@ -23,7 +23,9 @@ func _process(delta):
 		var randNum = rng.randi_range(0, (loot.size() - 1))
 		loot[randNum].set_position(self.position)
 		get_parent().add_child(loot[randNum])
-		queue_free()
+		$ChestSprite.frame = 1
+		chestUsed = true
+		#queue_free()
 		
 	  
 func removeChest():
@@ -36,7 +38,8 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 func _on_Area2D_body_entered(body):
 	#if(body is Player):
 		playerInRange = true
-		$ChestSprite/KeySprite.show()
+		if (!chestUsed):
+			$ChestSprite/KeySprite.show()
 
 func _on_Area2D_body_exited(body):
 	playerInRange = false
