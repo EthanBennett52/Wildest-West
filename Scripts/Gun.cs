@@ -35,7 +35,7 @@ public class Gun : Node2D
 	protected RandomNumberGenerator rand;
 	
 
-	AudioStreamPlayer soundEffect;
+	protected AudioStreamPlayer soundEffect;
 
 	//Fires the gun
 	public virtual void fire(){
@@ -54,8 +54,8 @@ public class Gun : Node2D
 		}*/
 		
 	}
-	async void soundEffectVolume(int amount){
-		soundEffect.SetVolumeDb(amount);
+	public void soundEffectVolume(int amount){
+		soundEffect.VolumeDb = amount;
 	}
 	
 	protected void CreateBullet(Vector2 bulletTarget){

@@ -18,6 +18,7 @@ public class Shotgun : Gun
 
     public override void fire(){
         if (canShoot && loaded > 0){
+            soundEffect.Stop();
             Vector2 startVector = new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation)).Rotated((float)-spreadAngle/2);
             double angleDiff = spreadAngle / bulletsPerShot;
             for (int x = 1; x <= bulletsPerShot; x++){
@@ -26,6 +27,7 @@ public class Shotgun : Gun
 			canShoot = false;
 			shotTimer = fireRate;
 			loaded--;
+            soundEffect.Play();
 		}
     }
 

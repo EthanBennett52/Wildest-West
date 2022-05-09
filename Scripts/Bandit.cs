@@ -183,6 +183,7 @@ public class Bandit : KinematicBody2D, Damageable
 
 		weapon = GetChild<Gun>(1);
 		weapon.loaded = 999;
+		weapon.soundEffectVolume(-25);
 		shotTimer = (Timer)FindNode("ShotTimer");
 		shotTimer.OneShot = true;
 		patrolTimer = (Timer)FindNode("PatrolTimer");
