@@ -128,7 +128,7 @@ public class Bandit : KinematicBody2D, Damageable
 		weapon = GetChild<Gun>(1);
 		weapon.loaded = 999;
 		shotTimer = (Timer)FindNode("ShotTimer");
-		shotTimer.OneShot = false;
+		shotTimer.OneShot = true;
 		//shotTimer.Start();
 		//shotTimer.Connect("timeout", this, "onTimeout");
 	}

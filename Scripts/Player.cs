@@ -7,7 +7,7 @@ public class Player : KinematicBody2D, Damageable
 	[Export] public int speed = 300;
 
 	private int maxSpeed = 300;
-	private int dodgeSpeed = 600;
+	private int dodgeSpeed = 900;
 	//The weapons the player has
 	private Gun[] weapons = new Gun[2];
 	//The weapon that is currently equiped
