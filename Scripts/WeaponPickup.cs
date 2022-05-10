@@ -80,7 +80,7 @@ public class WeaponPickup : Area2D
 
 
 		//For testing.
-		setWeapon("Shotgun");
+		setWeapon("Rifle");
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

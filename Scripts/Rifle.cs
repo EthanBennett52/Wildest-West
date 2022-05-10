@@ -8,7 +8,9 @@ public class Rifle : Gun
     {
         fireRate = .9;
 		damage = 75;
-		maxLoadedCapacity = 8;
+		maxLoadedCapacity = 5;
+        maxAmmo = 30;
+        ammo = 15;
 		loaded = maxLoadedCapacity;
 		reloadTime = 2;
 		incaccuarcy = 0.0;

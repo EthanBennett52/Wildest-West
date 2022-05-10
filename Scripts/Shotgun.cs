@@ -10,6 +10,8 @@ public class Shotgun : Gun
         fireRate = .5;
 		damage = 15;
 		maxLoadedCapacity = 5;
+        maxAmmo = 36;
+        ammo = 24;
 		loaded = maxLoadedCapacity;
 		reloadTime = 2;
 		name = "Shotgun";

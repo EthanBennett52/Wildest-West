@@ -142,7 +142,7 @@ public class Bandit : KinematicBody2D, Damageable
 
 		MoveAndAvoid(velocity);
 
-		shotTimer.Stop();
+		//shotTimer.Stop();
 		weapon.LookAt(Position + velocity);
 	}
 
