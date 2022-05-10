@@ -5,7 +5,7 @@ var is_paused = false setget set_is_paused
 func _unhandled_input(event):
 	if(event.is_action_pressed("pause")):
 		self.is_paused = !is_paused
-		$CenterContainer/VBoxContainer/ContinueButton.grab_focus()
+		$CenterContainer/PauseButtons/ContinueButton.grab_focus()
 
 func set_is_paused(value):
 	
@@ -28,4 +28,15 @@ func _on_ExitButton_pressed():
 	
 
 func _ready():
-	$CenterContainer/VBoxContainer/ContinueButton.grab_focus()
+	$CenterContainer/PauseButtons/ContinueButton.grab_focus()
+
+
+func _on_OptionsButton_pressed():
+	$CenterContainer/PauseButtons.hide()
+	$CenterContainer/Options.show()
+
+
+func _on_ReturnButton_pressed():
+	$CenterContainer/Options.hide()
+	$CenterContainer/PauseButtons.show()
+	

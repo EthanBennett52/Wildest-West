@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://pause_screen/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://options_screen/VolumeSilder.gd" type="Script" id=2]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -23,15 +24,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 412.0
-margin_top = 216.0
-margin_right = 612.0
-margin_bottom = 384.0
+[node name="PauseButtons" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 860.0
+margin_top = 436.0
+margin_right = 1060.0
+margin_bottom = 644.0
 rect_min_size = Vector2( 200, 0 )
 custom_constants/separation = 20
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PauseButtons"]
 margin_right = 200.0
 margin_bottom = 48.0
 text = "Paused
@@ -39,24 +40,187 @@ text = "Paused
 "
 align = 1
 
-[node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="CenterContainer/PauseButtons"]
 margin_top = 68.0
 margin_right = 200.0
 margin_bottom = 88.0
 text = "Continue"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="CenterContainer/PauseButtons"]
 margin_top = 108.0
 margin_right = 200.0
 margin_bottom = 128.0
-text = "Quit To Title"
+text = "Options"
 
-[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="CenterContainer/PauseButtons"]
 margin_top = 148.0
 margin_right = 200.0
 margin_bottom = 168.0
+text = "Quit To Title"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/PauseButtons"]
+margin_top = 188.0
+margin_right = 200.0
+margin_bottom = 208.0
 text = "Exit Game"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
+[node name="Options" type="VBoxContainer" parent="CenterContainer"]
+visible = false
+margin_left = 560.0
+margin_top = 338.0
+margin_right = 1360.0
+margin_bottom = 742.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CenterContainer/Options"]
+margin_right = 800.0
+margin_bottom = 14.0
+text = "Volume"
+align = 1
+valign = 1
+
+[node name="VolumeSilder" type="HSlider" parent="CenterContainer/Options"]
+margin_top = 14.0
+margin_right = 800.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 800, 60 )
+max_value = 1.0
+step = 0.005
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CenterContainer/Options"]
+margin_top = 74.0
+margin_right = 800.0
+margin_bottom = 105.0
+text = "Controls
+"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="CenterContainer/Options"]
+margin_top = 105.0
+margin_right = 800.0
+margin_bottom = 119.0
+text = "W = Move Up"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="CenterContainer/Options"]
+margin_top = 119.0
+margin_right = 800.0
+margin_bottom = 133.0
+text = "S = Move Down"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="CenterContainer/Options"]
+margin_top = 133.0
+margin_right = 800.0
+margin_bottom = 147.0
+text = "A = Move Left"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="CenterContainer/Options"]
+margin_top = 147.0
+margin_right = 800.0
+margin_bottom = 161.0
+text = "D = Move Right"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label7" type="Label" parent="CenterContainer/Options"]
+margin_top = 161.0
+margin_right = 800.0
+margin_bottom = 192.0
+text = "
+Left Mouse = Fire Weapon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label8" type="Label" parent="CenterContainer/Options"]
+margin_top = 192.0
+margin_right = 800.0
+margin_bottom = 206.0
+text = "1 = Switch To First Weapon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label9" type="Label" parent="CenterContainer/Options"]
+margin_top = 206.0
+margin_right = 800.0
+margin_bottom = 220.0
+text = "2 = Switch To Second Weapon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label10" type="Label" parent="CenterContainer/Options"]
+margin_top = 220.0
+margin_right = 800.0
+margin_bottom = 234.0
+text = "Spacebar = Dash"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label11" type="Label" parent="CenterContainer/Options"]
+margin_top = 234.0
+margin_right = 800.0
+margin_bottom = 384.0
+text = "
+Escape = Pause Game
+Enter = Select Menu Option
+Arrow Keys = Navigate Menu
+
+
+
+
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReturnButton" type="Button" parent="CenterContainer/Options"]
+margin_top = 384.0
+margin_right = 800.0
+margin_bottom = 404.0
+text = "Return To Pause Menu"
+
+[connection signal="pressed" from="CenterContainer/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="CenterContainer/PauseButtons/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="CenterContainer/PauseButtons/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="CenterContainer/PauseButtons/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="mouse_exited" from="CenterContainer/Options/VolumeSilder" to="CenterContainer/Options/VolumeSilder" method="release_focus"]
+[connection signal="value_changed" from="CenterContainer/Options/VolumeSilder" to="CenterContainer/Options/VolumeSilder" method="_on_value_changed"]
+[connection signal="pressed" from="CenterContainer/Options/ReturnButton" to="." method="_on_ReturnButton_pressed"]

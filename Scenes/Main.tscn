@@ -1,14 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Bandit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/World.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/AmmoPickup.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/HealthPickup.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/WeaponPickup.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/GoldPickup.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Chest.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/ShotgunBandit.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/RifleBandit.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/MachineGunBandit.tscn" type="PackedScene" id=12]
@@ -48,32 +43,26 @@ remote_path = NodePath("../../Camera2D")
 [node name="Bandit" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1424, 344 )
 
-[node name="AmmoPickup" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1129, 482 )
-
-[node name="HealthPickup" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1112, 562 )
-
-[node name="WeaponPickup" parent="." instance=ExtResource( 7 )]
-position = Vector2( -1227, 326 )
-
-[node name="GoldPickup" parent="." instance=ExtResource( 8 )]
-position = Vector2( 750, 612 )
-
 [node name="Bandit4" parent="." instance=ExtResource( 2 )]
-position = Vector2( -419, -109 )
+position = Vector2( -1663, 158 )
 
 [node name="Bandit5" parent="." instance=ExtResource( 2 )]
 position = Vector2( 7, 389 )
-
-[node name="Area2D" parent="." instance=ExtResource( 9 )]
-position = Vector2( -1421, 42 )
 
 [node name="ShotgunBandit" parent="." instance=ExtResource( 10 )]
 position = Vector2( 853, 976 )
 
 [node name="ShotgunBandit2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 970, -378 )
+
+[node name="RifleBandit" parent="." instance=ExtResource( 11 )]
+position = Vector2( 179, -487 )
+
+[node name="MachineGunBandit" parent="." instance=ExtResource( 12 )]
+position = Vector2( -669, 781 )
+
+[node name="KnifeBandit" parent="." instance=ExtResource( 13 )]
+position = Vector2( -1065, -496 )
 
 [node name="InvisibleWalls" type="StaticBody2D" parent="."]
 
@@ -92,15 +81,6 @@ shape = SubResource( 3 )
 [node name="Left" type="CollisionShape2D" parent="InvisibleWalls"]
 position = Vector2( -1893, 38 )
 shape = SubResource( 4 )
-
-[node name="RifleBandit" parent="." instance=ExtResource( 11 )]
-position = Vector2( -1435, 197 )
-
-[node name="MachineGunBandit" parent="." instance=ExtResource( 12 )]
-position = Vector2( -669, 781 )
-
-[node name="KnifeBandit" parent="." instance=ExtResource( 13 )]
-position = Vector2( -1065, -496 )
 
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 

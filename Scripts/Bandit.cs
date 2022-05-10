@@ -66,6 +66,7 @@ public class Bandit : KinematicBody2D, Damageable
 			GetParent().AddChild(drop);
 			drop.setHealAmount(25);
 		}
+		GD.Print("dropped" );
 	}
 
 
