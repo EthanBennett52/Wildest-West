@@ -14,6 +14,8 @@ public class Knife : Gun
         anim = GetNode<AnimationPlayer>("AnimationPlayer");
         stabArea = GetNode<Area2D>("StabArea");
         stabArea.Connect("body_entered", this, "_OnBodyEntered");
+        stabArea.Connect("area_entered", this, "_OnAreaEntered");
+
         
 
         if (parent is WeaponPickup){
@@ -24,13 +26,20 @@ public class Knife : Gun
         damage = 100;
     }
 
-    public void _OnBodyEntered(Node2D area){
+    private void _OnBodyEntered(Node2D area){
         if(area == parent){
             return;
         }
         if (area is Damageable){
 		    ((Damageable)area).takeDamage(damage);
 		}
+    }
+
+    private void _OnAreaEntered(Node2D area){
+        if(area is Bullet){
+            area.QueueFree();
+        }
+        
     }
 
     public override void reload(){
