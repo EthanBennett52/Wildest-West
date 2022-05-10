@@ -35,12 +35,13 @@ public class Gun : Node2D
 	protected RandomNumberGenerator rand;
 	
 
-	AudioStreamPlayer soundEffect;
+	AudioStreamPlayer gunSoundEffect;
+	AudioStreamPlayer reloadSoundEffect;
 
 	//Fires the gun
 	public virtual void fire(){
 		if (canShoot && loaded > 0){
-			soundEffect.Stop();
+			gunSoundEffect.Stop();
 			Vector2 target = new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation));
 			float offset = rand.RandfRange((float)-incaccuarcy/2, (float)incaccuarcy/2);
 			CreateBullet(target.Rotated(offset));
@@ -48,14 +49,14 @@ public class Gun : Node2D
 			shotTimer = fireRate;
 			loaded--;
 			
-			soundEffect.Play();
+			gunSoundEffect.Play();
 		} /*else if (loaded <= 0) {
 			reload();
 		}*/
 		
 	}
-	async void soundEffectVolume(int amount){
-		soundEffect.SetVolumeDb(amount);
+	async void gunSoundEffectVolume(int amount){
+		gunSoundEffect.SetVolumeDb(amount);
 	}
 	
 	protected void CreateBullet(Vector2 bulletTarget){
@@ -69,6 +70,7 @@ public class Gun : Node2D
 
 	//Reloads the gun
 	public void reload(){
+		reloadSoundEffect.Stop();
 		shotTimer = reloadTime;
 		canShoot = false;
 		int diff = maxLoadedCapacity - loaded;
@@ -79,6 +81,7 @@ public class Gun : Node2D
 			loaded += ammo;
 			ammo = 0;
 		}
+		reloadSoundEffect.Play();
 	}
 
 	//Called when the player picks up an ammo pack
@@ -125,7 +128,8 @@ public class Gun : Node2D
 		if (parent is WeaponPickup){
 			dropped();
 		} 
-		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
+		gunSoundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
+		reloadSoundEffect = FindNode("reloadSoundEffect") as Godot.AudioStreamPlayer;
 	}
 
 // Called every frame. 'delta' is the elapsed time since the previous frame.

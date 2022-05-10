@@ -9,9 +9,10 @@ func _on_Player_updateHotbarGun(name, number):
 		path = $WeaponOneIcon/WeaponPic
 	elif(number == 2):
 		path = $WeaponTwoIcon/WeaponPic
-	
+
 	if(name == "Revolver"):
 		path.texture = load("res://Art/Gun.png")
 	elif(name == "MachineGun"):
 		path.texture = load("res://Art/MachineGun.png")
-
+	elif(name == "Shotgun"):
+		path.texture = load("res://Art/Shotgun.png")
