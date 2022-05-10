@@ -54,7 +54,7 @@ position = Vector2( 1129, 482 )
 position = Vector2( 1112, 562 )
 
 [node name="WeaponPickup" parent="." instance=ExtResource( 7 )]
-position = Vector2( 876, 244 )
+position = Vector2( -1227, 326 )
 
 [node name="GoldPickup" parent="." instance=ExtResource( 8 )]
 position = Vector2( 750, 612 )
@@ -72,7 +72,7 @@ position = Vector2( -1421, 42 )
 position = Vector2( 853, 976 )
 
 [node name="ShotgunBandit2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 877, -243 )
+position = Vector2( 970, -378 )
 
 [node name="InvisibleWalls" type="StaticBody2D" parent="."]
 

@@ -3,11 +3,14 @@ using System;
 
 public class WeaponPickup : Area2D
 {
+	[Export] String startWeapon = "Knife";
 	public Gun weapon;
 	private Sprite weaponSprite;
 	private Sprite keySprite;
 	private Player player;
 	private bool playerInRange = false;
+	
+	
 
 	//Changes what weapon the pickup contains. The new weapon must be instanced beforehand.
 	public void setWeapon(Gun weapon) {
@@ -42,6 +45,11 @@ public class WeaponPickup : Area2D
 				break;
 			case "Rifle":
 				weaponScene = GD.Load<PackedScene>("res://Scenes/Rifle.tscn");
+				temp = weaponScene.Instance<Gun>();
+				setWeapon(temp);
+				break;
+			case "Knife":
+				weaponScene = GD.Load<PackedScene>("res://Scenes/Knife.tscn");
 				temp = weaponScene.Instance<Gun>();
 				setWeapon(temp);
 				break;
@@ -80,7 +88,7 @@ public class WeaponPickup : Area2D
 
 
 		//For testing.
-		setWeapon("Rifle");
+		setWeapon(startWeapon);
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
