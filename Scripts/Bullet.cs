@@ -10,6 +10,9 @@ public class Bullet : Area2D
 	public NodePath creator;
 	//How much damage the bullet deals. This should be controlled by the gun.
 	private int damage = 10;
+	private bool penetration = false;
+	private int penetrationLayers = 1;
+	private int penetrated = 1;
 	
 	public override void _Ready()
 	{
@@ -30,6 +33,11 @@ public class Bullet : Area2D
 		Position += bulletVelocity * speed * delta;
 	}
 
+	public void EnablePenetration(int layers){
+		penetration = true;
+		penetrationLayers = layers;
+	}
+
 	private void Destroy(){
 		QueueFree();
 	}
@@ -41,12 +49,21 @@ public class Bullet : Area2D
 		
 		if (area is Damageable){
 			if(((Damageable)area).takeDamage(damage)){
-				QueueFree();
+				if(!penetration || penetrated == penetrationLayers){
+					QueueFree();
+				} else{
+					penetrated++;
+				}
+				
 			}
 		} else if (area.Name ==  "TopMap"){
 			Vector2 tilePosition = ((TileMap)area).WorldToMap(GlobalPosition);
 			((TileMap)area).SetCellv(tilePosition, -1); 
-			QueueFree();
+			if(!penetration || penetrated == penetrationLayers){
+					QueueFree();
+				} else{
+					penetrated++;
+				}
 		}
 	}
 	

@@ -3,7 +3,7 @@ using System;
 
 public class Gun : Node2D
 {
-	PackedScene BULLET = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
+	protected PackedScene BULLET = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 	
 	public Sprite sprite;
 	
@@ -38,7 +38,7 @@ public class Gun : Node2D
 	protected AudioStreamPlayer soundEffect;
 
 	//Fires the gun
-	public virtual void fire(){
+	public virtual bool fire(){
 		if (canShoot && loaded > 0){
 			soundEffect.Stop();
 			Vector2 target = new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation));
@@ -49,16 +49,16 @@ public class Gun : Node2D
 			loaded--;
 			
 			soundEffect.Play();
-		} /*else if (loaded <= 0) {
-			reload();
-		}*/
+			return true;
+		} 
+		return false;
 		
 	}
 	public void soundEffectVolume(int amount){
 		soundEffect.VolumeDb = amount;
 	}
 	
-	protected void CreateBullet(Vector2 bulletTarget){
+	protected virtual void CreateBullet(Vector2 bulletTarget){
 		Bullet bullet = (Bullet)BULLET.Instance(); 
 		bullet.Position = new Vector2((float) (GlobalPosition.x + 50 * Math.Cos(Rotation)), (float) (GlobalPosition.y + 50 * Math.Sin(Rotation))); 
 		bullet.RotationDegrees = RotationDegrees;

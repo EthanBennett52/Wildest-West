@@ -16,7 +16,7 @@ public class Shotgun : Gun
         base._Ready();
     }
 
-    public override void fire(){
+    public override bool fire(){
         if (canShoot && loaded > 0){
             soundEffect.Stop();
             Vector2 startVector = new Vector2((float)Math.Cos(Rotation),(float)Math.Sin(Rotation)).Rotated((float)-spreadAngle/2);
@@ -28,7 +28,18 @@ public class Shotgun : Gun
 			shotTimer = fireRate;
 			loaded--;
             soundEffect.Play();
+            sprite.Frame = 1;
+            return true;
 		}
+        return false;
+    }
+
+    public override void _Process(float delta)
+    {
+      if (shotTimer <= 0){
+          sprite.Frame = 0;
+      }
+      base._Process(delta);
     }
 
 

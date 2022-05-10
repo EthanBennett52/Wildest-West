@@ -14,6 +14,10 @@ public class WeaponPickup : Area2D
 		AddChild(weapon);
 		this.weapon = weapon;
 		weaponSprite.Texture = weapon.sprite.Texture;
+		if (weapon is Rifle || weapon is Shotgun){
+			weaponSprite.Hframes = 2;
+			weaponSprite.Frame = 0; 
+		}
 	}
 
 	//Sets the weapon pickup to contain a newly created weapon. Options: Revolver, MachineGun
@@ -33,6 +37,11 @@ public class WeaponPickup : Area2D
 				break;
 			case "Shotgun":
 				weaponScene = GD.Load<PackedScene>("res://Scenes/Shotgun.tscn");
+				temp = weaponScene.Instance<Gun>();
+				setWeapon(temp);
+				break;
+			case "Rifle":
+				weaponScene = GD.Load<PackedScene>("res://Scenes/Rifle.tscn");
 				temp = weaponScene.Instance<Gun>();
 				setWeapon(temp);
 				break;
@@ -71,7 +80,7 @@ public class WeaponPickup : Area2D
 
 
 		//For testing.
-		setWeapon("MachineGun");
+		setWeapon("Rifle");
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
