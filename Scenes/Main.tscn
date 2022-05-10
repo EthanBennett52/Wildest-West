@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Bandit.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scenes/Chest.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/ShotgunBandit.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/RifleBandit.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/MachineGunBandit.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1988.5, 11.75 )
@@ -93,6 +94,9 @@ shape = SubResource( 4 )
 
 [node name="RifleBandit" parent="." instance=ExtResource( 11 )]
 position = Vector2( 147, -687 )
+
+[node name="MachineGunBandit" parent="." instance=ExtResource( 12 )]
+position = Vector2( -669, 781 )
 
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 

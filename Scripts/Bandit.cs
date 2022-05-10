@@ -13,9 +13,9 @@ public class Bandit : KinematicBody2D, Damageable
 	protected Timer patrolTimer;
 	private Area2D approachRange;
 	private Area2D inPosition;
-	private Player player;
+	protected Player player;
 	private AIState state = AIState.PATROL;
-	private Vector2 velocity = new Vector2();
+	protected Vector2 velocity = new Vector2();
 	protected RandomNumberGenerator rand = new RandomNumberGenerator();
 	
 
@@ -44,8 +44,8 @@ public class Bandit : KinematicBody2D, Damageable
 	}
 	
 	private void dropItem(){
-		Random r = new Random();
-		int rInt = r.Next(0, 100); //for ints
+		
+		int rInt = rand.RandiRange(0, 100); //for ints
 
 		if(rInt <= 20){
 			PackedScene weaponDrop = GD.Load<PackedScene>("res://Scenes/WeaponPickup.tscn");
@@ -187,8 +187,8 @@ public class Bandit : KinematicBody2D, Damageable
 		shotTimer = (Timer)FindNode("ShotTimer");
 		shotTimer.OneShot = true;
 		patrolTimer = (Timer)FindNode("PatrolTimer");
-		//shotTimer.Start();
-		//shotTimer.Connect("timeout", this, "onTimeout");
+		
+		rand.Randomize();
 	}
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -12,8 +12,9 @@ public class RifleBandit : Bandit
     {
         base._Ready();
         health = 50;
-        speed = 135;
+        speed = 100;
         weapon.damage = 50;
+        ((Rifle)weapon).penetrate = false;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
