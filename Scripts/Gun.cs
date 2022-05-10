@@ -38,7 +38,8 @@ public class Gun : Node2D
 	
 
 	protected AudioStreamPlayer2D soundEffect;
-
+	protected AudioStreamPlayer2D reloadSoundEffect;
+	
 	//Fires the gun
 	public virtual bool fire(){
 		if (canShoot && loaded > 0){
@@ -82,6 +83,7 @@ public class Gun : Node2D
 			loaded += ammo;
 			ammo = 0;
 		}
+		reloadSoundEffect.Play();
 	}
 
 	//Called when the player picks up an ammo pack
@@ -133,6 +135,7 @@ public class Gun : Node2D
 			dropped();
 		} 
 		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer2D;
+		reloadSoundEffect = FindNode("ReloadSoundEffect") as Godot.AudioStreamPlayer2D;
 	}
 
 // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -95,7 +95,7 @@ public class Player : KinematicBody2D, Damageable
 					
 				}
 			}
-
+		
 		} else {
 
 			Gun oldGun = activeWeapon;
@@ -114,7 +114,7 @@ public class Player : KinematicBody2D, Damageable
 			weaponPickup.setWeapon(oldGun);
 			weaponPickup.GlobalPosition = GlobalPosition;
 		}
-		
+		EmitSignal("updateHotbarGun", activeWeapon.name, activeWeaponIndex + 1);
 	}
 
 	//Adds ammo to active weapon.

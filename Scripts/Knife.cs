@@ -3,60 +3,60 @@ using System;
 
 public class Knife : Gun
 {
-    private Area2D stabArea;
-    private bool areaEnabled = false;
+	private Area2D stabArea;
+	private bool areaEnabled = false;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        parent = GetParent<Node2D>();
-        sprite = (Sprite)GetChild(0);
-        anim = GetNode<AnimationPlayer>("AnimationPlayer");
-        stabArea = GetNode<Area2D>("StabArea");
-        stabArea.Connect("body_entered", this, "_OnBodyEntered");
-        stabArea.Connect("area_entered", this, "_OnAreaEntered");
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		parent = GetParent<Node2D>();
+		sprite = (Sprite)GetChild(0);
+		anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		stabArea = GetNode<Area2D>("StabArea");
+		stabArea.Connect("body_entered", this, "_OnBodyEntered");
+		stabArea.Connect("area_entered", this, "_OnAreaEntered");
 
-        
+		
 
-        if (parent is WeaponPickup){
+		if (parent is WeaponPickup){
 			dropped();
 		} 
 		soundEffect = GetNode<AudioStreamPlayer2D>("SoundEffect");
-        name = "Knife";
-        damage = 100;
-    }
+		name = "Knife";
+		damage = 100;
+	}
 
-    private void _OnBodyEntered(Node2D area){
-        if(area == parent){
-            return;
-        }
-        if (area is Damageable){
-		    ((Damageable)area).takeDamage(damage);
+	private void _OnBodyEntered(Node2D area){
+		if(area == parent){
+			return;
 		}
-    }
+		if (area is Damageable){
+			((Damageable)area).takeDamage(damage);
+		}
+	}
 
-    private void _OnAreaEntered(Node2D area){
-        if(area is Bullet){
-            area.QueueFree();
-        }
-        
-    }
-
-    public override void reload(){
+	private void _OnAreaEntered(Node2D area){
+		if(area is Bullet){
+			area.QueueFree();
+		}
 		
 	}
 
-    public void ToggleKnifeHitbox(){
-        if (areaEnabled){
-            areaEnabled = false;
-            stabArea.Monitoring = false;
-        }else {
-            areaEnabled = true;
-            stabArea.Monitoring = true;
-        }
-    }
+	public override void reload(){
+		
+	}
 
-    public override bool fire(){
+	public void ToggleKnifeHitbox(){
+		if (areaEnabled){
+			areaEnabled = false;
+			stabArea.Monitoring = false;
+		}else {
+			areaEnabled = true;
+			stabArea.Monitoring = true;
+		}
+	}
+
+	public override bool fire(){
 		if (canShoot){
 			soundEffect.Stop();
 			

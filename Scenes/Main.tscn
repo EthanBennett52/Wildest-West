@@ -94,7 +94,7 @@ position = Vector2( -1893, 38 )
 shape = SubResource( 4 )
 
 [node name="RifleBandit" parent="." instance=ExtResource( 11 )]
-position = Vector2( 147, -687 )
+position = Vector2( -1435, 197 )
 
 [node name="MachineGunBandit" parent="." instance=ExtResource( 12 )]
 position = Vector2( -669, 781 )
