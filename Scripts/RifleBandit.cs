@@ -15,6 +15,7 @@ public class RifleBandit : Bandit
         speed = 100;
         weapon.damage = 50;
         ((Rifle)weapon).penetrate = false;
+        weapon.soundEffectVolume(-10);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

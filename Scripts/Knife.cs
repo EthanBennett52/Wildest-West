@@ -19,13 +19,12 @@ public class Knife : Gun
         if (parent is WeaponPickup){
 			dropped();
 		} 
-		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
+		soundEffect = GetNode<AudioStreamPlayer2D>("SoundEffect");
         name = "Knife";
         damage = 100;
     }
 
     public void _OnBodyEntered(Node2D area){
-        GD.Print("Got here");
         if(area == parent){
             return;
         }

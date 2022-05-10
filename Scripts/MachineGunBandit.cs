@@ -14,6 +14,7 @@ public class MachineGunBandit : Bandit
         weapon.damage = 10;
         shooting = GetNode<Timer>("ShootFor");
         shooting.Connect("timeout", this, "_OnTimeout");
+        weapon.soundEffectVolume(-20);
     }
 
     protected override void ApproachState(){

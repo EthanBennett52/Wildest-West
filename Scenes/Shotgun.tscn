@@ -12,4 +12,5 @@ texture = ExtResource( 1 )
 hframes = 2
 
 [node name="SoundEffect" parent="." index="1"]
+volume_db = -12.0
 pitch_scale = 0.6

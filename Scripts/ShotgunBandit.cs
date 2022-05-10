@@ -15,6 +15,7 @@ public class ShotgunBandit : Bandit
         speed = 135;
         ((Shotgun)weapon).spreadAngle = Math.PI/6;
         weapon.damage = 10;
+        weapon.soundEffectVolume(-17);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

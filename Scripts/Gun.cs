@@ -37,7 +37,7 @@ public class Gun : Node2D
 	protected AnimationPlayer anim;
 	
 
-	protected AudioStreamPlayer soundEffect;
+	protected AudioStreamPlayer2D soundEffect;
 
 	//Fires the gun
 	public virtual bool fire(){
@@ -132,7 +132,7 @@ public class Gun : Node2D
 		if (parent is WeaponPickup){
 			dropped();
 		} 
-		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
+		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer2D;
 	}
 
 // Called every frame. 'delta' is the elapsed time since the previous frame.

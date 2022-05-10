@@ -32,9 +32,10 @@ visible = false
 texture = ExtResource( 4 )
 offset = Vector2( 51, -1 )
 
-[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+[node name="SoundEffect" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = -20.0
+volume_db = -17.0
+attenuation = 0.615572
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/MuzzleFlash = SubResource( 1 )

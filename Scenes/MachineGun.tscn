@@ -13,4 +13,3 @@ texture = ExtResource( 3 )
 
 [node name="SoundEffect" parent="." index="1"]
 stream = ExtResource( 4 )
-volume_db = -15.0
