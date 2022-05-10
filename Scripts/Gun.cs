@@ -6,6 +6,7 @@ public class Gun : Node2D
 	protected PackedScene BULLET = GD.Load<PackedScene>("res://Scenes/Bullet.tscn");
 	
 	public Sprite sprite;
+	protected Sprite muzzleFlash;
 	
 	//How often the gun shoots
 	protected double fireRate = .25;
@@ -33,6 +34,7 @@ public class Gun : Node2D
 
 	protected Node2D parent;
 	protected RandomNumberGenerator rand;
+	protected AnimationPlayer anim;
 	
 
 	protected AudioStreamPlayer soundEffect;
@@ -49,6 +51,7 @@ public class Gun : Node2D
 			loaded--;
 			
 			soundEffect.Play();
+			anim.Play("MuzzleFlash");
 			return true;
 		} 
 		return false;
@@ -68,7 +71,7 @@ public class Gun : Node2D
 	}
 
 	//Reloads the gun
-	public void reload(){
+	public virtual void reload(){
 		shotTimer = reloadTime;
 		canShoot = false;
 		int diff = maxLoadedCapacity - loaded;
@@ -117,8 +120,12 @@ public class Gun : Node2D
 		}
 		
 		loaded = maxLoadedCapacity;
+
 		sprite = (Sprite)GetChild(0);
+		muzzleFlash = (Sprite)sprite.GetChild(0);
 		parent = GetParent<Node2D>();
+		anim = GetNode<AnimationPlayer>("AnimationPlayer");
+
 
 		//Sets the target. There might be a better way to this without the redundant code in _Process.
 		

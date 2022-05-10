@@ -26,6 +26,7 @@ public class Rifle : Gun
 		bullet.SetTargetVector(bulletTarget);  
 		GetNode("/root/Main").AddChild(bullet);
 	}
+
     public override bool fire(){
         if(base.fire()){
             sprite.Frame = 1;
@@ -33,6 +34,12 @@ public class Rifle : Gun
         }
         return false;
     }
+
+    public override void reload(){
+        base.reload();
+        sprite.Frame = 1;
+    }
+
   // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {

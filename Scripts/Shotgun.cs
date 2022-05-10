@@ -28,10 +28,16 @@ public class Shotgun : Gun
 			shotTimer = fireRate;
 			loaded--;
             soundEffect.Play();
+            anim.Play("MuzzleFlash");
             sprite.Frame = 1;
             return true;
 		}
         return false;
+    }
+
+    public override void reload(){
+        base.reload();
+        sprite.Frame = 1;
     }
 
     public override void _Process(float delta)
