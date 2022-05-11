@@ -2,6 +2,23 @@ using Godot;
 using System;
 
 public class World : Node2D {
+	// Load all the scenes for the things that will be spawned 
+	PackedScene banditScene = GD.Load<PackedScene>("res://Scenes/Bandit.tscn");
+	PackedScene shotgunBanditScene = GD.Load<PackedScene>("res://Scenes/ShotgunBandit.tscn");
+	PackedScene rifleBanditScene = GD.Load<PackedScene>("res://Scenes/RifleBandit.tscn");
+	PackedScene knifeBanditScene = GD.Load<PackedScene>("res://Scenes/KnifeBandit.tscn");
+	PackedScene machineGunBanditScene = GD.Load<PackedScene>("res://Scenes/MachineGunBandit.tscn");
+
+	// Two-dimensional array representing the chances of each enemy spawning per level
+	// inner arrays represent { Bandit, ShotgunBandit, RifleBandit, KnifeBandit, MachineGunBandit}
+	private double[][] enemyChances = new double[][] {new double[]{ 1.0, 0.0, 0.0, 0.0, 0.0 }, new double[]{ 0.8, 0.2, 0.0, 0.0, 0.0 }, new double[]{ 0.6, 0.4, 0.0, 0.0, 0.0 },
+																  new double[]{ 0.6, 0.25, 0.15, 0.0, 0.0 }, new double[]{ 0.5, 0.3, 0.2, 0.0, 0.0 }, new double[]{ 0.35, 0.3, 0.2, 0.15, 0.0 },
+																  new double[]{ 0.2, 0.25, 0.3, 0.25, 0.0 }, new double[]{ 0.225, 0.225, 0.225, 0.225, 0.1 }, new double[]{ 0.2, 0.2, 0.2, 0.2, 0.2 },
+																  new double[]{ 0.1, 0.225, 0.225, 0.225, 0.225 }, new double[]{ 0.1, 0.2, 0.2, 0.3, 0.2 }, new double[]{ 0.0, 0.15, 0.2, 0.35, 0.3 }};
+
+	// Array representing how many enemies should spawn on each level 
+	private int[] enemyNumbers = new int[] { 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 14, 15, 16, 16};
+
 	// To approximately convert to/from map tile location VS absolute location (i.e. a node's position field) divide or multiply by this constant
 	private const int PixelMultiplier = 32;
 	// Which iteration the map is on, i.e. which level the player is on 
@@ -11,6 +28,7 @@ public class World : Node2D {
 	// Array specifying the entrance area ( x1, x2, y1, y2 )
 	private int[] entranceBound;
 
+	// Noise generator and random number generator to seed the niose
 	private OpenSimplexNoise noise;
 	private RandomNumberGenerator rand;
 
@@ -25,6 +43,9 @@ public class World : Node2D {
 	[Export]
 	public Vector2 roadThreshholds;
 
+	private double enemyThreshold;
+	private double enemyUpperThreshold;
+
 	int width, height;
 	
 	ColorRect fadeIn;
@@ -32,20 +53,26 @@ public class World : Node2D {
 
 	AStar astar;
 
+	Node mainScene;
 
 	public override void _Ready() {
+
 		fadeIn  = GetChild(3) as Godot.ColorRect;
 		fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
 		ani = FindNode("AnimationPlayer") as Godot.AnimationPlayer;
 		
-		
+		mainScene = GetTree().CurrentScene;
+
 		// Set default map values
 		mapSize = new Vector2(120, 70);
 		// Have to cast these floats or this doesn't work
 		roadThreshholds = new Vector2((float)0.05, (float)0.185); 
 		topTerrainThreshold = 0.4;
+		
+		enemyThreshold = -0.99;
+		enemyUpperThreshold = -.91;
 
-		iteration = -1;
+		iteration = 20;
 		transitionBound = new int[4];
 
 		rand = new RandomNumberGenerator();
@@ -93,11 +120,27 @@ public class World : Node2D {
 		PlaceRoads();
 		PlacePlayer();
 		PlaceExit();
+
 		iteration++;
 
 		astar.CreateNavigationMap(bottomTerrainMap);
 		astar.DisableCollisionTiles(topTerrainMap);
 		placeMainRoad();
+
+		// this is awful
+		if (iteration >= 0) {
+			if (iteration > 19) {
+				PlaceEnemies(enemyNumbers[19]);
+			}
+			else {
+				PlaceEnemies(enemyNumbers[iteration]);
+			}
+		}
+		else {
+			// no, really
+			GetNode<Node2D>("/root/Main/Player").Position = new Vector2(transitionBound[0], transitionBound[2]);
+		}
+		
 	}
 
 	private void PlaceBottomTerrain() {
@@ -213,6 +256,105 @@ public class World : Node2D {
 		entranceBound = bounds;
 		GetNode<Node2D>("/root/Main/Player").Position = new Vector2( (bounds[0] + bounds[1]) / 2 * PixelMultiplier + 8, (bounds[2] + bounds[3]) / 2 * PixelMultiplier +16);
 		//GD.Print("placed player at " + ((bounds[0] + bounds[1]) / 2) + ", " + ((bounds[2] + bounds[3]) / 2));
+	}
+
+	// Places enemies
+	// num: amount of enemies to place
+	private void PlaceEnemies(int num) {
+		Vector2[] places = new Vector2[num];
+		int[] counts = { 0, 0, 0, 0, 0 };
+		int placed = 0;
+		double mod = 0.0;
+		int altIteration = iteration;
+
+		if (iteration > 11) {
+			altIteration = 11;
+		}
+
+		while (placed < num) { 
+			for (int x = 0; x < (width - 40); x++) {
+				for (int y = 10; y < (height - 10); y++) {
+					if ( placed >= num) {
+						break;
+					}
+					double val = noise.GetNoise2d(x, y);
+					if (val > enemyThreshold && val < (enemyUpperThreshold + mod)) {
+						Vector2 pos = new Vector2( (-x + width / 2) * 32 , (-y + height / 2) * 32 );
+						double n = rand.Randf();
+						
+						if(n <= enemyChances[altIteration][0] && CheckPlaces(pos, places)) {
+							Node2D enemy = banditScene.Instance<Node2D>();
+							enemy.Position = pos;
+							counts[0]++;
+							enemy.Name = "Bandit" + counts[0];
+							placed++;
+							mainScene.AddChild(enemy);
+						}
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1])  && CheckPlaces(pos, places)) {
+							Node2D enemy = shotgunBanditScene.Instance<Node2D>();
+							enemy.Position = pos;
+							counts[1]++;
+							enemy.Name = "ShotgunBandit" + counts[1];
+							placed++;
+							mainScene.AddChild(enemy);
+						}
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2]) && CheckPlaces(pos, places)) {
+							Node2D enemy = rifleBanditScene.Instance<Node2D>();
+							enemy.Position = pos;
+							counts[2]++;
+							enemy.Name = "RifleBandit" + counts[2];
+							placed++;
+							mainScene.AddChild(enemy);
+						}
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2] + enemyChances[altIteration][3]) && CheckPlaces(pos, places)) { 
+							Node2D enemy = knifeBanditScene.Instance<Node2D>();
+							enemy.Position = pos;
+							counts[3]++;
+							enemy.Name = "KnifeBandit" + counts[3];
+							placed++;
+							mainScene.AddChild(enemy);
+						}
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2] + enemyChances[altIteration][3] + enemyChances[altIteration][4]) && CheckPlaces(pos, places)) { 
+							Node2D enemy = machineGunBanditScene.Instance<Node2D>();
+							enemy.Position = pos;
+							counts[4]++;
+							enemy.Name = "MachineGunBandit" + counts[4];
+							placed++;
+							mainScene.AddChild(enemy);
+						}
+						else {
+							continue;
+						}
+						places[placed-1] = pos;
+						foreach (Vector2 i in places) {
+							GD.Print(i);
+						}
+					}
+				}
+			}
+			mod += .005;
+		}
+	}
+
+	// checks a given coordinate to see if another enemy has already been placed there
+	private bool CheckPlaces(Vector2 pos, Vector2[] places) {
+		foreach (Vector2 i in places) {
+			if (tooClose(i, pos)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// checks if a coordinate is too close to another coordinate 
+	// within ~5 tiles (160 units) on each side is too close
+	private bool tooClose(Vector2 pos1, Vector2 pos2) {
+		if (pos2.x > (pos1.x - (5 * PixelMultiplier)) && pos2.x < (pos1.x + (5 * PixelMultiplier))) {
+			if (pos2.y > (pos1.y - (5 * PixelMultiplier)) && pos2.y < (pos1.y + (5 * PixelMultiplier))) {
+				return true; 
+			}
+		}
+		return false; 
 	}
 
 	// Checks a given area to make sure it is clear, finds a clear area if not

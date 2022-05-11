@@ -1,13 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Bandit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/World.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/ShotgunBandit.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/RifleBandit.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/MachineGunBandit.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/KnifeBandit.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1988.5, 11.75 )
@@ -27,7 +22,6 @@ script = ExtResource( 3 )
 [node name="World" parent="." instance=ExtResource( 4 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, 1120 )
 current = true
 limit_left = -1888
 limit_top = -1088
@@ -35,34 +29,9 @@ limit_right = 1952
 limit_bottom = 1152
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, 1120 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
-
-[node name="Bandit" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1424, 344 )
-
-[node name="Bandit4" parent="." instance=ExtResource( 2 )]
-position = Vector2( -1663, 158 )
-
-[node name="Bandit5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 7, 389 )
-
-[node name="ShotgunBandit" parent="." instance=ExtResource( 10 )]
-position = Vector2( 853, 976 )
-
-[node name="ShotgunBandit2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 970, -378 )
-
-[node name="RifleBandit" parent="." instance=ExtResource( 11 )]
-position = Vector2( 179, -487 )
-
-[node name="MachineGunBandit" parent="." instance=ExtResource( 12 )]
-position = Vector2( -669, 781 )
-
-[node name="KnifeBandit" parent="." instance=ExtResource( 13 )]
-position = Vector2( -1065, -496 )
 
 [node name="InvisibleWalls" type="StaticBody2D" parent="."]
 
