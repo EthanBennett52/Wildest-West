@@ -66,17 +66,17 @@ public class Bandit : KinematicBody2D, Damageable
 			GetParent().AddChild(drop);
 			drop.setHealAmount(25);
 		}
-		GD.Print("dropped" );
+		
 	}
 
 
 	private void updateScore(int amount){
-		String[] score = System.IO.File.ReadAllLines("interface/Score.txt");
-		System.IO.File.WriteAllText("interface/Score.txt" , (int.Parse(score[0]) + amount).ToString());
+		String[] score = System.IO.File.ReadAllLines("Data/Score.txt");
+		System.IO.File.WriteAllText("Data/Score.txt" , (int.Parse(score[0]) + amount).ToString());
 	}
 	
 	private void addKillToMilestone(){
-		string[] lines = System.IO.File.ReadAllLines("milestone_screen/milestones.txt");
+		string[] lines = System.IO.File.ReadAllLines("Data/milestones.txt");
 		string updatedText = "";
 		foreach (String line in lines)
 		{
@@ -90,7 +90,7 @@ public class Bandit : KinematicBody2D, Damageable
 				updatedText += (line + "\n");
 			}
 		}
-		System.IO.File.WriteAllText("milestone_screen/milestones.txt", updatedText);
+		System.IO.File.WriteAllText("Data/milestones.txt", updatedText);
 	}
 
 	// private void onTimeout(){

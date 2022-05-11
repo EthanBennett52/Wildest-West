@@ -57,7 +57,7 @@ public class WeaponPickup : Area2D
 	}
 
 	//Detects when the player is range of the pickup. Displays the press "E" hint.
-	private void OnBodyEntered(Node area){
+	private void OnBodyEntered(Node2D area){
 		if (area is Player){
 			player = (Player)area;
 			playerInRange = true;
@@ -66,7 +66,7 @@ public class WeaponPickup : Area2D
 	}
 
 	//Detects when the player goes out of range of the pickup. Hides "E" hint.
-	private void OnBodyExited(Node area){
+	private void OnBodyExited(Node2D area){
 		if (area is Player){
 			playerInRange = false;
 			keySprite.Hide();

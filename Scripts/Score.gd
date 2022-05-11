@@ -14,6 +14,6 @@ func _ready():
 
 func _process(delta):
 	var f = File.new()
-	f.open("interface/Score.txt", File.READ)
+	f.open("Data/Score.txt", File.READ)
 	$ScoreVar.text = f.get_line()
 	f.close()

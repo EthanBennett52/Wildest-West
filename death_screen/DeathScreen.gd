@@ -8,7 +8,7 @@ func _ready():
 	for button in $Menu/CenterRow/Buttons.get_children():
 		button.connect("pressed", self, "_on_Button_pressed", [button.scene_to_load])
 	var f = File.new()
-	f.open("interface/Score.txt", File.READ)
+	f.open("Data/Score.txt", File.READ)
 	score = f.get_line()
 	f.close()
 	$Menu/Score/ScoreVar.text = score
@@ -17,7 +17,7 @@ func _ready():
 func updateMilestone():
 	var updatedText = "";
 	var f = File.new()
-	f.open("res://milestone_screen/milestones.txt", File.READ)
+	f.open("res://Data/Milestones.txt", File.READ)
 	while not f.eof_reached(): # iterate through all lines until the end of file is reached
 		var line = f.get_line()
 		var split = line.rsplit(",")
@@ -31,7 +31,7 @@ func updateMilestone():
 			updatedText += (line + "\n")
 	
 	f.close()
-	f.open("res://milestone_screen/milestones.txt", File.WRITE)
+	f.open("res://Data/Milestones.txt", File.WRITE)
 	f.store_line(updatedText)
 	f.close()
 	

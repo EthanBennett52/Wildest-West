@@ -21,8 +21,8 @@ public class GoldPickup : Node2D
 
 	// Adds the amount to the players score
 	private void updateScore(int amount){
-		String[] score = System.IO.File.ReadAllLines("interface/Score.txt");
-		System.IO.File.WriteAllText("interface/Score.txt" , (int.Parse(score[0]) + amount).ToString());
+		String[] score = System.IO.File.ReadAllLines("Data/Score.txt");
+		System.IO.File.WriteAllText("Data/Score.txt" , (int.Parse(score[0]) + amount).ToString());
 	}
 
 	//Called when a Node enters this area

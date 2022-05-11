@@ -1,6 +1,6 @@
 extends Node
 
-onready var file = "res://milestone_screen/milestones.txt"
+onready var file = "res://Data/Milestones.txt"
 onready var KillCanAchieve
 onready var KillAmount
 onready var KillMax

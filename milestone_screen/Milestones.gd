@@ -12,7 +12,7 @@ onready var notActivePicTexture = $Panel/VBoxContainer/HBoxContainer/NotActivePi
 onready var notAccompPicTexture =  $Panel/VBoxContainer/HBoxContainer/NotAccomplishedPic.texture
 
 onready var path
-onready var file = "res://milestone_screen/milestones.txt"
+onready var file = "res://Data/milestones.txt"
 
 func _ready():
 	var updatedText = ""

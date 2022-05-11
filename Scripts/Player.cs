@@ -276,7 +276,7 @@ public class Player : KinematicBody2D, Damageable
 		soundEffect = FindNode("SoundEffect") as Godot.AudioStreamPlayer;
 		
 		//sets the score to 0
-		System.IO.File.WriteAllText("interface/Score.txt" , 0.ToString());
+		System.IO.File.WriteAllText("Data/Score.txt" , 0.ToString());
 		
 		//This is only here to test weapon swapping
 		//PackedScene machineGun = GD.Load<PackedScene>("res://Scenes/MachineGun.tscn");

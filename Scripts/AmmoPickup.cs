@@ -19,7 +19,7 @@ public class AmmoPickup : Node2D
 	}
 
 	//Called when a Node enters this area
-	private void OnBodyEnteredPickup(Node area){
+	private void OnBodyEnteredPickup(Node2D area){
 		if (area is Player) {
 			OnPickup((Player)area);
 		}
@@ -69,3 +69,5 @@ public class AmmoPickup : Node2D
 	  
 	}
 }
+
+
