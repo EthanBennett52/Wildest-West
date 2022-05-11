@@ -1,16 +1,13 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
+# Checks if the files exist
 func _ready():
 	checkFile("Data/Score.txt")
 	checkFile("Data/milestones.txt")
+	checkFile("Data/HighScore.txt")
 
+# If a file does not exist this will make them in the base state
 func checkFile(filePath):
 	var f = File.new()
 	if(f.open(filePath, File.READ) != OK):
@@ -24,6 +21,12 @@ func checkFile(filePath):
 			f.store_line("Damage,true,0,1,false,disabled")
 			f.store_line("Ammo,true,0,1,false,disabled")
 			f.store_line("Deaths,true,0,50,false,disabled")
+		if(filePath == "Data/HighScore.txt"):
+			f.store_line("Free Spot,0")
+			f.store_line("Free Spot,0")
+			f.store_line("Free Spot,0")
+			f.store_line("Free Spot,0")
+			f.store_line("Free Spot,0")
 	f.close()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

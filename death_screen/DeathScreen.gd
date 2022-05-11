@@ -2,6 +2,7 @@ extends Control
 
 var scene_path_to_load
 var score
+onready var topScore = false
 
 func _ready():
 	$Menu/CenterRow/Buttons/StartGameButton.grab_focus()
@@ -13,11 +14,77 @@ func _ready():
 	f.close()
 	$Menu/Score/ScoreVar.text = score
 	updateMilestone()
+	
+	checkHighScore()
+	if(topScore == true):
+		$HighScorePopup.popup_exclusive = true
+		$HighScorePopup.popup_centered_ratio(.50)
+	
+	displayHighScores()
 
+func displayHighScores():
+	var f = File.new()
+	f.open("Data/HighScore.txt", File.READ)
+	var scorePos = 1
+	#check if score achieved is greater than one of the scoreboard scores
+	var nameText = ""
+	var scoreText = ""
+	while not f.eof_reached():
+		var lineTwo = f.get_line()
+		var split = lineTwo.rsplit(",")
+		if(lineTwo != "\n" and lineTwo != ""):
+			nameText += (split[0] + "\n")
+			scoreText += (split[1] + "\n")
+	$Menu/HighScoreContainer/NameContainer/Var.text = nameText
+	$Menu/HighScoreContainer/ScoreContainer/Var.text = scoreText
+
+func checkHighScore():
+	var f = File.new()
+	f.open("Data/HighScore.txt", File.READ)
+	var scorePos = 1
+	#check if score achieved is greater than one of the scoreboard scores
+	var updatedText = ""
+	while not f.eof_reached():
+		var lineTwo = f.get_line()
+		var split = lineTwo.rsplit(",")
+		if(lineTwo != "\n" and lineTwo != ""):
+			if(int(score) > int(split[1])):
+				topScore = true
+	f.close()
+
+func updateHighScore(scoreAch, name):
+	var f = File.new()
+	var curScore = scoreAch
+	f.open("Data/HighScore.txt", File.READ)
+	var firstSwap = true
+	#check if score achieved is greater than one of the scoreboard scores
+	var updatedText = ""
+	while not f.eof_reached():
+		var lineTwo = f.get_line()
+		var split = lineTwo.rsplit(",")
+		if(lineTwo != "\n" and lineTwo != ""):
+			if(int(curScore) > int(split[1]) and firstSwap == true):
+				updatedText += (name +  "," + str(curScore) + "\n")
+				curScore = split[1]
+				firstSwap = false
+			elif(int(curScore) > int(split[1])):
+				updatedText += (split[0] +  "," + str(curScore) + "\n")
+				curScore = split[1]
+			else:
+				updatedText += (split[0] + "," + split[1] + "\n")
+	f.close()
+	
+	print("Updated High Scores:\n" + updatedText)
+	
+	f.open("Data/HighScore.txt", File.WRITE)
+	f.store_line(updatedText)
+	f.close()
+	
+	
 func updateMilestone():
 	var updatedText = "";
 	var f = File.new()
-	f.open("res://Data/Milestones.txt", File.READ)
+	f.open("res://Data/milestones.txt", File.READ)
 	while not f.eof_reached(): # iterate through all lines until the end of file is reached
 		var line = f.get_line()
 		var split = line.rsplit(",")
@@ -31,7 +98,7 @@ func updateMilestone():
 			updatedText += (line + "\n")
 	
 	f.close()
-	f.open("res://Data/Milestones.txt", File.WRITE)
+	f.open("res://Data/milestones.txt", File.WRITE)
 	f.store_line(updatedText)
 	f.close()
 	
@@ -52,3 +119,8 @@ func _on_ExitGameButton_pressed():
 
 func _on_TitleScreenButton_pressed():
 	get_tree().change_scene("res://title_screen/TitleScreen.tscn")
+
+
+func _on_ConfirmButton_pressed():
+	updateHighScore(score, $HighScorePopup/VBoxContainer/Name.text)
+	$HighScorePopup.hide()
