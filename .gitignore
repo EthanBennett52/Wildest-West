@@ -3,6 +3,7 @@
 data_*/
 export.cfg
 export_presets.cfg
+Data/*.txt
 
 #export files
 *.exe
