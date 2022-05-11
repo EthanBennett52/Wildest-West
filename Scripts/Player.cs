@@ -25,6 +25,8 @@ public class Player : KinematicBody2D, Damageable
 	
 	AudioStreamPlayer soundEffect;
 
+	private bool usingController = false;
+
 	[Signal]
 	delegate void changeHealth(int change, int max);
 	
@@ -181,21 +183,8 @@ public class Player : KinematicBody2D, Damageable
 		if(!isDodging){
 			velocity = new Vector2();
 
-			if (Input.IsActionPressed("right")){
-				velocity.x += 1;
-			}
+			velocity = Input.GetVector("left", "right", "up", "down");
 
-			if (Input.IsActionPressed("left")) {
-				velocity.x -= 1;
-			}
-
-			if (Input.IsActionPressed("up")){
-				velocity.y -= 1;
-			}
-
-			if (Input.IsActionPressed("down")){
-				velocity.y += 1;
-			}
 			if (Input.IsActionPressed("dodge")){
 				startDodge();
 			}
@@ -237,6 +226,15 @@ public class Player : KinematicBody2D, Damageable
 					swapWeapon(weapons.Length -1);
 				}
 			}
+
+			if (Input.IsActionJustPressed("swap_controller") && !usingController){
+				usingController = true;
+				Input.SetMouseMode((Input.MouseMode)1);
+			} else if (Input.IsActionJustPressed("swap_mk") && usingController){
+				usingController = false;
+				Input.SetMouseMode((Input.MouseMode)0);
+			}
+
 	}
 
 	
@@ -294,7 +292,13 @@ public class Player : KinematicBody2D, Damageable
 		
 		GetInput();
 
-		activeWeapon.LookAt(GetGlobalMousePosition());
+		if (!usingController){
+			activeWeapon.LookAt(GetGlobalMousePosition());
+		} else {
+			Vector2 aimDirection = Input.GetVector("look_left", "look_right", "look_up", "look_down");
+			activeWeapon.LookAt(GlobalPosition + aimDirection);
+		}
+		
 		
 		
 		velocity = MoveAndSlide(velocity);
