@@ -72,7 +72,7 @@ public class World : Node2D {
 		enemyThreshold = -0.99;
 		enemyUpperThreshold = -.91;
 
-		iteration = 20;
+		iteration = -2;
 		transitionBound = new int[4];
 
 		rand = new RandomNumberGenerator();
