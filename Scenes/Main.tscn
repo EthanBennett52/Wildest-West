@@ -51,6 +51,23 @@ shape = SubResource( 3 )
 position = Vector2( -1893, 38 )
 shape = SubResource( 4 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -2152.0
+margin_top = -1269.0
+margin_right = 2538.0
+margin_bottom = 1389.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[connection signal="endInitialLoading" from="World" to="." method="_on_World_endInitialLoading"]
+[connection signal="endLoading" from="World" to="." method="_on_World_endLoading"]
+[connection signal="startLoading" from="World" to="." method="_on_World_startLoading"]
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 
 [editable path="Player"]

@@ -29,12 +29,14 @@ func displayHighScores():
 	#check if score achieved is greater than one of the scoreboard scores
 	var nameText = ""
 	var scoreText = ""
+	var number = 1
 	while not f.eof_reached():
 		var lineTwo = f.get_line()
 		var split = lineTwo.rsplit(",")
 		if(lineTwo != "\n" and lineTwo != ""):
-			nameText += (split[0] + "\n")
-			scoreText += (split[1] + "\n")
+			nameText += (str(number) + ". " + split[0] + "\n\n")
+			scoreText += (split[1] + "\n\n")
+			number += 1
 	$Menu/HighScoreContainer/NameContainer/Var.text = nameText
 	$Menu/HighScoreContainer/ScoreContainer/Var.text = scoreText
 

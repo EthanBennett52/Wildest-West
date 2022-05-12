@@ -38,3 +38,7 @@ func _on_CreditsButton_pressed():
 
 func _on_TextureButton_pressed():
 	$"/root/Music".set_stream_paused(true)
+
+
+func _on_ScoreButton_pressed():
+	get_tree().change_scene("res://title_screen/HighScore.tscn")

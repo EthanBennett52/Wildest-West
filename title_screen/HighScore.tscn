@@ -1,0 +1,115 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://title_screen/HighScore.gd" type="Script" id=1]
+
+[node name="HighScore" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -40.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScoresLabel" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 1880.0
+margin_bottom = 303.0
+text = "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Current Highest Scores"
+align = 1
+valign = 1
+
+[node name="HighScoreContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 318.0
+margin_right = 1880.0
+margin_bottom = 367.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HighScoreContainer"]
+margin_left = 859.0
+margin_right = 977.0
+margin_bottom = 49.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HighScoreContainer/NameContainer"]
+margin_right = 118.0
+margin_bottom = 31.0
+text = "    Name:               
+"
+align = 1
+valign = 1
+
+[node name="Var" type="Label" parent="Panel/VBoxContainer/HighScoreContainer/NameContainer"]
+margin_top = 35.0
+margin_right = 118.0
+margin_bottom = 49.0
+
+[node name="ScoreContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HighScoreContainer"]
+margin_left = 981.0
+margin_right = 1020.0
+margin_bottom = 49.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HighScoreContainer/ScoreContainer"]
+margin_right = 39.0
+margin_bottom = 31.0
+text = "Score:
+"
+
+[node name="Var" type="Label" parent="Panel/VBoxContainer/HighScoreContainer/ScoreContainer"]
+margin_top = 35.0
+margin_right = 39.0
+margin_bottom = 49.0
+
+[node name="ReturnButton" type="Button" parent="Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -100.0
+margin_right = -20.0
+margin_bottom = -75.0
+text = "Return To Title"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Panel/ReturnButton" to="." method="_on_ReturnButton_pressed"]

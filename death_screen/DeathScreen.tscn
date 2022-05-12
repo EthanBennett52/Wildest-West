@@ -116,26 +116,26 @@ __meta__ = {
 }
 
 [node name="NameContainer" type="VBoxContainer" parent="Menu/HighScoreContainer"]
-margin_left = 867.0
-margin_right = 969.0
+margin_left = 859.0
+margin_right = 977.0
 margin_bottom = 49.0
 
 [node name="Label" type="Label" parent="Menu/HighScoreContainer/NameContainer"]
-margin_right = 102.0
+margin_right = 118.0
 margin_bottom = 31.0
-text = "Name:               
+text = "    Name:               
 "
 align = 1
 valign = 1
 
 [node name="Var" type="Label" parent="Menu/HighScoreContainer/NameContainer"]
 margin_top = 35.0
-margin_right = 102.0
+margin_right = 118.0
 margin_bottom = 49.0
 
 [node name="ScoreContainer" type="VBoxContainer" parent="Menu/HighScoreContainer"]
-margin_left = 973.0
-margin_right = 1012.0
+margin_left = 981.0
+margin_right = 1020.0
 margin_bottom = 49.0
 __meta__ = {
 "_edit_use_anchors_": false

@@ -48,21 +48,32 @@ public class World : Node2D {
 
 	int width, height;
 	
-	ColorRect fadeIn;
-	AnimationPlayer ani;
+	//ColorRect fadeIn;
+	//AnimationPlayer ani;
 
 	AStar astar;
 
 	Node mainScene;
-
+	
+	[Signal]
+	delegate void startLoading();
+	
+	[Signal]
+	delegate void endLoading();
+	
+	[Signal]
+	delegate void endInitialLoading();
+	
 	public override void _Ready() {
 
-		fadeIn  = GetChild(3) as Godot.ColorRect;
-		fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
-		ani = FindNode("AnimationPlayer") as Godot.AnimationPlayer;
+		//fadeIn  = GetChild(3) as Godot.ColorRect;
+		//fadeIn.Connect("fade_finished", this, "_on_FadeIn_fade_finished");
+		//ani = FindNode("AnimationPlayer") as Godot.AnimationPlayer;
+		
+		EmitSignal("startLoading");
 		
 		mainScene = GetTree().CurrentScene;
-
+		
 		// Set default map values
 		mapSize = new Vector2(120, 70);
 		// Have to cast these floats or this doesn't work
@@ -94,7 +105,10 @@ public class World : Node2D {
 		noise.Octaves = 1;
 		noise.Period = 12;
 		//noise.persistence = 0.7;
-
+		
+		
+		OS.DelayMsec(100);
+		EmitSignal("endLoading");
 		ResetMap(noise);
 	}
 
@@ -105,11 +119,11 @@ public class World : Node2D {
 		//GetTree().CallGroup("Bullets", "Destroy");
 		//Deletes all enemies
 		//GetTree().CallGroup("Enemy", "Destroy");
-
+		EmitSignal("startLoading");
 		GetTree().CallGroup("destroy_on_level_change", "Destroy");
 		
-		fadeIn.Show();
-		ani.Play("loadingScreen");
+		//fadeIn.Show();
+		//ani.Play("loadingScreen");
 		
 		bottomTerrainMap.Clear();
 		topTerrainMap.Clear();
@@ -140,7 +154,7 @@ public class World : Node2D {
 			// no, really
 			GetNode<Node2D>("/root/Main/Player").Position = new Vector2(transitionBound[0], transitionBound[2]);
 		}
-		
+		EmitSignal("endLoading");
 	}
 
 	private void PlaceBottomTerrain() {
@@ -395,9 +409,5 @@ public class World : Node2D {
 	}
 
 
-private void _on_FadeIn_fade_finished()
-{
-	fadeIn.Hide();
-}
 
 }
