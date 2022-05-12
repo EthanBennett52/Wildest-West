@@ -8,6 +8,10 @@ public class World : Node2D {
 	PackedScene rifleBanditScene = GD.Load<PackedScene>("res://Scenes/RifleBandit.tscn");
 	PackedScene knifeBanditScene = GD.Load<PackedScene>("res://Scenes/KnifeBandit.tscn");
 	PackedScene machineGunBanditScene = GD.Load<PackedScene>("res://Scenes/MachineGunBandit.tscn");
+	PackedScene ammoScene = GD.Load<PackedScene>("res://Scenes/AmmoPickup.tscn");
+	PackedScene goldScene = GD.Load<PackedScene>("res://Scenes/GoldPickup.tscn");
+	PackedScene chestScene = GD.Load<PackedScene>("res://Scenes/Chest.tscn");
+	PackedScene healthScene = GD.Load<PackedScene>("res://Scenes/HealthPickup.tscn");
 
 	// Two-dimensional array representing the chances of each enemy spawning per level
 	// inner arrays represent { Bandit, ShotgunBandit, RifleBandit, KnifeBandit, MachineGunBandit}
@@ -18,6 +22,10 @@ public class World : Node2D {
 
 	// Array representing how many enemies should spawn on each level 
 	private int[] enemyNumbers = new int[] { 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 14, 15, 16, 16};
+
+	// Array representing the chances of items spawning
+	// { Chest, Gold, Ammo, Health }
+	private double[] itemChances = new double[] { 0.1, 0.5, 0.2, 0.2 };
 
 	// To approximately convert to/from map tile location VS absolute location (i.e. a node's position field) divide or multiply by this constant
 	private const int PixelMultiplier = 32;
@@ -45,6 +53,9 @@ public class World : Node2D {
 
 	private double enemyThreshold;
 	private double enemyUpperThreshold;
+
+	private double itemThreshold;
+	private double itemUpperThreshold;
 
 	int width, height;
 	
@@ -83,6 +94,9 @@ public class World : Node2D {
 		enemyThreshold = -0.99;
 		enemyUpperThreshold = -.91;
 
+		itemThreshold = -0.75;
+		itemUpperThreshold = -0.73;
+
 		iteration = -2;
 		transitionBound = new int[4];
 
@@ -92,7 +106,7 @@ public class World : Node2D {
 
 		bottomTerrainMap = GetChild(2) as Godot.TileMap;
 		topTerrainMap = GetChild(1) as Godot.TileMap;
-		//propMap = GetChild(0) as Godot.TileMap;
+		propMap = GetChild(0) as Godot.TileMap;
 
 		astar = GetNode<AStar>("AStar");
 		
@@ -130,6 +144,7 @@ public class World : Node2D {
 
 		noise.Seed = (int)rand.Randi();
 		PlaceBottomTerrain();
+		PlaceProps();
 		PlaceTopTerrain();
 		PlaceRoads();
 		PlacePlayer();
@@ -154,6 +169,8 @@ public class World : Node2D {
 			// no, really
 			GetNode<Node2D>("/root/Main/Player").Position = new Vector2(transitionBound[0], transitionBound[2]);
 		}
+		PlaceItems();
+
 		EmitSignal("endLoading");
 	}
 
@@ -204,6 +221,17 @@ public class World : Node2D {
 		topTerrainMap.UpdateBitmaskRegion(new Vector2(0, 0), mapSize);
 	}
 
+
+	// places cactus randomly
+	private void PlaceProps() {
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (rand.Randf() > 0.9965) {
+					propMap.SetCell(-x + width / 2, -y + height / 2, 5);
+				}
+			}
+		}
+	}
 	private void placeMainRoad(){
 		Vector2 entranceVector = new Vector2( entranceBound[1] + 1, entranceBound[3] - 1);
 		Vector2 exitVector = new Vector2(transitionBound[0] / PixelMultiplier, (transitionBound[2] / PixelMultiplier) + 2 );
@@ -295,8 +323,9 @@ public class World : Node2D {
 					if (val > enemyThreshold && val < (enemyUpperThreshold + mod)) {
 						Vector2 pos = new Vector2( (-x + width / 2) * 32 , (-y + height / 2) * 32 );
 						double n = rand.Randf();
-						
-						if(n <= enemyChances[altIteration][0] && CheckPlaces(pos, places)) {
+						bool isFar = CheckPlaces(pos, places, 5);
+
+						if (n <= enemyChances[altIteration][0] && isFar) {
 							Node2D enemy = banditScene.Instance<Node2D>();
 							enemy.Position = pos;
 							counts[0]++;
@@ -304,7 +333,7 @@ public class World : Node2D {
 							placed++;
 							mainScene.AddChild(enemy);
 						}
-						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1])  && CheckPlaces(pos, places)) {
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1])  && isFar) {
 							Node2D enemy = shotgunBanditScene.Instance<Node2D>();
 							enemy.Position = pos;
 							counts[1]++;
@@ -312,7 +341,7 @@ public class World : Node2D {
 							placed++;
 							mainScene.AddChild(enemy);
 						}
-						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2]) && CheckPlaces(pos, places)) {
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2]) && isFar) {
 							Node2D enemy = rifleBanditScene.Instance<Node2D>();
 							enemy.Position = pos;
 							counts[2]++;
@@ -320,7 +349,7 @@ public class World : Node2D {
 							placed++;
 							mainScene.AddChild(enemy);
 						}
-						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2] + enemyChances[altIteration][3]) && CheckPlaces(pos, places)) { 
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2] + enemyChances[altIteration][3]) && isFar) { 
 							Node2D enemy = knifeBanditScene.Instance<Node2D>();
 							enemy.Position = pos;
 							counts[3]++;
@@ -328,7 +357,7 @@ public class World : Node2D {
 							placed++;
 							mainScene.AddChild(enemy);
 						}
-						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2] + enemyChances[altIteration][3] + enemyChances[altIteration][4]) && CheckPlaces(pos, places)) { 
+						else if (n <= (enemyChances[altIteration][0] + enemyChances[altIteration][1] + enemyChances[altIteration][2] + enemyChances[altIteration][3] + enemyChances[altIteration][4]) && isFar) { 
 							Node2D enemy = machineGunBanditScene.Instance<Node2D>();
 							enemy.Position = pos;
 							counts[4]++;
@@ -340,9 +369,9 @@ public class World : Node2D {
 							continue;
 						}
 						places[placed-1] = pos;
-						foreach (Vector2 i in places) {
-							GD.Print(i);
-						}
+						//foreach (Vector2 i in places) {
+						//	GD.Print(i);
+						//}
 					}
 				}
 			}
@@ -350,10 +379,57 @@ public class World : Node2D {
 		}
 	}
 
+	private void PlaceItems() {
+		Vector2[] places = new Vector2[10];
+		int placed = 0;
+		double mod = 0.0;
+		while (placed < 8) {
+			for (int x = 0; x < (width - 20); x++) {
+				for (int y = 10; y < (height - 10); y++) {
+					double val = noise.GetNoise2d(x, y);
+					if (val > itemThreshold && val < (itemUpperThreshold + mod)) {
+						Vector2 pos = new Vector2((-x + width / 2) * 32, (-y + height / 2) * 32);
+						double n = rand.Randf();
+						bool isFar = CheckPlaces(pos, places, 10);
+
+						if (n <= itemChances[0] && isFar) {
+							Node2D item = chestScene.Instance<Node2D>();
+							item.Position = pos;
+							placed++;
+							mainScene.AddChild(item);
+						}
+						else if (n <= (itemChances[0] + itemChances[1]) && isFar) {
+							Node2D item = goldScene.Instance<Node2D>();
+							item.Position = pos;
+							placed++;
+							mainScene.AddChild(item);
+						}
+						else if (n <= (itemChances[0] + itemChances[1] + itemChances[2]) && isFar) {
+							Node2D item = ammoScene.Instance<Node2D>();
+							item.Position = pos;
+							placed++;
+							mainScene.AddChild(item);
+						}
+						else if (n <= (itemChances[0] + itemChances[1] + itemChances[2] + itemChances[3]) && isFar) {
+							Node2D item = healthScene.Instance<Node2D>();
+							item.Position = pos;
+							placed++;
+							mainScene.AddChild(item);
+						}
+						else {
+							continue;
+						}
+						places[placed - 1] = pos;
+					}
+				}
+			}
+			mod += .005;
+		}
+	}
 	// checks a given coordinate to see if another enemy has already been placed there
-	private bool CheckPlaces(Vector2 pos, Vector2[] places) {
+	private bool CheckPlaces(Vector2 pos, Vector2[] places, int dist) {
 		foreach (Vector2 i in places) {
-			if (tooClose(i, pos)) {
+			if (tooClose(i, pos, dist)) {
 				return false;
 			}
 		}
@@ -361,10 +437,10 @@ public class World : Node2D {
 	}
 
 	// checks if a coordinate is too close to another coordinate 
-	// within ~5 tiles (160 units) on each side is too close
-	private bool tooClose(Vector2 pos1, Vector2 pos2) {
-		if (pos2.x > (pos1.x - (5 * PixelMultiplier)) && pos2.x < (pos1.x + (5 * PixelMultiplier))) {
-			if (pos2.y > (pos1.y - (5 * PixelMultiplier)) && pos2.y < (pos1.y + (5 * PixelMultiplier))) {
+	// within ~5 tiles (160 units) on each side is too close for enemies
+	private bool tooClose(Vector2 pos1, Vector2 pos2, int dist) {
+		if (pos2.x > (pos1.x - (dist * PixelMultiplier)) && pos2.x < (pos1.x + (dist * PixelMultiplier))) {
+			if (pos2.y > (pos1.y - (dist * PixelMultiplier)) && pos2.y < (pos1.y + (dist * PixelMultiplier))) {
 				return true; 
 			}
 		}
