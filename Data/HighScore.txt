@@ -1,6 +1,6 @@
-dddddd,375
-aaaaaaaaaaaaaaaa,120
-Free Spot,40
-Free Spot,20
+YYeee,100
+aaa,100
+Ethan,10
+Ethan,10
 Free Spot,0
 

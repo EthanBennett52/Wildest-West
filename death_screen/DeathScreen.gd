@@ -3,6 +3,7 @@ extends Control
 var scene_path_to_load
 var score
 onready var topScore = false
+var firstSwap = true
 
 func _ready():
 	$Menu/CenterRow/Buttons/StartGameButton.grab_focus()
@@ -25,7 +26,6 @@ func _ready():
 func displayHighScores():
 	var f = File.new()
 	f.open("Data/HighScore.txt", File.READ)
-	var scorePos = 1
 	#check if score achieved is greater than one of the scoreboard scores
 	var nameText = ""
 	var scoreText = ""
@@ -43,9 +43,7 @@ func displayHighScores():
 func checkHighScore():
 	var f = File.new()
 	f.open("Data/HighScore.txt", File.READ)
-	var scorePos = 1
 	#check if score achieved is greater than one of the scoreboard scores
-	var updatedText = ""
 	while not f.eof_reached():
 		var lineTwo = f.get_line()
 		var split = lineTwo.rsplit(",")
@@ -57,21 +55,19 @@ func checkHighScore():
 func updateHighScore(scoreAch, name):
 	var f = File.new()
 	var curScore = scoreAch
+	var curName = name
 	f.open("Data/HighScore.txt", File.READ)
-	var firstSwap = true
+	
 	#check if score achieved is greater than one of the scoreboard scores
 	var updatedText = ""
 	while not f.eof_reached():
 		var lineTwo = f.get_line()
 		var split = lineTwo.rsplit(",")
 		if(lineTwo != "\n" and lineTwo != ""):
-			if(int(curScore) > int(split[1]) and firstSwap == true):
-				updatedText += (name +  "," + str(curScore) + "\n")
+			if(int(curScore) > int(split[1])):
+				updatedText += (curName +  "," + str(curScore) + "\n")
 				curScore = split[1]
-				firstSwap = false
-			elif(int(curScore) > int(split[1])):
-				updatedText += (split[0] +  "," + str(curScore) + "\n")
-				curScore = split[1]
+				curName = split[0]
 			else:
 				updatedText += (split[0] + "," + split[1] + "\n")
 	f.close()
@@ -126,3 +122,4 @@ func _on_TitleScreenButton_pressed():
 func _on_ConfirmButton_pressed():
 	updateHighScore(score, $HighScorePopup/VBoxContainer/Name.text)
 	$HighScorePopup.hide()
+	displayHighScores()

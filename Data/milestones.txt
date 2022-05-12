@@ -1,9 +1,17 @@
-Kill,true,88,100,false,disabled
-Score,true,375,1000,false,disabled
+Kill,true,66,100,false,disabled
+Score,true,250,1000,false,disabled
 Revolver,true,0,1,false,disabled
 Damage,true,0,1,false,disabled
 Ammo,true,0,1,false,disabled
-Deaths,true,41,50,false,disabled
+Deaths,true,53,50,false,disabled
+
+
+
+
+
+
+
+
 
 
 
