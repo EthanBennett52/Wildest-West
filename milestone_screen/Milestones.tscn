@@ -164,7 +164,7 @@ margin_bottom = 64.0
 
 [node name="MilestoneText" parent="Panel/VBoxContainer/RevolverOnlyMilestone/VBoxContainer" index="0"]
 margin_right = 350.0
-text = "Beat The Game Without Picking up any Weapons
+text = "Kill 100 Enemies With The Revolver
 Once Accomplished adds 1.1X damage to the Revolver"
 
 [node name="MilestoneProgress" parent="Panel/VBoxContainer/RevolverOnlyMilestone/VBoxContainer" index="1"]
@@ -195,7 +195,7 @@ margin_bottom = 64.0
 
 [node name="MilestoneText" parent="Panel/VBoxContainer/NoHitMilestone/VBoxContainer" index="0"]
 margin_right = 376.0
-text = "Beat The Game Without Taking Damagae
+text = "Get 30 Kills Without Taking Damage
 Once Accomplished reduces the dogde cooldown by 1.25X"
 
 [node name="MilestoneProgress" parent="Panel/VBoxContainer/NoHitMilestone/VBoxContainer" index="1"]
@@ -226,7 +226,7 @@ margin_bottom = 64.0
 
 [node name="MilestoneText" parent="Panel/VBoxContainer/NoAmmoPickupMilestone/VBoxContainer" index="0"]
 margin_right = 314.0
-text = "Beat The Game Without Picking Up Ammo
+text = "Get 50 Kills Without Picking Up Ammo Packs
 Once Accomplished adds 1.25x to magazine size"
 
 [node name="MilestoneProgress" parent="Panel/VBoxContainer/NoAmmoPickupMilestone/VBoxContainer" index="1"]

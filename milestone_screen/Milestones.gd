@@ -42,11 +42,11 @@ func updateText(name, current, maximum):
 	elif(name == "Score"):
 		$Panel/VBoxContainer/ScoreMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Score Achieved"
 	elif(name == "Revolver"):
-		$Panel/VBoxContainer/RevolverOnlyMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Games Beaten With Only The Revolver"
+		$Panel/VBoxContainer/RevolverOnlyMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Kills With The Revolver"
 	elif(name == "Damage"):
-		$Panel/VBoxContainer/NoHitMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Games Beaten With Out Taking Damage"
+		$Panel/VBoxContainer/NoHitMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Kills With Out Taking Damage"
 	elif(name == "Ammo"):
-		$Panel/VBoxContainer/NoAmmoPickupMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Games Beaten With Out Picking Up Ammo"
+		$Panel/VBoxContainer/NoAmmoPickupMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Kills Without Picking Up Ammo Packs"
 	elif(name == "Deaths"):
 		$Panel/VBoxContainer/DeathMilestone/VBoxContainer/MilestoneProgress.text = str(current) + "/" + str(maximum) + " Deaths"
 
