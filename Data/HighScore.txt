@@ -1,6 +1,6 @@
 YYeee,100
 aaa,100
+Ned,95
+Ethan,70
 Ethan,10
-Ethan,10
-Free Spot,0
 

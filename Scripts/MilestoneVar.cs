@@ -9,7 +9,7 @@ public class MilestoneVar : Node{
 	public bool lowerDodgeCooldown = false;
 	public bool extraLoadedCapacity = false;
 	public bool extraExtraMaxHealth = false;
-
+	
 	public override void _Ready(){
 		updateMilestones();
 	}

@@ -78,7 +78,6 @@ func updateHighScore(scoreAch, name):
 	f.store_line(updatedText)
 	f.close()
 	
-	
 func updateMilestone():
 	var updatedText = "";
 	var f = File.new()
@@ -113,11 +112,8 @@ func _on_FadeIn_fade_finished():
 func _on_ExitGameButton_pressed():
 	get_tree().quit()
 
-
-
 func _on_TitleScreenButton_pressed():
 	get_tree().change_scene("res://title_screen/TitleScreen.tscn")
-
 
 func _on_ConfirmButton_pressed():
 	updateHighScore(score, $HighScorePopup/VBoxContainer/Name.text)

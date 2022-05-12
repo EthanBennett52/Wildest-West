@@ -191,8 +191,12 @@ public class Player : KinematicBody2D, Damageable
 
 			//Fires the active weapon
 			if (Input.IsActionPressed("shoot")){
+				if(activeWeapon.loaded == 0){
+					activeWeapon.reload();
+				}
 				activeWeapon.fire();
 				EmitSignal("updateAmmo", activeWeapon.loaded, activeWeapon.ammo);
+				
 			}
 			velocity = velocity.Normalized() * speed;
 		}
@@ -255,16 +259,13 @@ public class Player : KinematicBody2D, Damageable
 		if (milestones.lowerDodgeCooldown){
 			dodgeCooldownTimer.WaitTime = (float)(dodgeCooldownTimer.WaitTime * .75);
 		}
-
 		
-
 		speed = maxSpeed;
 		//Initializes the spawn weapon
 		PackedScene startingGun = GD.Load<PackedScene>("res://Scenes/Gun.tscn");
 		weapons[0] = startingGun.Instance<Gun>();
 		AddChild(weapons[0]);
 		activeWeapon = weapons[0];
-		
 		
 		health = maxHealth;
 		EmitSignal("changeHealth", health, maxHealth);
@@ -282,10 +283,7 @@ public class Player : KinematicBody2D, Damageable
 		//AddChild(weapons[1]);
 		//weapons[1].Hide();
 		//weapons[1].SetProcess(false);
-		
-
 	}
-	
 	
 	public override void _Process(float delta)
 	{
@@ -298,9 +296,6 @@ public class Player : KinematicBody2D, Damageable
 			Vector2 aimDirection = Input.GetVector("look_left", "look_right", "look_up", "look_down");
 			activeWeapon.LookAt(GlobalPosition + aimDirection);
 		}
-		
-		
-		
 		velocity = MoveAndSlide(velocity);
 	}
 }

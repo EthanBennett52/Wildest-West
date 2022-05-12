@@ -89,7 +89,6 @@ func changePic():
 	elif(path.texture_normal == activePicTecture):
 		path.set_normal_texture(notActivePicTexture)
 		
-
 func saveChange():
 	var updatedText = "";
 	var f = File.new()
@@ -139,7 +138,6 @@ func saveChange():
 	f.store_line(updatedText)
 	f.close()
 
-
 func _on_KillPictureButton_pressed():
 	path = $Panel/VBoxContainer/KillMilestone/KillPictureButton
 	changePic()
@@ -163,7 +161,6 @@ func _on_AmmoPictureButton_pressed():
 func _on_DeathPictureButton_pressed():
 	path = $Panel/VBoxContainer/DeathMilestone/DeathPictureButton
 	changePic()
-
 
 func _on_ReturnButton_pressed():
 	saveChange()

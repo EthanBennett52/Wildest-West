@@ -21,7 +21,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
-margin_top = 20.0
+margin_top = 100.0
 margin_right = -20.0
 margin_bottom = -40.0
 custom_constants/separation = 15
@@ -63,6 +63,24 @@ margin_right = 1880.0
 margin_bottom = 101.0
 rect_pivot_offset = Vector2( -224, -27 )
 text = "\"Americana\" by Mr Smith	"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 116.0
+margin_right = 1880.0
+margin_bottom = 164.0
+text = "
+
+Art"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 179.0
+margin_right = 1880.0
+margin_bottom = 193.0
+text = "Sadie Kass"
 align = 1
 valign = 1
 
