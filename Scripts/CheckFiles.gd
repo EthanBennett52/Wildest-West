@@ -17,9 +17,9 @@ func checkFile(filePath):
 		if(filePath == "Data/milestones.txt"):
 			f.store_line("Kill,true,0,100,false,disabled")
 			f.store_line("Score,true,0,1000,false,disabled")
-			f.store_line("Revolver,true,0,1,false,disabled")
-			f.store_line("Damage,true,0,1,false,disabled")
-			f.store_line("Ammo,true,0,1,false,disabled")
+			f.store_line("Revolver,true,0,100,false,diasabled")
+			f.store_line("Damage,true,0,30,false,disabled")
+			f.store_line("Ammo,true,0,50,false,disabled")
 			f.store_line("Deaths,true,0,50,false,disabled")
 		if(filePath == "Data/HighScore.txt"):
 			f.store_line("Free Spot,0")
