@@ -17,7 +17,7 @@ func _on_Player_updateHotbarGun(name, number):
 	elif(name == "Knife"):
 		path.texture = load("res://Art/Knife.png")
 	elif(name == "Shotgun"):
-		path.texture = load("res://Art/Shotgun.png")
+		path.texture = load("res://Art/ShotgunIcon.png")
 	elif(name == "Rifle"):
 		path.texture = load("res://Art/RifleIcon.png")
 

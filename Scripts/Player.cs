@@ -259,7 +259,7 @@ public class Player : KinematicBody2D, Damageable
 		if (milestones.lowerDodgeCooldown){
 			dodgeCooldownTimer.WaitTime = (float)(dodgeCooldownTimer.WaitTime * .75);
 		}
-		
+		EmitSignal("changeHealth", health, maxHealth);
 		speed = maxSpeed;
 		//Initializes the spawn weapon
 		PackedScene startingGun = GD.Load<PackedScene>("res://Scenes/Gun.tscn");
